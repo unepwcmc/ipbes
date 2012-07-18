@@ -1,0 +1,32 @@
+<div class="page-header">
+  <%= link_to assessments_path, :class => 'btn' do %>
+    <i class="icon-list-alt"></i>
+    Back
+  <% end %>
+  <%= link_to edit_assessment_path(@assessment), :class => 'btn btn-primary' do %>
+    <i class="icon-pencil icon-white"></i>
+    Edit
+  <% end %>
+  <h1>Listing assessments</h1>
+</div>
+
+<dl>
+  <dt>Title:</dt>
+  <dd><%= @assessment.title %></dd>
+
+  <dt>Short title:</dt>
+  <dd><%= @assessment.short_title %></dd>
+
+  <dt>Note:</dt>
+  <dd><%= @assessment.note %></dd>
+
+  <dt>Ready to publish:</dt>
+  <dd><%= @assessment.ready_to_publish %></dd>
+
+  <dt>Published:</dt>
+  <dd><%= @assessment.published %></dd>
+
+  <dt>Editor:</dt>
+  <dd><%= @assessment.editor_id %></dd>
+
+</dl>

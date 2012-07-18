@@ -1,0 +1,39 @@
+<div class="page-header">
+  <%= link_to new_assessment_path, :class => 'btn btn-primary' do %>
+    <i class="icon-plus icon-white"></i>
+    New Assessment
+  <% end %>
+  <h1>Listing assessments</h1>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Short title</th>
+      <th>Note</th>
+      <th>Ready to publish</th>
+      <th>Published</th>
+      <th>Editor</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+<% @assessments.each do |assessment| %>
+    <tr>
+      <td><%= assessment.title %></td>
+      <td><%= assessment.short_title %></td>
+      <td><%= assessment.note %></td>
+      <td><%= assessment.ready_to_publish %></td>
+      <td><%= assessment.published %></td>
+      <td><%= assessment.editor_id %></td>
+      <td><%= link_to 'Show', assessment %></td>
+      <td><%= link_to 'Edit', edit_assessment_path(assessment) %></td>
+      <td><%= link_to 'Destroy', assessment, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
