@@ -1,0 +1,18 @@
+@import "bootstrap-generators";
+@import "select2";
+
+section {
+  padding-top: 50px;
+}
+
+div.select2-container {
+  margin: 0 0 9px;
+}
+
+#form-sidebar {
+  li {
+    border-bottom: 1px solid $grayLighter;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}

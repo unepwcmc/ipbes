@@ -1,13 +1,20 @@
-<div class="page-header">
-  <%= link_to assessments_path, :class => 'btn' do %>
-    <i class="icon-list-alt"></i>
-    Back
-  <% end %>
-  <%= link_to @assessment, :class => 'btn btn-primary' do %>
-    <i class="icon-info-sign icon-white"></i>
-    Show
-  <% end %>
-  <h1>Editing assessment</h1>
-</div>
+<div class="row">
+  <div class="span4">
+    <%= render 'sidebar' %>
+  </div>
+  <div class="span8">
+    <div class="page-header">
+      <%= link_to assessments_path, :class => 'btn' do %>
+        <i class="icon-list-alt"></i>
+        Back
+      <% end %>
+      <%= link_to @assessment, :class => 'btn btn-primary' do %>
+        <i class="icon-info-sign icon-white"></i>
+        Show
+      <% end %>
+      <h1>Editing assessment</h1>
+    </div>
 
-<%= render 'form' %>
+    <%= render 'form' %>
+  </div>
+</div>
