@@ -5,9 +5,10 @@ gem 'brightbox', '>=2.3.9'
 require 'brightbox/recipes'
 require 'brightbox/passenger'
 
+
 # The name of your application.  Used for deployment directory and filenames
 # and Apache configs. Should be unique on the Brightbox
-set :application, "ibpes"
+set :application, "ipbes"
 
 # Target directory for the application on the web and app servers.
 set(:deploy_to) { File.join("", "home", user, application) }
@@ -16,7 +17,7 @@ set(:deploy_to) { File.join("", "home", user, application) }
 # the local directory.  You should probably change this if you use
 # another repository, like git or subversion.
 
-set :repository,  "git@github.com:unepwcmc/ibpes.git"
+set :repository,  "git@github.com:unepwcmc/ipbes.git"
 set :scm, :git
 set :scm_username, "unepwcmc-read"
 set :deploy_via, :remote_cache
