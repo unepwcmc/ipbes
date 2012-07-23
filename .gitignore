@@ -15,3 +15,8 @@
 /tmp
 
 /nbproject
+
+# Vim
+*.swp
+*.swo
+*.un~

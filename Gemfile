@@ -22,6 +22,13 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  # Deploy with Capistrano
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'brightbox', '>=2.3.9'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
