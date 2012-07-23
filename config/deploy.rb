@@ -5,9 +5,10 @@ gem 'brightbox', '>=2.3.9'
 require 'brightbox/recipes'
 require 'brightbox/passenger'
 
+
 # The name of your application.  Used for deployment directory and filenames
 # and Apache configs. Should be unique on the Brightbox
-set :application, "ibpes"
+set :application, "ipbes"
 
 # Target directory for the application on the web and app servers.
 set(:deploy_to) { File.join("", "home", user, application) }
@@ -16,7 +17,7 @@ set(:deploy_to) { File.join("", "home", user, application) }
 # the local directory.  You should probably change this if you use
 # another repository, like git or subversion.
 
-set :repository,  "git@github.com:unepwcmc/ibpes.git"
+set :repository,  "git@github.com:unepwcmc/ipbes.git"
 set :scm, :git
 set :scm_username, "unepwcmc-read"
 set :deploy_via, :remote_cache
@@ -169,3 +170,13 @@ task :setup_production_database_configuration do
   put(spec.to_yaml, "#{shared_path}/config/database.yml")
 end
 after "deploy:setup", :setup_production_database_configuration
+after 'deploy:update_code', 'deploy:assets:precompile'
+
+
+namespace :deploy do
+  namespace :assets do
+    task :precompile, :roles => :web, :except => { :no_release => true } do
+      run "cd #{latest_release} && bundle exec #{rake} RAILS_ENV=#{rails_env} assets:precompile"
+    end
+  end
+end
