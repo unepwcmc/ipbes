@@ -41,7 +41,7 @@
                   <% if current_user.editor? %>
                     <li><a href="#">Assessments</a></li>
                   <% elsif current_user.admin? %>
-                    <li><%= link_to 'Assessments', root_path %></li>
+                    <li><%= link_to 'New Assessment', new_assessment_path %></li>
                     <li><%= link_to 'Users', users_path %></li>
                   <% end %>
                   <li class="divider"></li>
@@ -68,7 +68,12 @@
     <%= yield %>
     <hr>
     <footer>
-      <p>&copy; UNEP-WCMC 2012</p>
+      <p class="left">&copy; UNEP-WCMC 2012</p>
+      <ul class="right unstyled">
+        <li><a href="#">UNEP</a></li>
+        <li><a href="#">IPBES</a></li>
+        <li><a href="#">SGAN</a></li>
+      </ul>
     </footer>
   </div>
 </body>
