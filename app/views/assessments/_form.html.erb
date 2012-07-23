@@ -61,7 +61,7 @@
 
       <div id="systems_assessed_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'systems_assessed_other') do |builder| %>
-          <%= render 'systems_assessed_other_fields', :f => builder %>
+          <%= render 'other_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -77,23 +77,55 @@
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'provisioning') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :check_boxes, label: 'Provisioning', collection: ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'provisioning').text_value.try(:split, ',') %>
+        <%= builder.input :text_value, as: :check_boxes, label: 'Provisioning', collection: ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], input_html: { class: false }, checked: answer_object(@assessment, 'provisioning').text_value.try(:split, ',') %>
       <% end %>
+
+      <div id="provisioning_others">
+        <%= f.simple_fields_for :answers, answer_objects(@assessment, 'provisioning_other') do |builder| %>
+          <%= render 'other_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Answer', f, :answers, 'provisioning_other' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'regulating') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :check_boxes, label: 'Regulating', collection: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'regulating').text_value.try(:split, ',') %>
+        <%= builder.input :text_value, as: :check_boxes, label: 'Regulating', collection: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], input_html: { class: false }, checked: answer_object(@assessment, 'regulating').text_value.try(:split, ',') %>
       <% end %>
+
+      <div id="regulating_others">
+        <%= f.simple_fields_for :answers, answer_objects(@assessment, 'regulating_other') do |builder| %>
+          <%= render 'other_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Answer', f, :answers, 'regulating_other' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'supporting') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :check_boxes, label: 'Supporting Services/Functions', collection: ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'supporting').text_value.try(:split, ',') %>
+        <%= builder.input :text_value, as: :check_boxes, label: 'Supporting Services/Functions', collection: ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], input_html: { class: false }, checked: answer_object(@assessment, 'supporting').text_value.try(:split, ',') %>
       <% end %>
+
+      <div id="supporting_others">
+        <%= f.simple_fields_for :answers, answer_objects(@assessment, 'supporting_other') do |builder| %>
+          <%= render 'other_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Answer', f, :answers, 'supporting_other' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'cultural_services') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :check_boxes, label: 'Cultural Services', collection: ['Recreation and tourism', 'Spiritual, inspiration and cognitive development', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'cultural_services').text_value.try(:split, ',') %>
+        <%= builder.input :text_value, as: :check_boxes, label: 'Cultural Services', collection: ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], input_html: { class: false }, checked: answer_object(@assessment, 'cultural_services').text_value.try(:split, ',') %>
       <% end %>
+
+      <div id="cultural_services_others">
+        <%= f.simple_fields_for :answers, answer_objects(@assessment, 'cultural_services_other') do |builder| %>
+          <%= render 'other_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Answer', f, :answers, 'cultural_services_other' %>
 
       <h2>Scope of assessment includes</h2>
 
@@ -183,8 +215,16 @@
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'tools_and_approaches') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :check_boxes, label: 'Tools and approaches used in the assessment', collection: ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'tools_and_approaches').text_value.try(:split, ',') %>
+        <%= builder.input :text_value, as: :check_boxes, label: 'Tools and approaches used in the assessment', collection: ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation'], input_html: { class: false }, checked: answer_object(@assessment, 'tools_and_approaches').text_value.try(:split, ',') %>
       <% end %>
+
+      <div id="tools_and_approaches_others">
+        <%= f.simple_fields_for :answers, answer_objects(@assessment, 'tools_and_approaches_other') do |builder| %>
+          <%= render 'other_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Answer', f, :answers, 'tools_and_approaches_other' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'process_used_for_stakeholder') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
