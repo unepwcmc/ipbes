@@ -21,3 +21,12 @@ $ ->
       else
         $('#form-sidebar').css
           marginTop: 0
+
+window.remove_fields = (link) ->
+  $(link).prev('input[type=hidden]').val('1')
+  $(link).closest('.fields').hide()
+
+window.add_fields = (link, association, content) ->
+  new_id = new Date().getTime()
+  regexp = new RegExp("new_#{association}", 'g')
+  $(link).before(content.replace(regexp, new_id))

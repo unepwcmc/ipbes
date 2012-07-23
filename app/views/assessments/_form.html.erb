@@ -58,12 +58,14 @@
         <%= builder.input :answer_type, as: :hidden %>
         <%= builder.input :text_value, as: :check_boxes, label: 'System(s) assessed', collection: ['Marine', 'Coastal', 'Island', 'Inland water', 'Forest and woodland', 'Cultivated/Agricultural land', 'Grassland', 'Mountain', 'Dryland', 'Polar', 'Urban'], input_html: { class: false }, checked: answer_object(@assessment, 'systems_assessed').text_value.try(:split, ',') %>
       <% end %>
-      
-      <%= f.simple_fields_for :answers, answer_objects(@assessment, 'systems_assessed_other') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :string, label: 'Other (please specify)' %>
-      <% end %>
-      
+
+      <div id="systems_assessed_others">
+        <%= f.simple_fields_for :answers, answer_objects(@assessment, 'systems_assessed_other') do |builder| %>
+          <%= render 'systems_assessed_other_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Answer', f, :answers, 'systems_assessed_other' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'species_groups_assessed') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
