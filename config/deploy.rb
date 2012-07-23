@@ -170,3 +170,13 @@ task :setup_production_database_configuration do
   put(spec.to_yaml, "#{shared_path}/config/database.yml")
 end
 after "deploy:setup", :setup_production_database_configuration
+after 'deploy:update_code', 'deploy:assets:precompile'
+
+
+namespace :deploy do
+  namespace :assets do
+    task :precompile, :roles => :web, :except => { :no_release => true } do
+      run "cd #{latest_release} && bundle exec #{rake} RAILS_ENV=#{rails_env} assets:precompile"
+    end
+  end
+end
