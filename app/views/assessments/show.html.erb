@@ -3,10 +3,16 @@
     <i class="icon-list-alt"></i>
     Back
   <% end %>
-  <% if user_signed_in? %>
-    <%= link_to edit_assessment_path(@assessment), :class => 'btn btn-primary' do %>
+  <% if can? :update, Assessment %>
+    <%= link_to edit_assessment_path(@assessment), class: 'btn btn-primary' do %>
       <i class="icon-pencil icon-white"></i>
       Edit
+    <% end %>
+  <% end %>
+  <% if can? :destroy, Assessment %>
+    <%= link_to @assessment, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' do %>
+      <i class="icon-remove icon-white"></i>
+      Destroy
     <% end %>
   <% end %>
   <h1><%= @assessment.title %> (<%= @assessment.short_title %>)</h1>

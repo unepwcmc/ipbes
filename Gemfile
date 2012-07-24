@@ -10,6 +10,7 @@ gem 'bootstrap-generators', :git => 'git://github.com/decioferreira/bootstrap-ge
 gem 'simple_form'
 gem 'devise'
 gem 'sitemap_generator'
+gem 'cancan'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h2>Forgot your password?</h2>
+</div>
+
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, class: 'form-horizontal' }, defaults: { input_html: { class: 'input-xxlarge' }}) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email, :required => true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Send me reset password instructions", class: 'btn-primary' %>
+    <%= render "devise/shared/links" %>
+  </div>
+<% end %>
