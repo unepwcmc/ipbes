@@ -12,6 +12,16 @@ class AssessmentsController < ApplicationController
     end
   end
 
+  # POST /assessments/search
+  def search
+    @assessments = Assessment.all
+
+    respond_to do |format|
+      format.html { render :layout => false }# search.html.erb
+      format.json { render json: @assessments }
+    end
+  end
+
   # GET /assessments/1
   # GET /assessments/1.json
   def show

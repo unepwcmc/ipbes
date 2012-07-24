@@ -2,6 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+# Get search results for current params
+getSearchResults = () ->
+  query = $('#assessment-query').val()
+  $.ajax(
+    url: "/assessments/search"
+    type: 'POST'
+    data: 
+      query: query
+    success: renderSearchResults
+  )
+  
+# Render the HTML returned from the search
+renderSearchResults = (data) ->
+  $('#assessment-search-results').html(data)
+
 $ ->
   $('select.select2').select2()
   $('select.select_geo_countries').select2({placeholder: 'Select a Country'})
@@ -21,6 +36,9 @@ $ ->
       else
         $('#form-sidebar').css
           marginTop: 0
+
+  # Search assessments
+  $('#search-assessments-btn').on('click', getSearchResults)
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
