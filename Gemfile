@@ -9,6 +9,7 @@ gem 'pg'
 gem 'bootstrap-generators', :git => 'git://github.com/decioferreira/bootstrap-generators.git'
 gem 'simple_form'
 gem 'devise'
+gem 'sitemap_generator'
 
 # Gems used only for assets and not required
 # in production environments by default.
