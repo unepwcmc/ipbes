@@ -180,3 +180,9 @@ namespace :deploy do
     end
   end
 end
+
+namespace :sitemap do
+  task :generate do
+    run "cd #{latest_release} && bundle exec #{rake} RAILS_ENV=#{rails_env} sitemap:refresh"
+  end
+end
