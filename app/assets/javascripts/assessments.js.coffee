@@ -5,6 +5,7 @@
 # Get search results for current params
 getSearchResults = () ->
   query = $('#assessment-query').val()
+  $('#assessment-search-results').html("<tr><td colspan='2'><img class='spinner' src='/ajax-loader.gif'/></td></tr>")
   $.ajax(
     url: "/assessments/search"
     type: 'POST'
