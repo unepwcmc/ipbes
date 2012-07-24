@@ -26,7 +26,6 @@ SitemapGenerator::Sitemap.create do
   #   end
   
   Assessment.all.each do |assessment|
-    add "/assessment/#{assessment.id}", :changefreq => 'monthly', :priority => 0.9
+    add "/assessments/#{assessment.id}", :changefreq => 'monthly', :priority => 0.9
   end
 end
-SitemapGenerator::Sitemap.ping_search_engines # called for you when you use the rake task
