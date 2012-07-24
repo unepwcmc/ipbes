@@ -27,6 +27,7 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new.json
   def new
     @assessment = Assessment.new
+    @assessment.contacts.build
 
     respond_to do |format|
       format.html # new.html.erb

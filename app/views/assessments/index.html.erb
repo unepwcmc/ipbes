@@ -48,7 +48,7 @@
     <% @assessments.each do |assessment| %>
         <tr>
           <td><%= link_to assessment.title, assessment %></td>
-          <td><%= assessment.answers.where(answer_type: 'geo_countries') %></td>
+          <td><%= list_countries(assessment) %></td>
         </tr>
     <% end %>
       </tbody>

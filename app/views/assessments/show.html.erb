@@ -9,14 +9,42 @@
       Edit
     <% end %>
   <% end %>
-  <h1><%= @assessment.title %> </h1>
+  <h1><%= @assessment.title %> (<%= @assessment.short_title %>)</h1>
 </div>
 
-<%= @assessment.short_title %>
-
 <section id="geographical_coverage">
-  <h1>Geographical coverage</h1>
+  <div class="page-header">
+    <h1>Geographical coverage</h1>
+  </div>
 
+  <table class="table table-striped table-bordered">
+    <tbody>
+      <tr>
+        <td>Geographical scale of the assessment</td>
+        <td>
+          <% @assessment.answers.where(answer_type: 'geo_scale').each do |answer| %>
+            <%= answer.text_value %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Countries covered</td>
+        <td>
+          <%= list_countries(@assessment) %>
+        </td>
+      </tr>
+      <tr>
+        <td>Any other necessary information or explanation for identifying the location of the assessment, including site or region name</td>
+        <td>
+          <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
+            <%= answer.text_value %>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!--
   <h2>Geographical scale of the assessment</h2>
 
   <% @assessment.answers.where(answer_type: 'geo_scale').each do |answer| %>
@@ -34,9 +62,12 @@
   <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
     <p><%= answer.text_value %></p>
   <% end %>
+  -->
 </section>
 <section id="conceptual_framework">
-  <h1>Conceptual framework, methodology and scope</h1>
+  <div class="page-header">
+    <h1>Conceptual framework, methodology and scope</h1>
+  </div>
 
   <h2>Assessment objectives</h2>
 

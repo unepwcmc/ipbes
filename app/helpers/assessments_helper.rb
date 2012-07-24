@@ -7,7 +7,7 @@ module AssessmentsHelper
     new_object = f.object.class.reflect_on_association(association).klass.new
     new_object[:answer_type] = type
     fields = f.fields_for(association, new_object, child_index: "new_#{association}") do |builder|
-      render("other_fields", f: builder)
+      render("#{association.to_s.singularize}_fields", f: builder)
     end
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", class: 'btn')
   end
@@ -18,5 +18,21 @@ module AssessmentsHelper
 
   def answer_objects assessment, type
     assessment.answers.where(answer_type: type) + [@assessment.answers.build(answer_type: type)]
+  end
+
+  def list_countries assessment
+    countries_ids = assessment.answers.where(answer_type: 'geo_countries').first.try(:text_value)
+    if countries_ids
+      countries_ids = countries_ids.split(',')
+      if countries_ids.empty?
+        '-'
+      elsif countries_ids.size > 1
+        'multiple'
+      else
+        Country.find(countries_ids[0]).name
+      end
+    else
+      '-'
+    end
   end
 end
