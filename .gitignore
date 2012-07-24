@@ -20,3 +20,8 @@
 *.swp
 *.swo
 *.un~
+
+# OS X
+*.DS_Store
+
+public/sitemap*.xml.gz

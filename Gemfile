@@ -11,6 +11,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'sitemap_generator'
 gem 'cancan'
+gem 'nokogiri'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,6 +30,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'brightbox', '>=2.3.9'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 gem 'jquery-rails'

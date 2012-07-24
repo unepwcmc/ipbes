@@ -1,0 +1,7 @@
+<% assessments.each do |assessment| %>
+  <tr>
+    <td><%= link_to assessment.title, assessment %></td>
+    <td><%= list_countries(assessment) %></td>
+    <td><%= assessment.published? ? 'Yes' : 'No' %></td>
+  </tr>
+<% end %>

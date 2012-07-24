@@ -1,6 +1,10 @@
 Ipbes::Application.routes.draw do
   devise_for :users, path_prefix: 'd'
-  resources :assessments
+  resources :assessments do
+    collection do
+      post 'search'
+    end
+  end
   resources :users, except: [:new, :create, :destroy]
 
   # The priority is based upon order of creation:
