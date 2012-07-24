@@ -1,6 +1,18 @@
 @import "bootstrap-generators";
 @import "select2";
 
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
 section {
   padding-top: 50px;
 }
@@ -15,4 +27,8 @@ div.select2-container {
     padding-top: 5px;
     padding-bottom: 5px;
   }
+}
+
+footer ul li {
+  display: inline;
 }
