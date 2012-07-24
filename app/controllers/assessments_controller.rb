@@ -14,7 +14,7 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments/search
   def search
-    @assessments = Assessment.all
+    @assessments = Assessment.search(params[:query])
 
     respond_to do |format|
       format.html { render :layout => false }# search.html.erb
