@@ -9,13 +9,13 @@
 <div class="row">
   <div class="span4">
     <div class="row">
-      <div class="span3"><input id="assessment-query" type="text" class="search-query full-width"></div>
+      <div class="span3"><input id="assessment-query" type="text" class="search-query full-width" value="<%= params[:q] %>"></div>
       <div class="span1"><button id="search-assessments-btn" type="submit" class="btn full-width">Search</button></div>
     </div>
     <div class="row" style="padding-bottom:10px">
       <div class="span3">
         <label class="checkbox">
-          <input type="checkbox" id="search_attachements">
+          <%= check_box("search", "attachements", checked: params[:attachments] == 't') %>
           Search in attachments
         </label>
       </div>
@@ -27,7 +27,7 @@
         <div class="control-group">
           <label class="control-label" for="assessment_geo_scale">Geographical scale of the assessment</label>
           <div class="controls">
-            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {include_blank: true}, {class: 'full-width'}) %>
+            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {include_blank: true, selected: params[:geo_scale]}, {class: 'full-width'}) %>
           </div>
         </div>
       </fieldset>

@@ -15,9 +15,9 @@ class Assessment < ActiveRecord::Base
   # @params [String] query The term to search for
   # @return [Relation] scoped assessments
   def self.search(filters)
-    return all if filters['query'].blank? && filters['geo_scale'].blank?
+    return all if filters['q'].blank? && filters['geo_scale'].blank?
     
-    results = query(filters['query']).filter_by_answer_type('geo_scale', filters['geo_scale'])
+    results = query(filters['q']).filter_by_answer_type('geo_scale', filters['geo_scale'])
     results.is_a?(Class) ? [] : results
   end
 
