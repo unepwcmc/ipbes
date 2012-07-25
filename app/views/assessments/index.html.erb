@@ -9,13 +9,13 @@
 <div class="row">
   <div class="span4">
     <div class="row">
-      <div class="span3"><input id='assessment-query' type="text" class="search-query full-width"></div>
-      <div class="span1"><button id='search-assessments-btn' type="submit" class="btn full-width">Search</button></div>
+      <div class="span3"><input id="assessment-query" type="text" class="search-query full-width"></div>
+      <div class="span1"><button id="search-assessments-btn" type="submit" class="btn full-width">Search</button></div>
     </div>
     <div class="row" style="padding-bottom:10px">
       <div class="span3">
         <label class="checkbox">
-          <input type="checkbox" id="optionsCheckbox" value="option1">
+          <input type="checkbox" id="search_attachements">
           Search in attachments
         </label>
       </div>
@@ -25,7 +25,7 @@
       <fieldset>
         <legend>Advanced search</legend>
         <div class="control-group">
-          <label class="control-label" for="geo_scale">Geographical scale of the assessment</label>
+          <label class="control-label" for="assessment_geo_scale">Geographical scale of the assessment</label>
           <div class="controls">
             <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {include_blank: true}, {class: 'full-width'}) %>
           </div>
@@ -42,10 +42,19 @@
         <tr>
           <th>Title</th>
           <th>Countries</th>
-          <th>Published</th>
+          <% if can?(:manage, Assessment) %>
+            <th>Published</th>
+          <% end %>
         </tr>
       </thead>
-      <tbody id='assessment-search-results'>
+      <tbody id="loading-assessments" style="display:none">
+        <tr>
+          <td class="row" colspan="<%= can?(:manage, Assessment) ? 3 : 2 %>">
+            <span class="loading-text">Loading assessments</span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody id="assessment-search-results">
         <%= render @assessments %>
       </tbody>
     </table>

@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show, :search]
 
   # GET /assessments
   # GET /assessments.json
@@ -19,7 +19,7 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments/search
   def search
-    @assessments = Assessment.search(params[:query])
+    @assessments = Assessment.search(params)
 
     respond_to do |format|
       format.html { render :layout => false }# search.html.erb
