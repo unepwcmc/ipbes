@@ -50,6 +50,7 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
+    cocaine (0.2.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -91,6 +92,11 @@ GEM
       net-ssh (>= 1.99.1)
     nokogiri (1.4.4)
     orm_adapter (0.4.0)
+    paperclip (2.7.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     pg (0.14.0)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -167,6 +173,7 @@ DEPENDENCIES
   devise
   jquery-rails
   nokogiri
+  paperclip
   pg
   rails (= 3.2.2)
   ruby-debug19

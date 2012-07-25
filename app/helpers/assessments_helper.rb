@@ -5,7 +5,7 @@ module AssessmentsHelper
 
   def link_to_add_fields(name, f, association, type)
     new_object = f.object.class.reflect_on_association(association).klass.new
-    new_object[:answer_type] = type
+    new_object["#{association.to_s.singularize}_type".to_sym] = type
     fields = f.fields_for(association, new_object, child_index: "new_#{association}") do |builder|
       render("#{association.to_s.singularize}_fields", f: builder)
     end
@@ -18,6 +18,16 @@ module AssessmentsHelper
 
   def answer_objects assessment, type
     assessment.answers.where(answer_type: type) + [@assessment.answers.build(answer_type: type)]
+  end
+
+  # Builds an reference object for the given type, used for form building
+  def reference_object assessment, type
+    assessment.references.where(reference_type: type).first || @assessment.references.build(reference_type: type)
+  end
+
+  # Get all the current references
+  def reference_objects assessment, type
+    assessment.references.where(reference_type: type)
   end
 
   def list_countries assessment

@@ -50,6 +50,7 @@ window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
   $(link).closest('.fields').hide()
 
+# Add a new field to the assessment form to allow multiple responses
 window.add_fields = (link, association, content) ->
   new_id = new Date().getTime()
   regexp = new RegExp("new_#{association}", 'g')
