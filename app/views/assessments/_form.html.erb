@@ -48,6 +48,13 @@
         <%= builder.input :answer_type, as: :hidden %>
         <%= builder.input :text_value, as: :string, label: false %>
       <% end %>
+      <h5>Attachments</h5>
+      <div id="conceptual_framework_urls">
+        <%= f.simple_fields_for :attachments, attachment_objects(@assessment, 'conceptual_framework_url') do |builder| %>
+          <%= render 'nested_attachment_form', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add Attachment', f, :attachments, 'conceptual_framework_url', 'attachment' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_url') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
@@ -61,7 +68,7 @@
 
       <div id="systems_assessed_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'systems_assessed_other') do |builder| %>
-          <%= render 'other_fields', :f => builder %>
+          <%= render 'nested_field_form', :f => builder %>
         <% end %>
       </div>
 
@@ -82,7 +89,7 @@
 
       <div id="provisioning_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'provisioning_other') do |builder| %>
-          <%= render 'other_fields', :f => builder %>
+          <%= render 'nested_field_form', :f => builder %>
         <% end %>
       </div>
 
@@ -95,7 +102,7 @@
 
       <div id="regulating_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'regulating_other') do |builder| %>
-          <%= render 'other_fields', :f => builder %>
+          <%= render 'nested_field_form', :f => builder %>
         <% end %>
       </div>
 
@@ -108,7 +115,7 @@
 
       <div id="supporting_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'supporting_other') do |builder| %>
-          <%= render 'other_fields', :f => builder %>
+          <%= render 'nested_field_form', :f => builder %>
         <% end %>
       </div>
 
@@ -121,7 +128,7 @@
 
       <div id="cultural_services_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'cultural_services_other') do |builder| %>
-          <%= render 'other_fields', :f => builder %>
+          <%= render 'nested_field_form', :f => builder %>
         <% end %>
       </div>
 
@@ -220,7 +227,7 @@
 
       <div id="tools_and_approaches_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'tools_and_approaches_other') do |builder| %>
-          <%= render 'other_fields', :f => builder %>
+          <%= render 'nested_field_form', :f => builder %>
         <% end %>
       </div>
 

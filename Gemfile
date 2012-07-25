@@ -11,6 +11,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'sitemap_generator'
 gem 'nokogiri'
+gem 'paperclip'
 
 # Gems used only for assets and not required
 # in production environments by default.
