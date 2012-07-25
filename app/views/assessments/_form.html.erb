@@ -48,13 +48,13 @@
         <%= builder.input :answer_type, as: :hidden %>
         <%= builder.input :text_value, as: :string, label: false %>
       <% end %>
-      <h5>references</h5>
+      <h5>References for conceptual framework</h5>
       <div id="conceptual_framework_urls">
         <%= f.simple_fields_for :references, reference_objects(@assessment, 'conceptual_framework_url') do |builder| %>
           <%= render 'reference_fields', :f => builder %>
         <% end %>
       </div>
-      <%= link_to_add_fields 'Add reference', f, :references, 'conceptual_framework_url' %>
+      <%= link_to_add_fields 'Add a Reference', f, :references, 'conceptual_framework_url' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_url') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>

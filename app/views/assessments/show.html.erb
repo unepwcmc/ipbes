@@ -97,6 +97,14 @@
     <p><%= answer.text_value %></p>
   <% end %>
 
+  <h3>References</h3>
+  <% @assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
+  <% end %>
+
   <h2>URL or copy of conceptual framework developed or adapted</h2>
 
   <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
