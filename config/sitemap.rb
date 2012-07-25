@@ -28,4 +28,8 @@ SitemapGenerator::Sitemap.create do
   Assessment.all.each do |assessment|
     add "/assessments/#{assessment.id}", :changefreq => 'monthly', :priority => 0.9
   end
+
+  Reference.all.each do |reference|
+    add reference.file.url, :changefreq => 'monthly', :priority => 0.7
+  end
 end
