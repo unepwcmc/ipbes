@@ -51,7 +51,7 @@
       <h5>Attachments</h5>
       <div id="conceptual_framework_urls">
         <%= f.simple_fields_for :attachments, attachment_objects(@assessment, 'conceptual_framework_url') do |builder| %>
-          <%= render 'nested_attachment_form', :f => builder %>
+          <%= render 'attachment_fields', :f => builder %>
         <% end %>
       </div>
       <%= link_to_add_fields 'Add Attachment', f, :attachments, 'conceptual_framework_url' %>
