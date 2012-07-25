@@ -13,11 +13,8 @@
 <dl>
   <dt>Email:</dt>
   <dd><%= @user.email %></dd>
-
-  <dt>Password:</dt>
-  <dd><%= @user.password %></dd>
-
-  <dt>Password confirmation:</dt>
-  <dd><%= @user.password_confirmation %></dd>
-
+  <dt>Approved:</dt>
+  <dd><%= @user.approved? ? 'Yes' : 'No' %></dd>
+  <dt>Admin:</dt>
+  <dd><%= @user.admin? ? 'Yes' : 'No' %></dd>
 </dl>

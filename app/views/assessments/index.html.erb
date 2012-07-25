@@ -42,10 +42,11 @@
         <tr>
           <th>Title</th>
           <th>Countries</th>
+          <th>Published</th>
         </tr>
       </thead>
       <tbody id='assessment-search-results'>
-        <%= render :partial => 'search_results', :locals => {:assessments => @assessments} %>
+        <%= render @assessments %>
       </tbody>
     </table>
   </div>

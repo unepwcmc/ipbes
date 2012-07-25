@@ -54,11 +54,11 @@
           <%= render 'nested_attachment_form', :f => builder %>
         <% end %>
       </div>
-      <%= link_to_add_fields 'Add Attachment', f, :attachments, 'conceptual_framework_url', 'attachment' %>
+      <%= link_to_add_fields 'Add Attachment', f, :attachments, 'conceptual_framework_url' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_url') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :string, label: 'URL or copy of conceptual framework developed or adapted' %>
+        <%= builder.input :text_value, label: 'URL or copy of conceptual framework developed or adapted', input_html: { rows: 10 } %>
       <% end %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'systems_assessed') do |builder| %>
@@ -68,7 +68,7 @@
 
       <div id="systems_assessed_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'systems_assessed_other') do |builder| %>
-          <%= render 'nested_field_form', :f => builder %>
+          <%= render 'answer_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -89,7 +89,7 @@
 
       <div id="provisioning_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'provisioning_other') do |builder| %>
-          <%= render 'nested_field_form', :f => builder %>
+          <%= render 'answer_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -102,7 +102,7 @@
 
       <div id="regulating_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'regulating_other') do |builder| %>
-          <%= render 'nested_field_form', :f => builder %>
+          <%= render 'answer_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -115,7 +115,7 @@
 
       <div id="supporting_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'supporting_other') do |builder| %>
-          <%= render 'nested_field_form', :f => builder %>
+          <%= render 'answer_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -128,7 +128,7 @@
 
       <div id="cultural_services_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'cultural_services_other') do |builder| %>
-          <%= render 'nested_field_form', :f => builder %>
+          <%= render 'answer_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -227,7 +227,7 @@
 
       <div id="tools_and_approaches_others">
         <%= f.simple_fields_for :answers, answer_objects(@assessment, 'tools_and_approaches_other') do |builder| %>
-          <%= render 'nested_field_form', :f => builder %>
+          <%= render 'answer_fields', :f => builder %>
         <% end %>
       </div>
 
@@ -328,24 +328,23 @@
         <%= builder.input :text_value, label: 'Additional relevant information' %>
       <% end %>
     </section>
-    <section id="contact">
-      <h1>Contact</h1>
+    <section id="contacts">
+      <h1>Contacts</h1>
+
+      <div id="contacts">
+        <%= f.simple_fields_for :contacts do |builder| %>
+          <%= render 'contact_fields', :f => builder %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields 'Add Contact', f, :contacts, 'contacts' %>
     </section>
     <section id="note">
       <h1>Note</h1>
 
       <%= f.input :note %>
-      <%= f.input :ready_to_publish, input_html: { class: false } %>
+      <%= f.input :published, input_html: { class: false } %>
     </section>
-
-    <% if current_user.admin? %>
-      <section id="administration">
-        <h1>Administration</h1>
-        
-        <%= f.input :published, input_html: { class: false } %>
-        <%= f.association :editor %>
-      </section>
-    <% end %>
   </div>
 
   <div class="form-actions">

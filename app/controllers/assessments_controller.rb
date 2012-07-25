@@ -4,7 +4,12 @@ class AssessmentsController < ApplicationController
   # GET /assessments
   # GET /assessments.json
   def index
-    @assessments = Assessment.all
+    if user_signed_in?
+      @assessments = Assessment.all
+    else
+      @assessments = Assessment.where(published: true)
+    end
+    authorize! :read, Assessment
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,6 +31,7 @@ class AssessmentsController < ApplicationController
   # GET /assessments/1.json
   def show
     @assessment = Assessment.find(params[:id])
+    authorize! :read, @assessment
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,6 +43,9 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new.json
   def new
     @assessment = Assessment.new
+    authorize! :create, @assessment
+
+    @assessment.contacts.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,12 +56,14 @@ class AssessmentsController < ApplicationController
   # GET /assessments/1/edit
   def edit
     @assessment = Assessment.find(params[:id])
+    authorize! :update, @assessment
   end
 
   # POST /assessments
   # POST /assessments.json
   def create
     @assessment = Assessment.new(params[:assessment])
+    authorize! :create, @assessment
 
     respond_to do |format|
       if @assessment.save
@@ -69,6 +80,7 @@ class AssessmentsController < ApplicationController
   # PUT /assessments/1.json
   def update
     @assessment = Assessment.find(params[:id])
+    authorize! :update, @assessment
 
     respond_to do |format|
       if @assessment.update_attributes(params[:assessment])
@@ -85,6 +97,8 @@ class AssessmentsController < ApplicationController
   # DELETE /assessments/1.json
   def destroy
     @assessment = Assessment.find(params[:id])
+    authorize! :destroy, @assessment
+
     @assessment.destroy
 
     respond_to do |format|

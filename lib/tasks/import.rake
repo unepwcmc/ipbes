@@ -11,3 +11,8 @@ namespace :ipbes do
     end
   end
 end
+
+# Import countries on db:seed task
+namespace :db do
+  task seed: 'ipbes:import_countries'
+end

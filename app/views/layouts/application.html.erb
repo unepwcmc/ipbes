@@ -8,7 +8,6 @@
   <meta name="author" content="">
 
   <meta name="google-site-verification" content="op-y1zSx2tsSFN-DHN0gqxBY9_tUrDsicpHk_N4T_f4" />
-  
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -30,23 +29,19 @@
         </a>
         <%= link_to "IPBES Assessment Catalogue", root_path, :class => "brand" %>
         <div class="nav-collapse">
-          <ul class="nav">
+          <!--<ul class="nav">
             <li class="active"><%= link_to "Home", root_path %></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-          </ul>
+          </ul>-->
           <% if user_signed_in? %>
             <ul class="nav pull-right">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to 'Profile', edit_user_registration_path %></li>
-                  <% if current_user.editor? %>
-                    <li><a href="#">Assessments</a></li>
-                  <% elsif current_user.admin? %>
-                    <li><%= link_to 'New Assessment', new_assessment_path %></li>
-                    <li><%= link_to 'Users', users_path %></li>
-                  <% end %>
+                  <li><%= link_to 'New Assessment', new_assessment_path if can?(:create, Assessment) %></li>
+                  <li><%= link_to 'Users', users_path if can?(:manage, User) %></li>
                   <li class="divider"></li>
                   <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></a></li>
                 </ul>
@@ -54,7 +49,7 @@
             </ul>
           <% else %>
             <ul class="nav pull-right">
-              <li><%= link_to 'Log In', new_user_session_path %></li>
+              <li><%= link_to 'Login to add/edit data', new_user_session_path %></li>
             </ul>
           <% end %>
         </div>
