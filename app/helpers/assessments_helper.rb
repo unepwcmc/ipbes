@@ -20,14 +20,14 @@ module AssessmentsHelper
     assessment.answers.where(answer_type: type) + [@assessment.answers.build(answer_type: type)]
   end
 
-  # Builds an attachment object for the given type, used for form building
-  def attachment_object assessment, type
-    assessment.attachments.where(attachment_type: type).first || @assessment.attachments.build(attachment_type: type)
+  # Builds an reference object for the given type, used for form building
+  def reference_object assessment, type
+    assessment.references.where(reference_type: type).first || @assessment.references.build(reference_type: type)
   end
 
-  # Get all the current attachments
-  def attachment_objects assessment, type
-    assessment.attachments.where(attachment_type: type)
+  # Get all the current references
+  def reference_objects assessment, type
+    assessment.references.where(reference_type: type)
   end
 
   def list_countries assessment

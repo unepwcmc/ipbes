@@ -1,5 +1,5 @@
 <div class="fields">
-  <%= f.input :attachment_type, as: :hidden %>
+  <%= f.input :reference_type, as: :hidden %>
   <%= f.object.file_file_name if f.object.persisted? %>
   <%= f.file_field :file, label: 'URL or copy of conceptual framework developed or adapted' %>
   <%= link_to_remove_fields "remove", f %>

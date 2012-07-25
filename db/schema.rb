@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724142032) do
+ActiveRecord::Schema.define(:version => 20120725110627) do
 
   create_table "answers", :force => true do |t|
     t.string   "answer_type"
@@ -31,17 +31,6 @@ ActiveRecord::Schema.define(:version => 20120724142032) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "attachments", :force => true do |t|
-    t.integer  "assessment_id"
-    t.string   "attachment_type"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-  end
-
   create_table "contacts", :force => true do |t|
     t.string   "name"
     t.string   "title"
@@ -59,6 +48,17 @@ ActiveRecord::Schema.define(:version => 20120724142032) do
     t.string   "iso"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "references", :force => true do |t|
+    t.integer  "assessment_id"
+    t.string   "reference_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "users", :force => true do |t|
