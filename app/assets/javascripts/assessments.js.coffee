@@ -4,19 +4,21 @@
 
 # Get search results for current params
 getSearchResults = () ->
-  query = $('#assessment-query').val()
-  $('#assessment-search-results').html("<tr><td colspan='2'><img class='spinner' src='/ajax-loader.gif'/></td></tr>")
-  $.ajax(
-    url: "/assessments/search"
+  $('#loading-assessments').show()
+  $('#assessment-search-results').hide()
+  $.ajax
+    url: '/assessments/search'
     type: 'POST'
-    data: 
-      query: query
+    data:
+      query: $('#assessment-query').val()
+      attachments: ($('#search_attachements:checked').length > 0)
+      geo_scale: $('#assessment_geo_scale').val()
     success: renderSearchResults
-  )
-  
+
 # Render the HTML returned from the search
 renderSearchResults = (data) ->
-  $('#assessment-search-results').html(data)
+  $('#loading-assessments').hide()
+  $('#assessment-search-results').html(data).show()
 
 $ ->
   $('select.select2').select2()
@@ -40,6 +42,9 @@ $ ->
 
   # Search assessments
   $('#search-assessments-btn').on('click', getSearchResults)
+  $('#assessment_geo_scale').on('change', getSearchResults)
+  $('#assessment-query').keyup (event) ->
+    getSearchResults() if(event.keyCode == 13)
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
