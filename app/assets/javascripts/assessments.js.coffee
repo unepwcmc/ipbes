@@ -2,17 +2,28 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+serialize = (obj) ->
+  str = []
+  for key, value of obj
+    str.push(encodeURIComponent(key) + "=" + encodeURIComponent(value)) if value != ''
+  str.join("&")
+
 # Get search results for current params
 getSearchResults = () ->
+  data =
+    q: $('#assessment-query').val()
+    attachments: "#{($('#search_attachements:checked').length > 0) && 't' || 'f'}"
+    geo_scale: $('#assessment_geo_scale').val()
+
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()
+
+  window.History.pushState(data, null, "?#{serialize(data)}")
+
   $.ajax
     url: '/assessments/search'
     type: 'POST'
-    data:
-      query: $('#assessment-query').val()
-      attachments: ($('#search_attachements:checked').length > 0)
-      geo_scale: $('#assessment_geo_scale').val()
+    data: data
     success: renderSearchResults
 
 # Render the HTML returned from the search
@@ -45,6 +56,18 @@ $ ->
   $('#assessment_geo_scale').on('change', getSearchResults)
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)
+
+  # History JS
+  History = window.History
+  unless History.enabled
+    # History.js is disabled for this browser.
+    # This is because we can optionally choose to support HTML4 browsers or not.
+    return false
+
+  # Bind to StateChange Event
+  History.Adapter.bind window, 'statechange', () -> # Note: We are using statechange instead of popstate
+    State = History.getState() # Note: We are using History.getState() instead of event.state
+    History.log(State.data, State.title, State.url)
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')

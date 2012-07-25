@@ -5,9 +5,9 @@ class AssessmentsController < ApplicationController
   # GET /assessments.json
   def index
     if user_signed_in?
-      @assessments = Assessment.all
+      @assessments = Assessment.search(params)
     else
-      @assessments = Assessment.where(published: true)
+      @assessments = Assessment.where(published: true).search(params)
     end
     authorize! :read, Assessment
 
@@ -19,7 +19,12 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments/search
   def search
-    @assessments = Assessment.search(params)
+    if user_signed_in?
+      @assessments = Assessment.search(params)
+    else
+      @assessments = Assessment.where(published: true).search(params)
+    end
+    authorize! :read, Assessment
 
     respond_to do |format|
       format.html { render :layout => false }# search.html.erb
