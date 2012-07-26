@@ -9,23 +9,12 @@ class Assessment < ActiveRecord::Base
 
   validates :title, presence: true, uniqueness: true
   
-  # Search with google custom search engine, then filter by answer types
-  # Returns a scope object to only matching IDs
-  # * q: the search term
-  # * geo_scale: constrain results to the given geo scale
-  #
-  # @params [Hash] filters hash containing search params
-  # @return [Relation] scoped assessments
   def self.search(filters)
     return all if filters['q'].blank? && filters['geo_scale'].blank?
     
     results = cse_query(filters['q']).filter_by_answer_type('geo_scale', filters['geo_scale'])
   end
 
-  # Queries google custom search for the given query
-  #
-  # @params [String] q the search term
-  # @return [Relation] scoped assessments
   def self.cse_query(q, attachments = false)
     return self if q.blank?
 
@@ -49,11 +38,6 @@ class Assessment < ActiveRecord::Base
     where(id: ids_array)
   end
   
-  # Adds the condition that answer_type=type answers must have given value
-  #
-  # @params [String] type answer types to filter on
-  # @params [String] value answer_text value to require
-  # @return [Relation] scoped assessments
   def self.filter_by_answer_type(type, value)
     return where('true') if type.blank? || value.blank?
 
