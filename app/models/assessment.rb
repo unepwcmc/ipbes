@@ -30,7 +30,7 @@ class Assessment < ActiveRecord::Base
         id = $1
       when /.*\/assessment\/([0-9]*)\/references\/files\/[0-9]*\/.*/
         # Reference show
-        id = $1
+        id = $1 if attachments
       end
       id 
     }.uniq
