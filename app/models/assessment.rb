@@ -9,19 +9,24 @@ class Assessment < ActiveRecord::Base
 
   validates :title, presence: true, uniqueness: true
   
-  # Search with google custom search engine
+  # Search with google custom search engine, then filter by answer types
   # Returns a scope object to only matching IDs
+  # * q: the search term
+  # * geo_scale: constrain results to the given geo scale
   #
-  # @params [String] query The term to search for
+  # @params [Hash] filters hash containing search params
   # @return [Relation] scoped assessments
   def self.search(filters)
     return all if filters['q'].blank? && filters['geo_scale'].blank?
     
-    results = query(filters['q']).filter_by_answer_type('geo_scale', filters['geo_scale'])
-    results.is_a?(Class) ? [] : results
+    results = cse_query(filters['q']).filter_by_answer_type('geo_scale', filters['geo_scale'])
   end
 
-  def self.query(q, attachments = false)
+  # Queries google custom search for the given query
+  #
+  # @params [String] q the search term
+  # @return [Relation] scoped assessments
+  def self.cse_query(q, attachments = false)
     return self if q.blank?
 
     require 'open-uri'
@@ -44,8 +49,13 @@ class Assessment < ActiveRecord::Base
     where(id: ids_array)
   end
   
+  # Adds the condition that answer_type=type answers must have given value
+  #
+  # @params [String] type answer types to filter on
+  # @params [String] value answer_text value to require
+  # @return [Relation] scoped assessments
   def self.filter_by_answer_type(type, value)
-    return self if type.blank? || value.blank?
+    return where('true') if type.blank? || value.blank?
 
     joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(answers: { answer_type: type }).where(answers: { text_value: value })
   end
