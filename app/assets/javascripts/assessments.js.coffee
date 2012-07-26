@@ -26,6 +26,14 @@ getSearchResults = () ->
     data: data
     success: renderSearchResults
 
+updateSectionStatus = (section) ->
+  complete = true
+  section.find('input[type=text], section textarea').each () ->
+    complete = complete && ($(this).val() != '') # unless $(this).attr('type') == 'hidden'
+
+  className = (if complete then 'completed' else 'not_completed')
+  $("#sidelink_#{section.attr('id')}").removeClass('completed not_completed').addClass(className)
+
 # Render the HTML returned from the search
 renderSearchResults = (data) ->
   $('#loading-assessments').hide()
@@ -57,12 +65,14 @@ $ ->
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)
 
+  $('section input[type=text], section textarea').on 'change', () ->
+    updateSectionStatus($(this).closest('section'))
+
+  $('section').each () ->
+    updateSectionStatus($(this))
+
   # History JS
   History = window.History
-#  unless History.enabled
-#    # History.js is disabled for this browser.
-#    # This is because we can optionally choose to support HTML4 browsers or not.
-#    return false
 
   # Bind to StateChange Event
   History.Adapter.bind window, 'statechange', () -> # Note: We are using statechange instead of popstate

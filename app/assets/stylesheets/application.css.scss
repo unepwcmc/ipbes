@@ -27,6 +27,16 @@ div.select2-container {
     padding-top: 5px;
     padding-bottom: 5px;
   }
+  
+  .completed:before {
+    content: image-url('green_light.png');
+    padding-right: 10px;
+  }
+  
+  .not_completed:before {
+    content: image-url('red_light.png');
+    padding-right: 10px;
+  }
 }
 
 footer ul li {
