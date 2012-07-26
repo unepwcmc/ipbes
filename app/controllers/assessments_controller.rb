@@ -10,6 +10,7 @@ class AssessmentsController < ApplicationController
       @assessments = Assessment.where(published: true).search(params)
     end
     authorize! :read, Assessment
+    @countries = Country.for_assessments @assessments
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,8 +27,10 @@ class AssessmentsController < ApplicationController
     end
     authorize! :read, Assessment
 
+    @countries = Country.for_assessments @assessments
+
     respond_to do |format|
-      format.html { render :layout => false }# search.html.erb
+      format.js { render :layout => false }
       format.json { render json: @assessments }
     end
   end

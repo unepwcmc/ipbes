@@ -1,9 +1,0 @@
-<% if @assessments.empty? %>
-  <tr>
-    <td class="row" colspan="<%= can?(:manage, Assessment) ? 3 : 2 %>">
-      Sorry, no assessments match the search
-    </td>
-  </tr>
-<% else %>
-  <%= render @assessments %>
-<% end %>

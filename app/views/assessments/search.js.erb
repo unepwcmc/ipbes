@@ -1,0 +1,10 @@
+<% if @assessments.empty? %>
+  var search_results = "<%= escape_javascript(render :partial => 'no_results') %>";
+<% else %>
+  var search_results = "<%= escape_javascript(render @assessments)%>";
+<% end %>
+
+$('#loading-assessments').hide();
+$('#assessment-search-results').html(search_results).show();
+
+addMapMarkers(<%= countries_to_point_json(@countries) %>);

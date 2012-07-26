@@ -43,4 +43,10 @@ class Assessment < ActiveRecord::Base
 
     joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(answers: { answer_type: type }).where(answers: { text_value: value })
   end
+
+  # gets all the countries associated through the geo_countries answers. Bit slow, sorry
+  def countries
+    countries_ids = self.answers.where(answer_type: 'geo_countries').first.try(:text_value)
+    Country.where(:id => countries_ids)
+  end
 end

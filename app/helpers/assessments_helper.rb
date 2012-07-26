@@ -45,4 +45,15 @@ module AssessmentsHelper
       '-'
     end
   end
+
+  # Converts an array of countries to point JSON
+  def countries_to_point_json countries
+    json = '['
+    points = []
+    countries.each do |c|
+      points << "{lat:#{c.latitude},lng:#{c.longitude}}"
+    end
+    json << points.join(',')
+    json << ']'
+  end
 end

@@ -14,6 +14,7 @@ gem 'cancan'
 gem 'nokogiri'
 gem 'paperclip'
 gem 'whenever', :require => false
+gem "geocoder"
 
 # Gems used only for assets and not required
 # in production environments by default.

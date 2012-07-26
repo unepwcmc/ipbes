@@ -24,7 +24,7 @@ getSearchResults = () ->
     url: '/assessments/search'
     type: 'POST'
     data: data
-    success: renderSearchResults
+    dataType: 'script'
 
 updateSectionStatus = (section) ->
   complete = true
@@ -34,10 +34,19 @@ updateSectionStatus = (section) ->
   className = (if complete then 'completed' else 'not_completed')
   $("#sidelink_#{section.attr('id')}").removeClass('completed not_completed').addClass(className)
 
-# Render the HTML returned from the search
-renderSearchResults = (data) ->
-  $('#loading-assessments').hide()
-  $('#assessment-search-results').html(data).show()
+# Adds a given array of points to the map
+window.addMapMarkers = (points) ->
+  window.mapMarkers = [] unless window.mapMarkers?
+
+  for marker in window.mapMarkers
+    window.map.removeLayer(marker)
+
+  for marker in points
+    markerLocation = new L.LatLng(marker.lat, marker.lng)
+
+    marker = new L.Marker(markerLocation)
+    window.mapMarkers.push(marker)
+    window.map.addLayer(marker)
 
 $ ->
   $('select.select2').select2()
@@ -89,6 +98,16 @@ $ ->
         when 'attachments' then $('#search_attachements:checked').prop("checked", (data[1] == 't'))
         when 'geo_scale' then $('#assessment_geo_scale').val(data[1])
     getSearchResults()
+
+  # Maps
+  window.map = new L.Map('map')
+   
+  tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
+  tileLayer = new L.TileLayer(tileLayerUrl, {
+    maxZoom: 18
+  })
+
+  map.addLayer(tileLayer).setView(new L.LatLng(0, 0), 1)
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
