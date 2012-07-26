@@ -28,8 +28,19 @@ getSearchResults = () ->
 
 updateSectionStatus = (section) ->
   complete = true
-  section.find('input[type=text], section textarea').each () ->
-    complete = complete && ($(this).val() != '') # unless $(this).attr('type') == 'hidden'
+  section.find('input[type=text], section textarea, section select, section input[type=radio], input[type=checkbox]').each () ->
+    # Previous hidden input element with the value for the field key
+    prev_hidden = $(this).closest('.control-group').prev('.control-group.hidden').find('input[type=hidden]')
+
+    # Special case for conceptual_framework_other
+    if prev_hidden.length > 0 && prev_hidden.val() == 'conceptual_framework_other'
+      inputName = $('[value=conceptual_framework]').attr('name').replace('answer_type', 'text_value')
+      complete = complete && ($("input[name='#{inputName}']:checked").val() != 'Other (please specify)' || $(this).val() != '')
+    else if $(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio'
+      inputName = $(this).attr('name')
+      complete = complete && $("input[name='#{inputName}']:checked").val() != undefined
+    else if !$(this).parent().hasClass('select2-search') && !$(this).parent().hasClass('select2-search-field') && !$(this).is(':hidden')
+      complete = complete && ($(this).val() != '' && $(this).val() != null)
 
   className = (if complete then 'completed' else 'not_completed')
   $("#sidelink_#{section.attr('id')}").removeClass('completed not_completed').addClass(className)
@@ -74,7 +85,7 @@ $ ->
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)
 
-  $('section input[type=text], section textarea').on 'change', () ->
+  $('section').delegate 'input[type=text], textarea, select, input[type=radio], input[type=checkbox]',  'change', () ->
     updateSectionStatus($(this).closest('section'))
 
   $('section').each () ->
