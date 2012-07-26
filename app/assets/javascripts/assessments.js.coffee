@@ -70,7 +70,8 @@ $ ->
     History.log(State.data, State.title, State.url)
 
   $(window).bind 'hashchange', () ->
-    params = location.hash.split('&')
+    hash = location.hash.split('?')
+    params = hash[1].split('&')
     for param in params
       data = param.split('=')
       switch data[0]
