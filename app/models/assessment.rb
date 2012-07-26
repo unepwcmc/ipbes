@@ -16,7 +16,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.cse_query(q, attachments = false)
-    return where('true') if q.blank?
+    return scoped if q.blank?
 
     require 'open-uri'
     response = Nokogiri::XML(open("http://www.google.com/search?cx=013379249883164858539:b_mvcbrgpgk&client=google-csbe&output=xml_no_dtd&q=#{q}"))
@@ -39,7 +39,7 @@ class Assessment < ActiveRecord::Base
   end
   
   def self.filter_by_answer_type(type, value)
-    return where('true') if type.blank? || value.blank?
+    return scoped if type.blank? || value.blank?
 
     joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(answers: { answer_type: type }).where(answers: { text_value: value })
   end
