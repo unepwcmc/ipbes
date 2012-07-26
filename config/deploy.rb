@@ -191,5 +191,5 @@ namespace :sitemap do
 end
 
 task :geocode_countries do
-  run "cd #{latest_release} && bundle exec #{rake} RAILS_ENV=#{rails_env} geocode_countries"
+  run "cd #{latest_release} && bundle exec #{rake} RAILS_ENV=#{rails_env} ipbes:geocode_countries"
 end
