@@ -18,14 +18,14 @@ class User < ActiveRecord::Base
     super && approved? 
   end 
 
-  def inactive_message 
-    if !approved? 
+  def inactive_message
+    if approved?
+      super # Use whatever other message
+    else
       :not_approved 
-    else 
-      super # Use whatever other message 
-    end 
+    end
   end
-  
+
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
     if !recoverable.approved?
@@ -35,4 +35,16 @@ class User < ActiveRecord::Base
     end
     recoverable
   end
+
+  after_create :send_welcome_email
+  after_update :send_approved_email
+
+  private
+    def send_welcome_email
+      UserMailer.welcome_email(self).deliver
+    end
+
+    def send_approved_email
+      UserMailer.approved_email(self).deliver if approved?
+    end
 end
