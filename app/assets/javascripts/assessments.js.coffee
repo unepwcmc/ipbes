@@ -59,26 +59,25 @@ $ ->
 
   # History JS
   History = window.History
-  unless History.enabled
-    # History.js is disabled for this browser.
-    # This is because we can optionally choose to support HTML4 browsers or not.
-    return false
+#  unless History.enabled
+#    # History.js is disabled for this browser.
+#    # This is because we can optionally choose to support HTML4 browsers or not.
+#    return false
 
   # Bind to StateChange Event
   History.Adapter.bind window, 'statechange', () -> # Note: We are using statechange instead of popstate
     State = History.getState() # Note: We are using History.getState() instead of event.state
     History.log(State.data, State.title, State.url)
 
-  if 'onhashchange' in window
-    $(window).bind 'hashchange', () ->
-      params = location.hash.split('&')
-      for param in params
-        data = param.split('=')
-        switch data[0]
-          when 'q' then $('#assessment-query').val(data[1])
-          when 'attachments' then $('#search_attachements:checked').prop("checked", (data[1] == 't'))
-          when 'geo_scale' then $('#assessment_geo_scale').val(data[1])
-      getSearchResults()
+  $(window).bind 'hashchange', () ->
+    params = location.hash.split('&')
+    for param in params
+      data = param.split('=')
+      switch data[0]
+        when 'q' then $('#assessment-query').val(data[1])
+        when 'attachments' then $('#search_attachements:checked').prop("checked", (data[1] == 't'))
+        when 'geo_scale' then $('#assessment_geo_scale').val(data[1])
+    getSearchResults()
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
