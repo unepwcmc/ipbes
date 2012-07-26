@@ -27,7 +27,19 @@ class Assessment < ActiveRecord::Base
     require 'open-uri'
     response = Nokogiri::XML(open("http://www.google.com/search?cx=013379249883164858539:b_mvcbrgpgk&client=google-csbe&output=xml_no_dtd&q=#{q}"))
 
-    ids_array = response.xpath('//GSP/RES/R/U').map { |u| u.content.split('/').last }.uniq
+    ids_array = response.xpath('//GSP/RES/R/U').map { |u|
+      id = 0
+      # To get the ID from the URL, first we must work out what path it is
+      case u.content
+      when /.*\/assessments\/([0-9]*)/
+        # Assessment show
+        id = $1
+      when /.*\/assessment\/([0-9]*)\/references\/files\/[0-9]*\/.*/
+        # Reference show
+        id = $1
+      end
+      id 
+    }.uniq
 
     where(id: ids_array)
   end
