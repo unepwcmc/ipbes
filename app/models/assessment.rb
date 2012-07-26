@@ -16,7 +16,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.cse_query(q, attachments = false)
-    return self if q.blank?
+    return where('true') if q.blank?
 
     require 'open-uri'
     response = Nokogiri::XML(open("http://www.google.com/search?cx=013379249883164858539:b_mvcbrgpgk&client=google-csbe&output=xml_no_dtd&q=#{q}"))
