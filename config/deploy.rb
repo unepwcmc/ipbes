@@ -5,6 +5,9 @@ gem 'brightbox', '>=2.3.9'
 require 'brightbox/recipes'
 require 'brightbox/passenger'
 
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 
 # The name of your application.  Used for deployment directory and filenames
 # and Apache configs. Should be unique on the Brightbox
@@ -171,7 +174,7 @@ task :setup_production_database_configuration do
 end
 after "deploy:setup", :setup_production_database_configuration
 after 'deploy:update_code', 'deploy:assets:precompile'
-
+after 'deploy:update_code', 'whenever:update_crontab'
 
 namespace :deploy do
   namespace :assets do
