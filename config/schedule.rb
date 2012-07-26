@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 #
-every 2.minutes do
-  rake "sitemap:generate"
+every 1.days, :at => '9:30 pm' do
+  rake "sitemap:refresh"
 end
