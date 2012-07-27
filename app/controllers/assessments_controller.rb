@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show, :search]
+  before_filter :authenticate_user!, except: [:index, :show, :search, :download]
 
   # GET /assessments
   # GET /assessments.json
@@ -32,6 +32,22 @@ class AssessmentsController < ApplicationController
     respond_to do |format|
       format.js { render :layout => false }
       format.json { render json: @assessments }
+    end
+  end
+
+  # GET /assessments/download
+  def download
+    require 'csv'
+
+    if user_signed_in?
+      @assessments = Assessment.search(params)
+    else
+      @assessments = Assessment.where(published: true).search(params)
+    end
+    authorize! :read, Assessment
+
+    respond_to do |format|
+      format.csv { render :layout => false }
     end
   end
 

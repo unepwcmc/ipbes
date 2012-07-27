@@ -39,8 +39,10 @@
       </fieldset>
     </form>
 
-    <a href="#" class="btn">Print search</a>
-    <a href="#" class="btn">Download excel</a>
+    <div class="action_buttons">
+      <a href="#" onclick="window.print();return false" class="btn">Print search</a>
+      <%= link_to 'Download excel', download_assessments_path(format: 'csv'), class: 'download_csv btn' %>
+    </div>
   </div>
   <div class="span8">
     <table class="table table-bordered table-striped">

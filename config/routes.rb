@@ -3,6 +3,7 @@ Ipbes::Application.routes.draw do
   resources :assessments do
     collection do
       post 'search'
+      get 'download'
     end
   end
   resources :users, except: [:new, :create, :destroy]
