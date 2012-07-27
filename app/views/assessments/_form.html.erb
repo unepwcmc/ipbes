@@ -192,30 +192,38 @@
         <%= builder.input :text_value, label: 'Website(s)' %>
       <% end %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'reports') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Report(s)' %>
-      <% end %>
+      <h5>Report(s)</h5>
+      <div id="reports">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'reports') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a report', f, :references, 'reports' %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'communication_materials') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Communication materials (e.g. brochure, presentations, posters, audio-visual media)' %>
-      <% end %>
+      <h5>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h5>
+      <div id="communication_materials">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'communication_materials') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a communication material', f, :references, 'communication_materials' %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'journal_publications') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Journal publications' %>
-      <% end %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'training_materials') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Training materials' %>
-      <% end %>
+      <h5>Training Materials</h5>
+      <div id="training_materials">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'training_materials') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a training material', f, :references, 'training_materials' %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'other_documents') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Other documents/outputs' %>
-      <% end %>
+      <h5>Other Documents/Outputs</h5>
+      <div id="other_documents">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'other_documents') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a document/output', f, :references, 'other_documents' %>
     </section>
     <section id="tools_and_processes">
       <h1>Tools and processes</h1>
@@ -232,6 +240,13 @@
       </div>
 
       <%= link_to_add_fields 'Add Answer', f, :answers, 'tools_and_approaches_other' %>
+      <h5>References</h5>
+      <div id="tools_and_approaches_other">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'tools_and_approaches_other') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a reference', f, :references, 'tools_and_approaches_other' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'process_used_for_stakeholder') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
@@ -253,10 +268,13 @@
         <%= builder.input :text_value, as: :check_boxes, label: 'Incorporation of scientific and other types of knowledge', collection: ['Scientific information only', 'Resource experts (e.g. foresters etc)', 'Traditional/local knowledge', 'Citizen science', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'incorporation_of_knowledge').text_value.try(:split, ',') %>
       <% end %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'supporting_documentation') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment' %>
-      <% end %>
+      <h5>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h5>
+      <div id="supporting_documentation">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'supporting_documentation') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a document', f, :references, 'supporting_documentation' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'reports_peer') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
@@ -274,15 +292,25 @@
     <section id="policy_impact">
       <h1>Policy Impact</h1>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'impacts') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions' %>
-      <% end %>
+      <h5>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h5>
+      <div id="impacts">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'impacts') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a document', f, :references, 'impacts' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'review_on_policy') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
         <%= builder.input :text_value, as: :radio_buttons, label: 'Independent or other review on policy impact of the assessment', input_html: { class: false } %>
       <% end %>
+      <h5>References</h5>
+      <div id="review_on_policy">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'review_on_policy') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a reference', f, :references, 'review_on_policy' %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'lessons_learnt') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
@@ -319,14 +347,24 @@
         <%= builder.input :answer_type, as: :hidden %>
         <%= builder.input :text_value, label: 'How gaps in knowledge have been communicated to the different stakeholders' %>
       <% end %>
+      <h5>References</h5>
+      <div id="gaps_in_knowledge_communicated">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'gaps_in_knowledge_communicated') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a reference', f, :references, 'gaps_in_knowledge_communicated' %>
     </section>
     <section id="additional_information">
       <h1>Additional information</h1>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'additional_information') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Additional relevant information' %>
-      <% end %>
+      <h5>Additional relevant information</h5>
+      <div id="additional_information">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'additional_information') do |builder| %>
+          <%= render 'additional_information', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add additional information', f, :references, 'gaps_in_knowledge_communicated' %>
     </section>
     <section id="contacts">
       <h1>Contacts</h1>
