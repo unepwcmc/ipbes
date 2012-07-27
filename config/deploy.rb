@@ -176,6 +176,18 @@ after "deploy:setup", :setup_production_database_configuration
 after 'deploy:update_code', 'deploy:assets:precompile'
 after 'deploy:update_code', 'whenever:update_crontab'
 
+desc 'Generate setup_mail.rb file'
+task :setup_mail do
+  address = Capistrano::CLI.ui.ask("Enter the smtp mail address: ")
+  password = Capistrano::CLI.ui.ask("Enter the smtp user password: ")
+
+  template = File.read("config/deploy/templates/setup_mail.rb.erb")
+  buffer = ERB.new(template).result(binding)
+
+  put(buffer, "#{shared_path}/config/initializers/setup_mail.rb")
+end
+after "deploy:setup", :setup_mail
+
 namespace :deploy do
   namespace :assets do
     task :precompile, :roles => :web, :except => { :no_release => true } do
