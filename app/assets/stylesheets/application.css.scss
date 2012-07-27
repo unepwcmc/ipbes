@@ -69,3 +69,17 @@ table {
 .action_buttons {
   padding-bottom: 20px;
 }
+
+#map-and-table {
+  overflow:hidden;
+  > div {
+    float:left;
+  }
+  #map {
+    width: 600px
+  }
+  #show-table {
+    width: 558px;
+    padding: 10px 0 10px 10px;
+  }
+}
