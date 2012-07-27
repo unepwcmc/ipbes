@@ -3,4 +3,5 @@
 #= require select2
 #= require jquery.history
 #= require bootstrap
+#= require leaflet
 #= require_tree .
