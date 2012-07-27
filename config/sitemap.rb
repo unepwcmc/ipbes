@@ -26,7 +26,7 @@ SitemapGenerator::Sitemap.create do
   #   end
   
   Assessment.all.each do |assessment|
-    add "/assessments/#{assessment.id}", :changefreq => 'monthly', :priority => 0.9
+    add "/assessments/#{assessment.id}", :changefreq => 'daily', :priority => 0.9
   end
 
   Reference.all.each do |reference|
