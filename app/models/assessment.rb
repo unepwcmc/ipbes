@@ -46,7 +46,7 @@ class Assessment < ActiveRecord::Base
 
   # gets all the countries associated through the geo_countries answers. Bit slow, sorry
   def countries
-    countries_ids = self.answers.where(answer_type: 'geo_countries').first.try(:text_value)
+    countries_ids = self.answers.where(answer_type: 'geo_countries').first.try(:text_value).split(',')
     Country.where(:id => countries_ids)
   end
 end
