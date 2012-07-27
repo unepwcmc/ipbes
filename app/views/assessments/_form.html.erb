@@ -208,6 +208,13 @@
       </div>
       <%= link_to_add_fields 'Add a communication material', f, :references, 'communication_materials' %>
 
+      <h5>Journal Publications</h5>
+      <div id="journal_publications">
+        <%= f.simple_fields_for :references, reference_objects(@assessment, 'journal_publications') do |builder| %>
+          <%= render 'reference_fields', :f => builder %>
+        <% end %>
+      </div>
+      <%= link_to_add_fields 'Add a publication', f, :references, 'journal_publications' %>
 
       <h5>Training Materials</h5>
       <div id="training_materials">
