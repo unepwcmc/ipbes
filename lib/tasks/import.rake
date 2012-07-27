@@ -7,7 +7,7 @@ namespace :ipbes do
 
     countries = CSV.read("#{Rails.root}/lib/data/countries.csv", {headers: true})
     countries.each do |row|
-      Country.create(name: row[0], iso: row[1])
+      Country.create(name: row[1], iso: row[0])
     end
   end
 end
