@@ -91,6 +91,15 @@ $ ->
   $('section').each () ->
     updateSectionStatus($(this))
 
+  $('.download_csv').click () ->
+    data =
+      q: $('#assessment-query').val()
+      attachments: "#{($('#search_attachements:checked').length > 0) && 't' || 'f'}"
+      geo_scale: $('#assessment_geo_scale').val()
+
+    $(this).attr('href', $(this).attr('href').replace(/\?[^\?]*/, ''))
+    $(this).attr('href', "#{$(this).attr('href')}?#{serialize(data)}")
+
   # History JS
   History = window.History
 

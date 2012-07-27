@@ -1,0 +1,4 @@
+<%= CSV.generate_line ['Title', 'Countries'] -%>
+<%- @assessments.each do |a| %>
+<%= CSV.generate_line [a.title, list_countries(a)] -%>
+<%- end %>
