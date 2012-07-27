@@ -1,3 +1,8 @@
+<% content_for :javascript do %>
+  $(function() {
+    addMapMarkers(<%= countries_to_point_json(@assessment.countries) %>);
+  });
+<% end %>
 <div class="page-header">
   <%= link_to :back, :class => 'btn' do %>
     <i class="icon-list-alt"></i>
@@ -16,6 +21,7 @@
     <% end %>
   <% end %>
   <h1><%= @assessment.title %> (<%= @assessment.short_title %>)</h1>
+  <div id='map'></div>
 </div>
 
 <section id="geographical_coverage">
