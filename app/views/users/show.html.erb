@@ -13,6 +13,12 @@
 <dl>
   <dt>Email:</dt>
   <dd><%= @user.email %></dd>
+  <dt>Name:</dt>
+  <dd><%= @user.name %></dd>
+  <dt>Institution:</dt>
+  <dd><%= @user.institution || '-' %></dd>
+  <dt>Description:</dt>
+  <dd><%= @user.description || '-' %></dd>
   <dt>Approved:</dt>
   <dd><%= @user.approved? ? 'Yes' : 'No' %></dd>
   <dt>Admin:</dt>
