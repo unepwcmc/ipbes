@@ -47,6 +47,15 @@ updateSectionStatus = (section) ->
 
 # Adds a given array of points to the map
 window.addMapMarkers = (points) ->
+  MarkerIcon = L.Icon.extend
+    shadowUrl: '/assets/marker-shadow.png'
+    iconUrl: '/assets/marker.png'
+    iconSize: new L.Point(25,41)
+    iconAnchor: new L.Point(13,41)
+    popupAnchor: new L.Point(1,-34)
+    shadowSize: new L.Point(41,41)
+  markerIcon = new MarkerIcon()
+
   window.mapMarkers = [] unless window.mapMarkers?
 
   for marker in window.mapMarkers
@@ -55,7 +64,7 @@ window.addMapMarkers = (points) ->
   for marker in points
     markerLocation = new L.LatLng(marker.lat, marker.lng)
 
-    marker = new L.Marker(markerLocation)
+    marker = new L.Marker(markerLocation, {icon: markerIcon})
     window.mapMarkers.push(marker)
     window.map.addLayer(marker)
 
