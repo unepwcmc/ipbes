@@ -97,6 +97,11 @@
     <p><%= answer.text_value %></p>
   <% end %>
 
+  <h2>URL or copy of conceptual framework developed or adapted</h2>
+
+  <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
+    <p><%= answer.text_value %></p>
+  <% end %>
   <h3>References</h3>
   <% @assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference| %>
     <p>
@@ -105,11 +110,6 @@
     </p>
   <% end %>
 
-  <h2>URL or copy of conceptual framework developed or adapted</h2>
-
-  <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
 
   <h2>System(s) assessed</h2>
 
@@ -246,32 +246,47 @@
 
   <h2>Report(s)</h2>
 
-  <% @assessment.answers.where(answer_type: 'reports').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'reports').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h2>
 
-  <% @assessment.answers.where(answer_type: 'communication_materials').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'communication_materials').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Journal publications</h2>
 
-  <% @assessment.answers.where(answer_type: 'journal_publications').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'journal_publications').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Training materials</h2>
 
-  <% @assessment.answers.where(answer_type: 'training_materials').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'training_materials').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Other documents/outputs</h2>
 
-  <% @assessment.answers.where(answer_type: 'other_documents').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'other_documents').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 </section>
 <section id="tools_and_processes">
@@ -285,6 +300,13 @@
 
   <% @assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer| %>
     <p><%= answer.text_value %></p>
+  <% end %>
+  <h5>References</h5>
+  <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Process used for stakeholder engagement in the assessment process and which component</h2>
@@ -313,8 +335,11 @@
 
   <h2>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h2>
 
-  <% @assessment.answers.where(answer_type: 'supporting_documentation').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'supporting_documentation').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Assessment reports peer reviewed</h2>
@@ -337,14 +362,23 @@
 
   <h2>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h2>
 
-  <% @assessment.answers.where(answer_type: 'impacts').each do |answer| %>
-    <p><%= answer.text_value %></p>
+  <% @assessment.references.where(reference_type: 'impacts').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Independent or other review on policy impact of the assessment</h2>
 
   <% @assessment.answers.where(answer_type: 'review_on_policy').each do |answer| %>
     <p><%= answer.text_value %></p>
+  <% end %>
+  <% @assessment.references.where(reference_type: 'review_on_policy').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 
   <h2>Lessons learnt for future assessments from these reviews</h2>
@@ -387,6 +421,12 @@
 
   <% @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer| %>
     <p><%= answer.text_value %></p>
+  <% end %>
+  <% @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
+    <p>
+      <%= reference.reference_text %><br/>
+      <%= link_to reference.file.original_filename, reference.file.url %>
+    </p>
   <% end %>
 </section>
 <section id="additional_information">
