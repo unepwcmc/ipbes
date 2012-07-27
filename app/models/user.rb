@@ -45,6 +45,6 @@ class User < ActiveRecord::Base
     end
 
     def send_approved_email
-      UserMailer.approved_email(self).deliver if approved?
+      UserMailer.approved_email(self).deliver if approved? && approved.changed?
     end
 end
