@@ -1,4 +1,6 @@
-<h2>Change your password</h2>
+<div class="page-header">
+  <h2>Change your password</h2>
+</div>
 
 <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, class: 'form-horizontal' }, defaults: { input_html: { class: 'input-xxlarge' }}) do |f| %>
   <%= f.error_notification %>
