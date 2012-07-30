@@ -94,7 +94,7 @@ module AssessmentsHelper
 
       references = []
       assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference|
-        references << [reference.reference_text, reference.file.url]
+        references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
       end
       assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer|
         csv << ['Conceptual framework, methodology and scope', 'URL or copy of conceptual framework developed or adapted', answer.text_value, references.join(',') ]
@@ -181,19 +181,19 @@ module AssessmentsHelper
         csv << ['Assessment outputs', 'Website(s)', answer.text_value ]
       end
       assessment.references.where(reference_type: 'reports').each do |reference|
-        csv << ['Assessment outputs', 'Report(s)', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Assessment outputs', 'Report(s)', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
       assessment.references.where(reference_type: 'communication_materials').each do |reference|
-        csv << ['Assessment outputs', 'Communication materials (e.g. brochure, presentations, posters, audio-visual media)', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Assessment outputs', 'Communication materials (e.g. brochure, presentations, posters, audio-visual media)', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
       assessment.references.where(reference_type: 'journal_publications').each do |reference|
-        csv << ['Assessment outputs', 'Journal publications', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Assessment outputs', 'Journal publications', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
       assessment.references.where(reference_type: 'training_materials').each do |reference|
-        csv << ['Assessment outputs', 'Training materials', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Assessment outputs', 'Training materials', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
       assessment.references.where(reference_type: 'other_documents').each do |reference|
-        csv << ['Assessment outputs', 'Other documents/outputs', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Assessment outputs', 'Other documents/outputs', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
 
       #Tools and processes
@@ -203,7 +203,7 @@ module AssessmentsHelper
       end
       references = []
       assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference|
-        references << [reference.reference_text, reference.file.url]
+        references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
       end
       assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer|
         csv << ['Tools and processes', 'Tools and approaches used in the assessment', "#{answer.text_value}, #{multi_answer.join(',')}" , references.join(',')]
@@ -222,7 +222,7 @@ module AssessmentsHelper
         csv << ['Tools and processes', 'Incorporation of scientific and other types of knowledge', answer.text_value ]
       end
       assessment.references.where(reference_type: 'supporting_documentation').each do |reference|
-        csv << ['Tools and processes', 'Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Tools and processes', 'Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
       assessment.answers.where(answer_type: 'reports_peer').each do |answer|
         csv << ['Tools and processes', 'Assessment reports peer reviewed', answer.text_value ]
@@ -235,12 +235,12 @@ module AssessmentsHelper
 
       # Policy Impact
       assessment.references.where(reference_type: 'impacts').each do |reference|
-        csv << ['Policy Impact', 'Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions', "#{reference.reference_text}, #{reference.file.url}"]
+        csv << ['Policy Impact', 'Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions', "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"]
       end
 
       references = []
       assessment.references.where(reference_type: 'review_on_policy').each do |reference|
-        references << [reference.reference_text, reference.file.url]
+        references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
       end
       assessment.answers.where(answer_type: 'review_on_policy').each do |answer|
         csv << ['Policy Impact', 'Independent or other review on policy impact of the assessment', answer.text_value, references.join(',') ]
@@ -267,7 +267,7 @@ module AssessmentsHelper
       end
       references = []
       assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference|
-        references << [reference.reference_text, reference.file.url]
+        references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
       end
       assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer|
         csv << ['Knowledge generation', 'How gaps in knowledge have been communicated to the different stakeholders', answer.text_value , references.join(',')]
