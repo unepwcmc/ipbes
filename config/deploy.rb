@@ -63,7 +63,7 @@ set :deploy_via, :remote_cache
 # The shared area is prepared with 'deploy:setup' and all the shared
 # items are symlinked in when the code is updated.
 # set :local_shared_dirs, %w(public/upload)
-set :local_shared_files, %w(config/database.yml public/sitemap_index.xml.gz public/sitemap1.xml.gz)
+set :local_shared_files, %w(config/database.yml public/sitemap_index.xml.gz public/sitemap1.xml.gz config/initializers/setup_mail.rb)
 
 ## Global Shared Area
 # These are the list of files and directories that you want
