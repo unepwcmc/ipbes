@@ -63,6 +63,17 @@ class AssessmentsController < ApplicationController
     end
   end
 
+  # GET /assessments/1/download_assessment
+  def download_assessment
+    require 'csv'
+    @assessment = Assessment.find(params[:id])
+    authorize! :read, @assessment
+
+    respond_to do |format|
+      format.csv { render layout: false}
+    end
+  end
+
   # GET /assessments/new
   # GET /assessments/new.json
   def new
