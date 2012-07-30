@@ -45,6 +45,11 @@ module AssessmentsHelper
       '-'
     end
   end
+  
+  def list_countries_without_multiple assessment
+    countries_ids = assessment.answers.where(answer_type: 'geo_countries').first.try(:text_value)
+    Country.find(countries_ids.split(',')).map(&:name).join(', ')
+  end
 
   # Converts an array of countries to point JSON
   def countries_to_point_json countries

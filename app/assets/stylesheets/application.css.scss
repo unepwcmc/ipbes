@@ -58,28 +58,13 @@ table {
 #map {
   border: 1px solid #CCC;
   height: 300px;
-  margin: 10px 0;
   border: 1px solid #CCC;
   border-bottom: 1px solid #DDD;
   border-radius: 5px;
   overflow: hidden;
-  width: 770px;
+  width: 100%;
 }
 
 .action_buttons {
   padding-bottom: 20px;
-}
-
-#map-and-table {
-  overflow:hidden;
-  > div {
-    float:left;
-  }
-  #map {
-    width: 600px
-  }
-  #show-table {
-    width: 558px;
-    padding: 10px 0 10px 10px;
-  }
 }

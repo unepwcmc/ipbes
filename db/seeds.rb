@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Admin user
-decioferreira = User.create(email: 'decio.ferreira@unep-wcmc.org', password: 'decioferreira', password_confirmation: 'decioferreira')
+decioferreira = User.create(name: 'Decio Ferreira', email: 'decio.ferreira@unep-wcmc.org', password: 'decioferreira', password_confirmation: 'decioferreira')
 decioferreira.update_attribute(:approved, true)
 decioferreira.update_attribute(:admin, true)
 

@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :institution, :description, :email, :password, :password_confirmation, :remember_me
+  
+  validates :name, presence: true
   
   def to_s
     email
@@ -45,6 +47,6 @@ class User < ActiveRecord::Base
     end
 
     def send_approved_email
-      UserMailer.approved_email(self).deliver if approved? && approved.changed?
+      UserMailer.approved_email(self).deliver if approved? && approved_changed?
     end
 end
