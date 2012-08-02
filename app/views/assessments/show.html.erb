@@ -21,7 +21,7 @@
     <% end %>
   <% end %>
   <a href="#" onclick="window.print();return false" class="btn">Print Assessment</a>
-  <%= link_to 'Download excel', download_assessments_path(format: 'csv'), class: 'download_csv btn' %>
+  <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'download_csv btn' %>
   <h1><%= @assessment.title %> (<%= @assessment.short_title %>)</h1>
   <div style='margin-top:5px;'>
     <h2>Geographical coverage</h2>
@@ -190,12 +190,6 @@
   <h2>Drivers of change in systems and services</h2>
 
   <% @assessment.answers.where(answer_type: 'scope_drivers_of_change').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Impacts of change in services on human well-being</h2>
-
-  <% @assessment.answers.where(answer_type: 'scope_impacts_of_change').each do |answer| %>
     <p><%= answer.text_value %></p>
   <% end %>
 

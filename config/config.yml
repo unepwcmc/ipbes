@@ -1,0 +1,6 @@
+development:
+  url: 'http://localhost:3000'
+staging:
+  url: 'http://ipbes.unepwcmc-005.vm.brightbox.net'
+production:
+  url: 'http://ipbes.unepwcmc-004.vm.brightbox.net'
