@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
 
   def approved_email(user)
     @user = user
-    @url  = "http://ipbes.unepwcmc-005.vm.brightbox.net/d/users/sign_in"
+    @url  = "#{APP_CONFIG['url']}/d/users/sign_in"
 
     mail to: user.email, subject: 'IPBES Assessment Catalogue: Approved account'
   end

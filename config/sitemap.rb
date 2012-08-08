@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://ipbes.unepwcmc-005.vm.brightbox.net/"
+SitemapGenerator::Sitemap.default_host = APP_CONFIG['url']
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
