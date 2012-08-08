@@ -12,7 +12,8 @@ class Assessment < ActiveRecord::Base
   def self.search(filters)
     return all if filters['q'].blank? && filters['geo_scale'].blank?
     
-    results = cse_query(filters['q']).filter_by_answer_type('geo_scale', filters['geo_scale'])
+    attachments = (filters['attachments'] == 't' ? true : false)
+    results = cse_query(filters['q'], attachments).filter_by_answer_type('geo_scale', filters['geo_scale'])
   end
 
   def self.cse_query(q, attachments = false)
