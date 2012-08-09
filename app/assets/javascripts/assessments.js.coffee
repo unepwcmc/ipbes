@@ -109,24 +109,25 @@ $ ->
     $(this).attr('href', $(this).attr('href').replace(/\?[^\?]*/, ''))
     $(this).attr('href', "#{$(this).attr('href')}?#{serialize(data)}")
 
+  $('#clear_search').click (e) ->
+    e.preventDefault()
+
+    $('#assessment-query').val('')
+    $('#search_attachements').removeAttr('checked')
+    $('#assessment_geo_scale').val('')
+
+    getSearchResults()
+
   # History JS
   History = window.History
 
   # Bind to StateChange Event
   History.Adapter.bind window, 'statechange', () -> # Note: We are using statechange instead of popstate
     State = History.getState() # Note: We are using History.getState() instead of event.state
-    History.log(State.data, State.title, State.url)
 
-  $(window).bind 'hashchange', () ->
-    hash = location.hash.split('?')
-    params = hash[1].split('&')
-    for param in params
-      data = param.split('=')
-      switch data[0]
-        when 'q' then $('#assessment-query').val(data[1])
-        when 'attachments' then $('#search_attachements:checked').prop("checked", (data[1] == 't'))
-        when 'geo_scale' then $('#assessment_geo_scale').val(data[1])
-    getSearchResults()
+    $('#assessment-query').val(State.data.q)
+    $('#search_attachements').prop("checked", (State.data.attachments == 't'))
+    $('#assessment_geo_scale').val(State.data.geo_scale)
 
   # Maps
   window.map = new L.Map('map')
