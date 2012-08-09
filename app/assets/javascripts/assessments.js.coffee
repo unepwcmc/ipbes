@@ -129,6 +129,13 @@ $ ->
     $('#search_attachements').prop("checked", (State.data.attachments == 't'))
     $('#assessment_geo_scale').val(State.data.geo_scale)
 
+    # Update search results
+    $.ajax
+      url: '/assessments/search'
+      type: 'POST'
+      data: State.data
+      dataType: 'script'
+
   # Maps
   window.map = new L.Map('map')
    
