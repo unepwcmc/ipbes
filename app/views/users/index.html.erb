@@ -16,7 +16,9 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
+      <th>Name</th>
       <th>Email</th>
+      <th>Institution</th>
       <th>Approved</th>
       <th>Admin</th>
       <th></th>
@@ -27,7 +29,9 @@
   <tbody>
 <% @users.each do |user| %>
     <tr>
+      <td><%= user.name %></td>
       <td><%= user.email %></td>
+      <td><%= user.institution %></td>
       <td><%= user.approved? ? 'Yes' : 'No' %></td>
       <td><%= user.admin? ? 'Yes' : 'No' %></td>
       <td><%= link_to 'Show', user %></td>

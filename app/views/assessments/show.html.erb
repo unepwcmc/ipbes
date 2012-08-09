@@ -23,7 +23,7 @@
   <a href="#" onclick="window.print();return false" class="btn">Print Assessment</a>
   <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'download_csv btn' %>
   <% if (can? :update, Assessment) && @assessment.last_editor.present? %>
-    <span id='last-editor'>last edited by <%= link_to @assessment.last_editor.name, user_path(@assessment.last_editor) %></span>
+    <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
   <% end %>
   <h1><%= @assessment.title %> (<%= @assessment.short_title %>)</h1>
   <div style='margin-top:5px;'>
