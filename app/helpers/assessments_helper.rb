@@ -37,7 +37,7 @@ module AssessmentsHelper
       if countries_ids.empty?
         '-'
       elsif countries_ids.size > 1
-        'multiple'
+        'Multiple'
       else
         Country.find(countries_ids[0]).name
       end
