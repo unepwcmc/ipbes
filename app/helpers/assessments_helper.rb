@@ -70,7 +70,7 @@ module AssessmentsHelper
         csv <<['Geographical coverage','Geographical scale of the assessment', answer.text_value]
       end
       assessment.answers.where(answer_type: 'geo_countries').each do |answer|
-        csv <<['Geographical coverage','Countries covered', list_countries(assessment)]
+        csv <<['Geographical coverage','Countries covered', list_countries_without_multiple(assessment)]
       end
       assessment.answers.where(answer_type: 'geo_info').each do |answer|
         csv <<['Geographical coverage',"Any other necessary information or explanation for identifying the location of the assessment, including site or region name", answer.text_value]
@@ -278,5 +278,312 @@ module AssessmentsHelper
         csv << ['Additional information', 'Additional relevant information', answer.text_value ]
       end
     end
+  end
+
+  def horizontal_assessment_to_csv assessment
+    csv = []
+
+    # Title
+
+    ## Full name of the assessment
+    csv << assessment.title
+
+    ## Short name of the assessment (if applicable)
+    csv << assessment.short_title
+
+    # Geographical coverage
+
+    ## Geographical scale of the assessment
+    assessment.answers.where(answer_type: 'geo_scale').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Countries covered
+    assessment.answers.where(answer_type: 'geo_countries').each do |answer|
+      csv << list_countries_without_multiple(assessment)
+    end
+
+    ## Any other necessary information or explanation for identifying the location of the assessment, including site or region name
+    assessment.answers.where(answer_type: 'geo_info').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Conceptual framework, methodology and scope
+
+    ## Assessment objectives
+    assessment.answers.where(answer_type: 'objectives').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Mandate for the assessment
+    assessment.answers.where(answer_type: 'mandate').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Conceptual framework and/or methodology used for the assessment
+    multi_answer = []
+    assessment.answers.where(answer_type: 'conceptual_framework_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    assessment.answers.where(answer_type: 'conceptual_framework').each do |answer|
+      csv << (multi_answer << answer.text_value).join(', ')
+    end
+
+    ## URL or copy of conceptual framework developed or adapted
+    references = []
+    assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference|
+      references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
+    end
+    assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer|
+      csv << "#{answer.text_value}\n\n#{references.join("\n")}"
+    end
+
+    ## System(s) assessed
+    multi_answer = []
+    assessment.answers.where(answer_type: 'systems_assessed_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    assessment.answers.where(answer_type: 'systems_assessed').each do |answer|
+      csv << (multi_answer << answer.text_value).join(', ')
+    end
+
+    ## Species groups assessed
+    assessment.answers.where(answer_type: 'species_groups_assessed').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Ecosystem services/functions assessed
+
+    ## Provisioning
+    multi_answer = []    
+    assessment.answers.where(answer_type: 'provisioning_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    assessment.answers.where(answer_type: 'provisioning').each do |answer|
+      csv << (multi_answer << answer.text_value).join(', ')
+    end
+
+    ## Regulating
+    multi_answer = []
+    assessment.answers.where(answer_type: 'regulating_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    assessment.answers.where(answer_type: 'regulating').each do |answer|
+      csv << (multi_answer << answer.text_value).join(', ')
+    end
+
+    ## Supporting Services/Functions
+    multi_answer = []
+    assessment.answers.where(answer_type: 'supporting_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    assessment.answers.where(answer_type: 'supporting').each do |answer|
+      csv << (multi_answer << answer.text_value).join(', ')
+    end
+
+    ## Cultural Services
+    multi_answer = []
+    assessment.answers.where(answer_type: 'cultural_services_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    assessment.answers.where(answer_type: 'cultural_services').each do |answer|
+      csv << (multi_answer << answer.text_value).join(', ')
+    end
+
+    # Scope of assessment includes
+
+    ## Drivers of change in systems and services
+    assessment.answers.where(answer_type: 'scope_drivers_of_change').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Impacts of change in services on human well-being
+    assessment.answers.where(answer_type: 'scope_impacts_of_change').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Options for responding/interventions to the trends observed
+    assessment.answers.where(answer_type: 'scope_options_for_responding').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Explicit consideration of the role of biodiversity in the systems and services covered by the assessment
+    assessment.answers.where(answer_type: 'scope_explicit_consideration').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Timing of the assessment
+
+    ## Year assessment started
+    assessment.answers.where(answer_type: 'year_started').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Year assessment finished
+    assessment.answers.where(answer_type: 'year_finished').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## If ongoing, year assessment is anticipated to finish
+    assessment.answers.where(answer_type: 'anticipated_to_finish').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Periodicity of assessment
+    assessment.answers.where(answer_type: 'periodicity').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## If repeated, how frequently
+    assessment.answers.where(answer_type: 'how_frequently').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Assessment outputs
+
+    ## Website(s)
+    assessment.answers.where(answer_type: 'websites').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Report(s)
+    assessment.references.where(reference_type: 'reports').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    ## Communication materials (e.g. brochure, presentations, posters, audio-visual media)
+    assessment.references.where(reference_type: 'communication_materials').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    ## Journal publications
+    assessment.references.where(reference_type: 'journal_publications').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    ## Training materials
+    assessment.references.where(reference_type: 'training_materials').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    ## Other documents/outputs
+    assessment.references.where(reference_type: 'other_documents').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    # Tools and processes
+
+    ## Tools and approaches used in the assessment
+    multi_answer = []
+    assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer|
+      multi_answer << answer.text_value
+    end
+    references = []
+    assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference|
+      references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
+    end
+    assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer|
+      csv << "#{answer.text_value}, #{multi_answer.join(',')}\n\n#{references.join("\n")}"
+    end
+
+    ## Process used for stakeholder engagement in the assessment process and which component
+    assessment.answers.where(answer_type: 'process_used_for_stakeholder').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Key stakeholder groups engaged
+    assessment.answers.where(answer_type: 'key_stakeholder').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## The number of people directly involved in the assessment process
+    assessment.answers.where(answer_type: 'number_of_people').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Incorporation of scientific and other types of knowledge
+    assessment.answers.where(answer_type: 'incorporation_of_knowledge').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment
+    assessment.references.where(reference_type: 'supporting_documentation').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    ## Assessment reports peer reviewed
+    assessment.answers.where(answer_type: 'reports_peer').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Data
+
+    ## Accessibility of data used in assessment
+    assessment.answers.where(answer_type: 'accessibility_of_data').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Policy Impact
+
+    ## Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions
+    assessment.references.where(reference_type: 'impacts').each do |reference|
+      csv << "#{reference.reference_text}, #{APP_CONFIG['url']+reference.file.url}"
+    end
+
+    ## Independent or other review on policy impact of the assessment
+    references = []
+    assessment.references.where(reference_type: 'review_on_policy').each do |reference|
+      references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
+    end
+    assessment.answers.where(answer_type: 'review_on_policy').each do |answer|
+      csv << "#{answer.text_value}\n\n#{references.join("\n")}"
+    end
+
+    ## Lessons learnt for future assessments from these reviews
+    assessment.answers.where(answer_type: 'lessons_learnt').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Capacity-building
+
+    ## Capacity building needs idenfified during the assessment
+    assessment.answers.where(answer_type: 'capacity_building_needs').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## Actions taken by the assessment to build capacity
+    assessment.answers.where(answer_type: 'actions_taken_build_capacity').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## How have gaps in capacity been communicated to the different stakeholders
+    assessment.answers.where(answer_type: 'gaps_in_capacity').each do |answer|
+      csv << answer.text_value
+    end
+
+    # Knowledge generation
+
+    ## Gaps in knowledge identified from the assessment
+    assessment.answers.where(answer_type: 'gaps_in_knowledge').each do |answer|
+      csv << answer.text_value
+    end
+
+    ## How gaps in knowledge have been communicated to the different stakeholders
+    references = []
+    assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference|
+      references << [reference.reference_text, APP_CONFIG['url']+reference.file.url]
+    end
+    assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer|
+      csv << "#{answer.text_value}\n\n#{references.join("\n")}"
+    end
+
+    # Additional information
+
+    ## Additional relevant information
+    assessment.answers.where(answer_type: 'additional_information').each do |answer|
+      csv << answer.text_value
+    end
+
+    csv
   end
 end
