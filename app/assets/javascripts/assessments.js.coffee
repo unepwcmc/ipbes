@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+window.IPBES ||= {}
+window.IPBES.page ||= 1
+
 serialize = (obj) ->
   str = []
   for key, value of obj
@@ -14,6 +17,7 @@ getSearchResults = () ->
     q: $('#assessment-query').val()
     attachments: "#{($('#search_attachements:checked').length > 0) && 't' || 'f'}"
     geo_scale: $('#assessment_geo_scale').val()
+    page: window.IPBES.page
 
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()
@@ -117,6 +121,17 @@ $ ->
     $('#assessment_geo_scale').val('')
 
     getSearchResults()
+
+  $('#assessment-paginator').delegate('.previous', 'click', ->
+    if window.IPBES.page > 1
+      window.IPBES.page = window.IPBES.page - 1 
+      getSearchResults()
+  )
+
+  $('#assessment-paginator').delegate('.next', 'click',  ->
+    window.IPBES.page = window.IPBES.page + 1
+    getSearchResults()
+  )
 
   # History JS
   History = window.History

@@ -11,7 +11,7 @@ class Assessment < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   
   def self.search(filters)
-    return all if filters['q'].blank? && filters['geo_scale'].blank?
+    return scoped if filters['q'].blank? && filters['geo_scale'].blank?
     
     attachments = filters['attachments'] == 't'
     results = cse_query(filters['q'], attachments).filter_by_answer_type('geo_scale', filters['geo_scale'])

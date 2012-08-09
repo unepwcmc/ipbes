@@ -1,4 +1,8 @@
 <% content_for :javascript do %>
+  if (typeof window.IPBES === 'undefined') {
+    window.IPBES = {};
+  }
+  window.IPBES.page = <%= @page %>;
   $(function() {
     addMapMarkers(<%= countries_to_point_json(@countries) %>);
   });
@@ -70,5 +74,8 @@
         <%= render @assessments %>
       </tbody>
     </table>
+    <ul class="pager" id='assessment-paginator'>
+      <%= render :partial => 'pagination', :locals => {:page => @page} %>
+    </ul>
   </div>
 </div>

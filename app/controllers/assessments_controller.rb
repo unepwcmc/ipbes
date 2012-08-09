@@ -1,13 +1,17 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show, :search, :download]
+  ASSESSMENTS_PER_PAGE = 20
 
   # GET /assessments
   # GET /assessments.json
   def index
+    @page = (params[:page].present? ? params[:page].to_i : 1)
+    @page = 1 if @page < 1
+    offset = (@page - 1) * ASSESSMENTS_PER_PAGE
     if user_signed_in?
-      @assessments = Assessment.search(params)
+      @assessments = Assessment.search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
     else
-      @assessments = Assessment.where(published: true).search(params)
+      @assessments = Assessment.where(published: true).search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
     end
     authorize! :read, Assessment
     @countries = Country.for_assessments @assessments
@@ -20,10 +24,13 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments/search
   def search
+    @page = (params[:page].present? ? params[:page].to_i : 1)
+    @page = 1 if @page < 1
+    offset = (@page - 1 ) * ASSESSMENTS_PER_PAGE
     if user_signed_in?
-      @assessments = Assessment.search(params)
+      @assessments = Assessment.search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
     else
-      @assessments = Assessment.where(published: true).search(params)
+      @assessments = Assessment.where(published: true).search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
     end
     authorize! :read, Assessment
 
