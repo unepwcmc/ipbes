@@ -7,6 +7,6 @@
 $('#loading-assessments').hide();
 $('#assessment-search-results').html(search_results).show();
 
-$('#assessment-paginator').html("<%= escape_javascript(render :partial => 'pagination', :locals => {:page => @page})%>");
+$('#assessment-paginator').html("<%= escape_javascript(render :partial => 'pagination', :locals => {:page => @page, :is_last_page => @is_last_page})%>");
 
 addMapMarkers(<%= countries_to_point_json(@countries) %>);

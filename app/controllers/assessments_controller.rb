@@ -10,8 +10,10 @@ class AssessmentsController < ApplicationController
     offset = (@page - 1) * ASSESSMENTS_PER_PAGE
     if user_signed_in?
       @assessments = Assessment.search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
+      @is_last_page = Assessment.search(params).count <= @page*ASSESSMENTS_PER_PAGE
     else
       @assessments = Assessment.where(published: true).search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
+      @is_last_page = Assessment.where(published: true).search(params).count <= @page*ASSESSMENTS_PER_PAGE
     end
     authorize! :read, Assessment
     @countries = Country.for_assessments @assessments
@@ -26,11 +28,13 @@ class AssessmentsController < ApplicationController
   def search
     @page = (params[:page].present? ? params[:page].to_i : 1)
     @page = 1 if @page < 1
-    offset = (@page - 1 ) * ASSESSMENTS_PER_PAGE
+    offset = (@page - 1) * ASSESSMENTS_PER_PAGE
     if user_signed_in?
       @assessments = Assessment.search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
+      @is_last_page = Assessment.search(params).count <= @page*ASSESSMENTS_PER_PAGE
     else
       @assessments = Assessment.where(published: true).search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
+      @is_last_page = Assessment.where(published: true).search(params).count <= @page*ASSESSMENTS_PER_PAGE
     end
     authorize! :read, Assessment
 

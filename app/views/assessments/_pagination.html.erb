@@ -3,6 +3,8 @@
     <a href="#">&larr; Prev</a>
   </li>
 <% end %>
-<li class="next">
-  <a href="#">Next &rarr;</a>
-</li>
+<% unless is_last_page %>
+  <li class="next">
+    <a href="#">Next &rarr;</a>
+  </li>
+<% end %>

@@ -75,7 +75,7 @@
       </tbody>
     </table>
     <ul class="pager" id='assessment-paginator'>
-      <%= render :partial => 'pagination', :locals => {:page => @page} %>
+      <%= render :partial => 'pagination', :locals => {:page => @page, :is_last_page => @is_last_page} %>
     </ul>
   </div>
 </div>
