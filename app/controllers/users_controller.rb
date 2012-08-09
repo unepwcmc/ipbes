@@ -41,6 +41,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize! :update, @user
 
+    @user.name = params[:user][:name]
     @user.approved = params[:user][:approved]
     @user.admin = params[:user][:admin]
 
