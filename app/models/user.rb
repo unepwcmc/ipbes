@@ -13,11 +13,7 @@ class User < ActiveRecord::Base
   has_many :assessments_where_last_editor, class_name: 'Assessment', foreign_key: :last_editor_id
   
   def to_s
-    if name.present?
-      name
-    else
-      email
-    end
+    name.presence || email
   end
 
   scope :unapproved, where("approved != true OR approved IS NULL")
