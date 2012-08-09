@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120727142740) do
+ActiveRecord::Schema.define(:version => 20120809085448) do
 
   create_table "answers", :force => true do |t|
     t.string   "answer_type"
@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(:version => 20120727142740) do
     t.string   "short_title"
     t.text     "note"
     t.boolean  "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "last_editor_id"
   end
 
   create_table "contacts", :force => true do |t|
