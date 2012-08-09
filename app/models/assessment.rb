@@ -2,6 +2,7 @@ class Assessment < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :contacts, dependent: :destroy
+  belongs_to :last_editor, :class_name => 'User'
 
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:text_value].blank? }, allow_destroy: true
   accepts_nested_attributes_for :references, allow_destroy: true

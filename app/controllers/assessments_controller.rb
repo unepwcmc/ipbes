@@ -99,6 +99,7 @@ class AssessmentsController < ApplicationController
   def create
     @assessment = Assessment.new(params[:assessment])
     authorize! :create, @assessment
+    @assessment.last_editor = current_user
 
     respond_to do |format|
       if @assessment.save
@@ -116,6 +117,7 @@ class AssessmentsController < ApplicationController
   def update
     @assessment = Assessment.find(params[:id])
     authorize! :update, @assessment
+    @assessment.last_editor = current_user
 
     respond_to do |format|
       if @assessment.update_attributes(params[:assessment])
