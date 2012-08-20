@@ -5,6 +5,7 @@
   window.IPBES.page = <%= @page %>;
   $(function() {
     addMapMarkers(<%= countries_to_point_json(@countries) %>);
+    setCountryFilter(<%= params['countryId'] %>);
   });
 <% end %>
 <div class="row">
@@ -14,7 +15,11 @@
   </div>
   <div class="span8">
     <div id="map"></div>
-    <div id="countryHover"></div>
+    <div id="country-hover"></div>
+    <div id="selected-country-strip">
+      <span></span>
+      <a id="clear-country-selection" href='#'>X</a>
+    </div>
     <p><em>Only countries are displayed on the map.</em></p>
   </div>
 </div>

@@ -52,6 +52,7 @@ updateSectionStatus = (section) ->
 
 # Adds a given array of points to the map
 window.addMapMarkers = (points) ->
+  window.IPBES.points = points
   MarkerIcon = L.Icon.extend
     shadowUrl: '/assets/marker-shadow.png'
     iconUrl: '/assets/marker.png'
@@ -80,8 +81,9 @@ window.addMapMarkers = (points) ->
     marker.on('click', (() ->
       # Closure the relevant variables
       id = country.id
+      name = country.name
       return (event) ->
-        window.filterByCountry(id)
+        window.filterByCountry(id, name)
     )())
     window.mapMarkers.push(marker)
     window.map.addLayer(marker)
@@ -90,13 +92,28 @@ window.addMapMarkers = (points) ->
 window.countryStats = (name, assessmentCount, event) ->
   hoverPosition = $(event.target._icon).offset()
   hoverPosition.top = hoverPosition.top - 25
-  $('#countryHover').offset(hoverPosition)
-  $('#countryHover').html("#{name}: #{assessmentCount} assessments").slideDown()
+  $('#country-hover').offset(hoverPosition).html("#{name}: #{assessmentCount} assessments").slideDown()
 
 # Shows the number of assessments for a country on hover
-window.filterByCountry = (id) ->
-  window.IPBES.countryId = id
+window.filterByCountry = (id, name) ->
+  setCountryFilter(id,name)
   getSearchResults()
+
+# sets the country filter and shows its' state
+window.setCountryFilter = (id, name) ->
+  window.IPBES.countryId = id
+  if id?
+    unless name?
+      for country in window.IPBES.points
+        name = country.name if country.id == id
+    $('#selected-country-strip span').text("Showing only assessments in #{name}")
+    $('#selected-country-strip').slideDown()
+
+# Reset the countryId param and hide the filter strip
+window.clearCountryFilter = () ->
+  window.IPBES.countryId = ''
+  $('#selected-country-strip').slideUp()
+
 
 $ ->
   $('select.select2').select2()
@@ -146,11 +163,20 @@ $ ->
     $('#search_attachements').removeAttr('checked')
     $('#assessment_geo_scale').val('')
 
+    window.IPBES.page = 1
+    clearCountryFilter()
+
+    getSearchResults()
+
+  $('#selected-country-strip a').click (e) ->
+    e.preventDefault()
+
+    clearCountryFilter()
     getSearchResults()
 
   $('#assessment-paginator').delegate('.previous', 'click', ->
     if window.IPBES.page > 1
-      window.IPBES.page = window.IPBES.page - 1 
+      window.IPBES.page = window.IPBES.page - 1
       getSearchResults()
   )
 
