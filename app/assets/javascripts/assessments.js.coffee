@@ -18,6 +18,7 @@ getSearchResults = () ->
     attachments: "#{($('#search_attachements:checked').length > 0) && 't' || 'f'}"
     geo_scale: $('#assessment_geo_scale').val()
     page: window.IPBES.page
+    countryId: window.IPBES.countryId
 
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()
@@ -94,7 +95,8 @@ window.countryStats = (name, assessmentCount, event) ->
 
 # Shows the number of assessments for a country on hover
 window.filterByCountry = (id) ->
-  alert("This is when we will filter by country #{id}")
+  window.IPBES.countryId = id
+  getSearchResults()
 
 $ ->
   $('select.select2').select2()

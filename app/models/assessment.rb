@@ -11,10 +11,12 @@ class Assessment < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   
   def self.search(filters)
-    return scoped if filters['q'].blank? && filters['geo_scale'].blank?
+    return scoped if filters['q'].blank? && filters['geo_scale'].blank? && filters['countryId'].blank?
     
     attachments = filters['attachments'] == 't'
-    results = cse_query(filters['q'], attachments).filter_by_answer_type('geo_scale', filters['geo_scale'])
+    results = cse_query(filters['q'], attachments).
+      filter_by_answer_type('geo_scale', filters['geo_scale']).
+      in_country(filters['countryId'])
   end
 
   def self.cse_query(q, attachments = false)
@@ -44,6 +46,15 @@ class Assessment < ActiveRecord::Base
     return scoped if type.blank? || value.blank?
 
     joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(answers: { answer_type: type }).where(answers: { text_value: value })
+  end
+
+  def self.in_country(country_id)
+    return scoped if country_id.blank?
+    assessment_ids = []
+    Answer.where(answer_type: 'geo_countries').each do |answer|
+      assessment_ids << answer.assessment_id if answer.try(:text_value).split(',').include?(country_id)
+    end
+    where(id: assessment_ids.uniq)
   end
 
   # gets all the countries associated through the geo_countries answers. Bit slow, sorry
