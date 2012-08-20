@@ -72,8 +72,9 @@ window.addMapMarkers = (points) ->
     marker.on('mouseover', (() ->
       # Closure the relevant variables
       name = country.name
+      assessmentCount = country.assessments
       return (event) ->
-        window.countryStats(name, event)
+        window.countryStats(name, assessmentCount, event)
     )())
     marker.on('click', (() ->
       # Closure the relevant variables
@@ -85,11 +86,11 @@ window.addMapMarkers = (points) ->
     window.map.addLayer(marker)
 
 # Shows the number of assessments for a country on hover
-window.countryStats = (name, event) ->
+window.countryStats = (name, assessmentCount, event) ->
   hoverPosition = $(event.target._icon).offset()
   hoverPosition.top = hoverPosition.top - 25
   $('#countryHover').offset(hoverPosition)
-  $('#countryHover').html("#{name}").slideDown()
+  $('#countryHover').html("#{name}: #{assessmentCount} assessments").slideDown()
 
 # Shows the number of assessments for a country on hover
 window.filterByCountry = (id) ->
