@@ -77,8 +77,9 @@ window.addMapMarkers = (points) ->
     )())
     marker.on('click', (() ->
       # Closure the relevant variables
+      id = country.id
       return (event) ->
-        window.filterByCountry(country.id)
+        window.filterByCountry(id)
     )())
     window.mapMarkers.push(marker)
     window.map.addLayer(marker)
@@ -88,8 +89,6 @@ window.countryStats = (name, event) ->
   hoverPosition = $(event.target._icon).offset()
   hoverPosition.top = hoverPosition.top - 25
   $('#countryHover').offset(hoverPosition)
-  console.log(hoverPosition)
-  console.log(name)
   $('#countryHover').html("#{name}").slideDown()
 
 # Shows the number of assessments for a country on hover
