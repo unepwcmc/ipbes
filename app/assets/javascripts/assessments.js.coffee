@@ -65,12 +65,36 @@ window.addMapMarkers = (points) ->
   for marker in window.mapMarkers
     window.map.removeLayer(marker)
 
-  for marker in points
-    markerLocation = new L.LatLng(marker.lat, marker.lng)
+  for country in points
+    markerLocation = new L.LatLng(country.lat, country.lng)
 
     marker = new L.Marker(markerLocation, {icon: markerIcon})
+    marker.on('mouseover', (() ->
+      # Closure the relevant variables
+      name = country.name
+      return (event) ->
+        window.countryStats(name, event)
+    )())
+    marker.on('click', (() ->
+      # Closure the relevant variables
+      return (event) ->
+        window.filterByCountry(country.id)
+    )())
     window.mapMarkers.push(marker)
     window.map.addLayer(marker)
+
+# Shows the number of assessments for a country on hover
+window.countryStats = (name, event) ->
+  hoverPosition = $(event.target._icon).offset()
+  hoverPosition.top = hoverPosition.top - 25
+  $('#countryHover').offset(hoverPosition)
+  console.log(hoverPosition)
+  console.log(name)
+  $('#countryHover').html("#{name}").slideDown()
+
+# Shows the number of assessments for a country on hover
+window.filterByCountry = (id) ->
+  alert("This is when we will filter by country #{id}")
 
 $ ->
   $('select.select2').select2()
@@ -154,7 +178,8 @@ $ ->
   # Maps
   window.map = new L.Map('map')
    
-  tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
+  #tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
+  tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
   tileLayer = new L.TileLayer(tileLayerUrl, {
     maxZoom: 18
   })

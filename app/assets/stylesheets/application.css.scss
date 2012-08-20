@@ -64,6 +64,14 @@ table {
   overflow: hidden;
   width: 100%;
 }
+#countryHover {
+  display:none;
+  position:absolute;
+  background-color: #F3F3F3;
+  border: 1px solid #84B0D4;
+  border-radius: 3px;
+  padding: 2px 5px;
+}
 
 .action_buttons {
   padding-bottom: 20px;
