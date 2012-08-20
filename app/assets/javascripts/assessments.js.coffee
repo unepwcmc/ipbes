@@ -71,20 +71,23 @@ window.addMapMarkers = (points) ->
     markerLocation = new L.LatLng(country.lat, country.lng)
 
     marker = new L.Marker(markerLocation, {icon: markerIcon})
-    marker.on('mouseover', (() ->
-      # Closure the relevant variables
-      name = country.name
-      assessmentCount = country.assessments
-      return (event) ->
-        window.countryStats(name, assessmentCount, event)
-    )())
-    marker.on('click', (() ->
-      # Closure the relevant variables
-      id = country.id
-      name = country.name
-      return (event) ->
-        window.filterByCountry(id, name)
-    )())
+
+    if country.assessment_count?
+      # Only add events on index page (which sets assessment_count)
+      marker.on('mouseover', (() ->
+        # Closure the relevant variables
+        name = country.name
+        assessmentCount = country.assessment_count
+        return (event) ->
+          window.countryStats(name, assessmentCount, event)
+      )())
+      marker.on('click', (() ->
+        # Closure the relevant variables
+        id = country.id
+        name = country.name
+        return (event) ->
+          window.filterByCountry(id, name)
+      )())
     window.mapMarkers.push(marker)
     window.map.addLayer(marker)
 

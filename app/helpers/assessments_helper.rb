@@ -56,7 +56,12 @@ module AssessmentsHelper
     json = '['
     points = []
     countries.each do |c|
-      points << "{id:#{c.id},name:'#{c.name}',lat:#{c.latitude},lng:#{c.longitude}, assessments: #{c.assessment_count}}" if c.latitude.present? && c.longitude.present?
+      if c.latitude.present? && c.longitude.present?
+        str = "{id:#{c.id},name:'#{c.name}',lat:#{c.latitude},lng:#{c.longitude}"
+        str << ", assessment_count: #{c.assessment_count}" if c.assessment_count.present?
+        str << "}"
+        points << str
+      end
     end
     json << points.join(',')
     json << ']'
