@@ -13,7 +13,7 @@
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_scale') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :select, label: 'Geographical scale of the assessment', collection: ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], input_html: { class: 'select2 span8' } %>
+        <%= builder.input :text_value, as: :select, label: 'Geographical scale of the assessment', collection: ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], input_html: { class: 'select2 span8', multiple: true }, selected: answer_object(@assessment, 'geo_scale').text_value.try(:split, ',') %>
       <% end %>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_countries') do |builder| %>
