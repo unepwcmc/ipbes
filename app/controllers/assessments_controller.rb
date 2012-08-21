@@ -1,20 +1,10 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show, :search, :download]
-  ASSESSMENTS_PER_PAGE = 1001
 
   # GET /assessments
   # GET /assessments.json
   def index
-    @page = (params[:page].present? ? params[:page].to_i : 1)
-    @page = 1 if @page < 1
-    offset = (@page - 1) * ASSESSMENTS_PER_PAGE
-    if user_signed_in?
-      @assessments = Assessment.search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
-      @is_last_page = Assessment.search(params).count <= @page*ASSESSMENTS_PER_PAGE
-    else
-      @assessments = Assessment.where(published: true).search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
-      @is_last_page = Assessment.where(published: true).search(params).count <= @page*ASSESSMENTS_PER_PAGE
-    end
+    @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(params[:page])
     authorize! :read, Assessment
     @countries = Country.for_assessments @assessments
 
@@ -26,16 +16,7 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments/search
   def search
-    @page = (params[:page].present? ? params[:page].to_i : 1)
-    @page = 1 if @page < 1
-    offset = (@page - 1) * ASSESSMENTS_PER_PAGE
-    if user_signed_in?
-      @assessments = Assessment.search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
-      @is_last_page = Assessment.search(params).count <= @page*ASSESSMENTS_PER_PAGE
-    else
-      @assessments = Assessment.where(published: true).search(params).limit(ASSESSMENTS_PER_PAGE).offset(offset)
-      @is_last_page = Assessment.where(published: true).search(params).count <= @page*ASSESSMENTS_PER_PAGE
-    end
+    @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(params[:page])
     authorize! :read, Assessment
 
     @countries = Country.for_assessments @assessments
@@ -50,11 +31,7 @@ class AssessmentsController < ApplicationController
   def download
     require 'csv'
 
-    if user_signed_in?
-      @assessments = Assessment.search(params)
-    else
-      @assessments = Assessment.where(published: true).search(params)
-    end
+    @assessments = Assessment.filter_by_published(user_signed_in?).search(params)
     authorize! :read, Assessment
 
     respond_to do |format|

@@ -12,6 +12,11 @@ class Assessment < ActiveRecord::Base
 
   validates :title, presence: true, uniqueness: true
 
+  scope :filter_by_published, lambda { |user_signed_in| user_signed_in ? scoped : where(published: true) }
+  
+  # Kaminari
+  paginates_per 1001
+  
   def self.search(filters)
     cse_query(filters['q'], (filters['attachments'] == 't'))
       .filter_by_answer_type([

@@ -1,9 +1,9 @@
-<% if page > 1 %>
+<% if @assessments.current_page > 1 %>
   <li class="previous ">
     <a href="#">&larr; Prev</a>
   </li>
 <% end %>
-<% unless is_last_page %>
+<% if @assessments.current_page < @assessments.num_pages %>
   <li class="next">
     <a href="#">Next &rarr;</a>
   </li>
