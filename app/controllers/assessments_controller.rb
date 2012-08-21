@@ -1,6 +1,6 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show, :search, :download]
-  ASSESSMENTS_PER_PAGE = 20
+  ASSESSMENTS_PER_PAGE = 1001
 
   # GET /assessments
   # GET /assessments.json

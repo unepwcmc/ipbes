@@ -4,6 +4,8 @@ class Assessment < ActiveRecord::Base
   has_many :contacts, dependent: :destroy
   belongs_to :last_editor, :class_name => 'User'
 
+  default_scope order('LOWER(title)')
+
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:text_value].blank? }, allow_destroy: true
   accepts_nested_attributes_for :references, allow_destroy: true
   accepts_nested_attributes_for :contacts, reject_if: lambda { |a| a[:name].blank? }, allow_destroy: true

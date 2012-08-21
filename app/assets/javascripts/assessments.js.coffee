@@ -84,6 +84,7 @@ window.addMapMarkers = (points) ->
         return (event) ->
           window.countryStats(name, assessmentCount, event)
       )())
+      marker.on('mouseout', window.hideCountryStats)
       marker.on('click', (() ->
         # Closure the relevant variables
         id = country.id
@@ -98,7 +99,11 @@ window.addMapMarkers = (points) ->
 window.countryStats = (name, assessmentCount, event) ->
   hoverPosition = $(event.target._icon).offset()
   hoverPosition.top = hoverPosition.top - 25
-  $('#country-hover').offset(hoverPosition).html("#{name}: #{assessmentCount} assessments").slideDown()
+  $('#country-hover').html("#{name}: #{assessmentCount} assessments").stop(true, true).
+    offset(hoverPosition).animate({opacity:1}, 500)
+
+window.hideCountryStats = (name, assessmentCount, event) ->
+  $('#country-hover').stop(true, true).animate({opacity:0}, 500)
 
 # Shows the number of assessments for a country on hover
 window.filterByCountry = (id, name) ->
@@ -113,7 +118,7 @@ window.setCountryFilter = (id, name) ->
       for country in window.IPBES.points
         name = country.name if country.id == id
     $('#selected-country-strip span').text("Showing only assessments in #{name}")
-    $('#selected-country-strip').slideDown()
+    $('#selected-country-strip').fadeIn()
 
 # Reset the countryId param and hide the filter strip
 window.clearCountryFilter = () ->
