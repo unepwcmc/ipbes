@@ -95,7 +95,7 @@
         </tr>
       </tbody>
       <tbody id="assessment-search-results">
-        <%= render @assessments %>
+          <%= render (@assessments.any? ? @assessments : 'no_results') %>
       </tbody>
     </table>
     <ul class="pager" id='assessment-paginator'>

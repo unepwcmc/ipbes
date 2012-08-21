@@ -11,7 +11,7 @@ class Assessment < ActiveRecord::Base
   accepts_nested_attributes_for :contacts, reject_if: lambda { |a| a[:name].blank? }, allow_destroy: true
 
   validates :title, presence: true, uniqueness: true
-  
+
   def self.search(filters)
     cse_query(filters['q'], (filters['attachments'] == 't'))
       .filter_by_answer_type([
@@ -22,9 +22,10 @@ class Assessment < ActiveRecord::Base
         {type: 'provisioning', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], other_option: 'other_provisioning'},
         {type: 'supporting', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], other_option: 'other_supporting'},
         {type: 'cultural_services', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], other_option: 'other_cultural'},
-        {type: 'regulating', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], other_option: 'other_regulating'}
+        {type: 'regulating', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], other_option: 'other_regulating'},
+
+        {type: 'geo_countries', value: filters['country_id']}
       ])
-      .in_country(filters['countryId'])
   end
 
   def self.cse_query(q, attachments = false)
@@ -64,13 +65,13 @@ class Assessment < ActiveRecord::Base
       map! { |query|
         text_value_queries = query[:value].
           map { |v|
-            if !query[:accepted_values] || query[:accepted_values].include?(v)
+            if !v.blank? && (!query[:accepted_values] || query[:accepted_values].include?(v))
               sanitize_sql_array(["',' || answers.text_value || ',' ILIKE ?", "%,#{ v },%"])
             end
           }.compact.join(' OR ')
 
         final_query = []
-        
+
         unless text_value_queries.empty?
           final_query.push("(#{ sanitize_sql_array(["answers.answer_type = ?", query[:type]]) } AND (#{ text_value_queries }))")
         end
@@ -87,15 +88,6 @@ class Assessment < ActiveRecord::Base
     else
       includes(:answers).where(queries.join(' OR '))
     end
-  end
-
-  def self.in_country(country_id)
-    return scoped if country_id.blank?
-    assessment_ids = []
-    Answer.where(answer_type: 'geo_countries').each do |answer|
-      assessment_ids << answer.assessment_id if answer.try(:text_value).split(',').include?(country_id)
-    end
-    where(id: assessment_ids.uniq)
   end
 
   # Gets all the countries associated through the geo_countries answers. Bit slow, sorry
