@@ -21,6 +21,7 @@ getSearchResults = () ->
     ecosystem_services_functions_assessed: $('#assessment_ecosystem_services_functions_assessed').select2('val')
     tools_and_approaches: $('#assessment_tools_and_approaches').select2('val')
     page: window.IPBES.page
+    countryId: window.IPBES.countryId
 
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()
@@ -54,6 +55,7 @@ updateSectionStatus = (section) ->
 
 # Adds a given array of points to the map
 window.addMapMarkers = (points) ->
+  window.IPBES.points = points
   MarkerIcon = L.Icon.extend
     shadowUrl: '/assets/marker-shadow.png'
     iconUrl: '/assets/marker.png'
@@ -68,12 +70,56 @@ window.addMapMarkers = (points) ->
   for marker in window.mapMarkers
     window.map.removeLayer(marker)
 
-  for marker in points
-    markerLocation = new L.LatLng(marker.lat, marker.lng)
+  for country in points
+    markerLocation = new L.LatLng(country.lat, country.lng)
 
     marker = new L.Marker(markerLocation, {icon: markerIcon})
+
+    if country.assessment_count?
+      # Only add events on index page (which sets assessment_count)
+      marker.on('mouseover', (() ->
+        # Closure the relevant variables
+        name = country.name
+        assessmentCount = country.assessment_count
+        return (event) ->
+          window.countryStats(name, assessmentCount, event)
+      )())
+      marker.on('click', (() ->
+        # Closure the relevant variables
+        id = country.id
+        name = country.name
+        return (event) ->
+          window.filterByCountry(id, name)
+      )())
     window.mapMarkers.push(marker)
     window.map.addLayer(marker)
+
+# Shows the number of assessments for a country on hover
+window.countryStats = (name, assessmentCount, event) ->
+  hoverPosition = $(event.target._icon).offset()
+  hoverPosition.top = hoverPosition.top - 25
+  $('#country-hover').offset(hoverPosition).html("#{name}: #{assessmentCount} assessments").slideDown()
+
+# Shows the number of assessments for a country on hover
+window.filterByCountry = (id, name) ->
+  setCountryFilter(id,name)
+  getSearchResults()
+
+# sets the country filter and shows its' state
+window.setCountryFilter = (id, name) ->
+  window.IPBES.countryId = id
+  if id?
+    unless name?
+      for country in window.IPBES.points
+        name = country.name if country.id == id
+    $('#selected-country-strip span').text("Showing only assessments in #{name}")
+    $('#selected-country-strip').slideDown()
+
+# Reset the countryId param and hide the filter strip
+window.clearCountryFilter = () ->
+  window.IPBES.countryId = ''
+  $('#selected-country-strip').slideUp()
+
 
 $ ->
   $('select.select2').select2()
@@ -126,11 +172,20 @@ $ ->
     $('#search_attachements').removeAttr('checked')
     $('#assessment_geo_scale, #assessment_systems_assessed, #assessment_ecosystem_services_functions_assessed, #assessment_tools_and_approaches').select2('val', '')
 
+    window.IPBES.page = 1
+    clearCountryFilter()
+
+    getSearchResults()
+
+  $('#selected-country-strip a').click (e) ->
+    e.preventDefault()
+
+    clearCountryFilter()
     getSearchResults()
 
   $('#assessment-paginator').delegate('.previous', 'click', ->
     if window.IPBES.page > 1
-      window.IPBES.page = window.IPBES.page - 1 
+      window.IPBES.page = window.IPBES.page - 1
       getSearchResults()
   )
 
@@ -160,7 +215,8 @@ $ ->
   # Maps
   window.map = new L.Map('map')
    
-  tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
+  #tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
+  tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
   tileLayer = new L.TileLayer(tileLayerUrl, {
     maxZoom: 18
   })
