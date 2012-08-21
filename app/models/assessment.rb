@@ -11,19 +11,17 @@ class Assessment < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   
   def self.search(filters)
-    return scoped if filters['q'].blank? && filters['geo_scale'].blank? &&
-      filters['systems_assessed'].blank? && filters['ecosystem_services_functions_assessed'].blank? &&
-      filters['tools_and_approaches'].blank? && filters['countryId'].blank?
+    cse_query(filters['q'], (filters['attachments'] == 't'))
+      .filter_by_answer_type([
+        {type: 'geo_scale', value: filters['geo_scale']},
+        {type: 'systems_assessed', value: filters['systems_assessed']},
+        {type: 'tools_and_approaches', value: filters['tools_and_approaches']},
 
-    attachments = (filters['attachments'] == 't')
-    cse_query(filters['q'], attachments)
-      .filter_by_answer_type('geo_scale', filters['geo_scale'])
-      .filter_by_answer_type('systems_assessed', filters['systems_assessed'])
-      .multiple_filter_by_answer_type([['provisioning', filters['ecosystem_services_functions_assessed'], ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], 'other_provisioning'],
-        ['supporting', filters['ecosystem_services_functions_assessed'], ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], 'other_supporting'],
-        ['cultural_services', filters['ecosystem_services_functions_assessed'], ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], 'other_cultural'],
-        ['regulating', filters['ecosystem_services_functions_assessed'], ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], 'other_regulating']])
-      .filter_by_answer_type('tools_and_approaches', filters['tools_and_approaches'])
+        {type: 'provisioning', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], other_option: 'other_provisioning'},
+        {type: 'supporting', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], other_option: 'other_supporting'},
+        {type: 'cultural_services', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], other_option: 'other_cultural'},
+        {type: 'regulating', value: filters['ecosystem_services_functions_assessed'], accepted_values: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], other_option: 'other_regulating'}
+      ])
       .in_country(filters['countryId'])
   end
 
@@ -50,54 +48,42 @@ class Assessment < ActiveRecord::Base
     where(id: ids_array)
   end
 
-  def self.multiple_filter_by_answer_type(queries)
-    mapped_queries = queries.map { |query|
-      self.filter_by_answer_type_logic(query[0], query[1], query[2], query[3])
-    }.compact.join(' OR ')
+  def self.filter_by_answer_type(queries)
+    queries.
+      # Make sure value is an Array or Nil
+      each { |query|
+        unless query[:value].nil?
+          query[:value] = [query[:value]].flatten
+          #query[:value] = (query[:value] & query[:accepted_values])
+        end
+      }.
+      # Delete nil value queries
+      delete_if { |query| query[:value].blank? }.
+      map! { |query|
+        text_value_queries = query[:value].
+          map { |v|
+            if !query[:accepted_values] || query[:accepted_values].include?(v)
+              sanitize_sql_array(["',' || answers.text_value || ',' ILIKE ?", "%,#{ v },%"])
+            end
+          }.compact.join(' OR ')
 
-    joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(mapped_queries)
-  end
-  
-  def self.filter_by_answer_type_logic(type, value, accepted_values = [], other_option = nil)
-    # Returns if blank values
-    return nil if type.blank? || value.blank?
+        final_query = []
+        
+        unless text_value_queries.empty?
+          final_query.push("(#{ sanitize_sql_array(["answers.answer_type = ?", query[:type]]) } AND (#{ text_value_queries }))")
+        end
 
-    # Forces value to be an Array
-    values = [value].flatten
-    # Intersection of values and accepted_values, returns false if none
-    values = (values & accepted_values)
+        if query[:other_option] && query[:value].any? { |v| v == query[:other_option] }
+          final_query.push( sanitize_sql_array(["answers.answer_type = ?", "#{query[:type]}_other"]) )
+        end
 
-    # Returns if there are no valid values
-    return nil if values.empty? && other_option.nil?
+        final_query.empty? ? nil : final_query.join(' OR ')
+      }.compact!
 
-    clause = values.map { |v| sanitize_sql_array(["',' || answers.text_value || ',' ILIKE ?", "%,#{v},%"]) }.join(' OR ')
-    unless clause.empty?
-      clause = "#{sanitize_sql_array(["answers.answer_type = ?", type])} AND #{clause}"
-    end
-
-    if [value].flatten.include?(other_option)
-      other_clause = "#{sanitize_sql_array(["answers.answer_type = ?", "#{type}_other"])}"
-      if clause.empty?
-        clause = other_clause
-      else
-        clause = "(#{clause}) OR #{other_clause}"
-      end
-    end
-
-    if clause.empty?
-      return nil
-    else
-      clause
-    end
-  end
-
-  def self.filter_by_answer_type(type, value, accepted_values = [], other_option = nil)
-    clause = self.filter_by_answer_type_logic(type, value, accepted_values, other_option)
-
-    if clause.nil?
+    if queries.empty?
       scoped
     else
-      joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(clause)
+      includes(:answers).where(queries.join(' OR '))
     end
   end
 
