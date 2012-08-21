@@ -16,7 +16,10 @@ getSearchResults = () ->
   data =
     q: $('#assessment-query').val()
     attachments: "#{($('#search_attachements:checked').length > 0) && 't' || 'f'}"
-    geo_scale: $('#assessment_geo_scale').val()
+    geo_scale: $('#assessment_geo_scale').select2('val')
+    systems_assessed: $('#assessment_systems_assessed').select2('val')
+    ecosystem_services_functions_assessed: $('#assessment_ecosystem_services_functions_assessed').select2('val')
+    tools_and_approaches: $('#assessment_tools_and_approaches').select2('val')
     page: window.IPBES.page
 
   $('#loading-assessments').show()
@@ -94,7 +97,7 @@ $ ->
 
   # Search assessments
   $('#search-assessments-btn').on('click', getSearchResults)
-  $('#assessment_geo_scale').on('change', getSearchResults)
+  $('#assessment_geo_scale, #assessment_systems_assessed, #assessment_ecosystem_services_functions_assessed, #assessment_tools_and_approaches').on('change', getSearchResults)
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)
 
@@ -108,7 +111,10 @@ $ ->
     data =
       q: $('#assessment-query').val()
       attachments: "#{($('#search_attachements:checked').length > 0) && 't' || 'f'}"
-      geo_scale: $('#assessment_geo_scale').val()
+      geo_scale: $('#assessment_geo_scale').select2('val')
+      systems_assessed: $('#assessment_systems_assessed').select2('val')
+      ecosystem_services_functions_assessed: $('#assessment_ecosystem_services_functions_assessed').select2('val')
+      tools_and_approaches: $('#assessment_tools_and_approaches').select2('val')
 
     $(this).attr('href', $(this).attr('href').replace(/\?[^\?]*/, ''))
     $(this).attr('href', "#{$(this).attr('href')}?#{serialize(data)}")
@@ -118,7 +124,7 @@ $ ->
 
     $('#assessment-query').val('')
     $('#search_attachements').removeAttr('checked')
-    $('#assessment_geo_scale').val('')
+    $('#assessment_geo_scale, #assessment_systems_assessed, #assessment_ecosystem_services_functions_assessed, #assessment_tools_and_approaches').select2('val', '')
 
     getSearchResults()
 

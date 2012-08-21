@@ -11,10 +11,19 @@ class Assessment < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   
   def self.search(filters)
-    return scoped if filters['q'].blank? && filters['geo_scale'].blank?
-    
-    attachments = filters['attachments'] == 't'
-    results = cse_query(filters['q'], attachments).filter_by_answer_type('geo_scale', filters['geo_scale'])
+    return scoped if filters['q'].blank? && filters['geo_scale'].blank? &&
+      filters['systems_assessed'].blank? && filters['ecosystem_services_functions_assessed'].blank? &&
+      filters['tools_and_approaches'].blank?
+
+    attachments = (filters['attachments'] == 't')
+    cse_query(filters['q'], attachments)
+      .filter_by_answer_type('geo_scale', filters['geo_scale'])
+      .filter_by_answer_type('systems_assessed', filters['systems_assessed'])
+      .multiple_filter_by_answer_type([['provisioning', filters['ecosystem_services_functions_assessed'], ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], 'other_provisioning'],
+        ['supporting', filters['ecosystem_services_functions_assessed'], ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], 'other_supporting'],
+        ['cultural_services', filters['ecosystem_services_functions_assessed'], ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], 'other_cultural'],
+        ['regulating', filters['ecosystem_services_functions_assessed'], ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], 'other_regulating']])
+      .filter_by_answer_type('tools_and_approaches', filters['tools_and_approaches'])
   end
 
   def self.cse_query(q, attachments = false)
@@ -39,14 +48,59 @@ class Assessment < ActiveRecord::Base
 
     where(id: ids_array)
   end
-  
-  def self.filter_by_answer_type(type, value)
-    return scoped if type.blank? || value.blank?
 
-    joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(answers: { answer_type: type }).where(answers: { text_value: value })
+  def self.multiple_filter_by_answer_type(queries)
+    mapped_queries = queries.map { |query|
+      self.filter_by_answer_type_logic(query[0], query[1], query[2], query[3])
+    }.compact.join(' OR ')
+
+    joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(mapped_queries)
+  end
+  
+  def self.filter_by_answer_type_logic(type, value, accepted_values = [], other_option = nil)
+    # Returns if blank values
+    return nil if type.blank? || value.blank?
+
+    # Forces value to be an Array
+    values = [value].flatten
+    # Intersection of values and accepted_values, returns false if none
+    values = (values & accepted_values)
+
+    # Returns if there are no valid values
+    return nil if values.empty? && other_option.nil?
+
+    clause = values.map { |v| sanitize_sql_array(["',' || answers.text_value || ',' ILIKE ?", "%,#{v},%"]) }.join(' OR ')
+    unless clause.empty?
+      clause = "#{sanitize_sql_array(["answers.answer_type = ?", type])} AND #{clause}"
+    end
+
+    if [value].flatten.include?(other_option)
+      other_clause = "#{sanitize_sql_array(["answers.answer_type = ?", "#{type}_other"])}"
+      if clause.empty?
+        clause = other_clause
+      else
+        clause = "(#{clause}) OR #{other_clause}"
+      end
+    end
+
+    if clause.empty?
+      return nil
+    else
+      clause
+    end
   end
 
-  # gets all the countries associated through the geo_countries answers. Bit slow, sorry
+  def self.filter_by_answer_type(type, value, accepted_values = [], other_option = nil)
+    clause = self.filter_by_answer_type_logic(type, value, accepted_values, other_option)
+
+    if clause.nil?
+      scoped
+    else
+      joins('LEFT OUTER JOIN answers ON assessment_id=assessments.id').where(clause)
+    end
+  end
+
+  # Gets all the countries associated through the geo_countries answers. Bit slow, sorry
   def countries
     countries_ids = self.answers.where(answer_type: 'geo_countries').first.try(:text_value).split(',')
     Country.where(:id => countries_ids)

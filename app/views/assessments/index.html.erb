@@ -10,7 +10,7 @@
 <div class="row">
   <div class="span4">
     <h1>Catalogue of Assessments</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim quam eu lectus consequat dapibus. Nulla eget consequat mauris. Donec eu turpis elit, quis elementum urna. Donec vestibulum congue porta. Morbi tempus, nisl ac rutrum tristique, nibh magna adipiscing nulla, vel commodo dui metus non eros.</p>
+    <p>Welcome to the Catalogue of Assessments, which aims to be a useful source of information on ecosystem assessments from the global to the sub-national scales.</p>
   </div>
   <div class="span8">
     <div id="map"></div>
@@ -39,9 +39,27 @@
       <fieldset>
         <legend>Advanced search</legend>
         <div class="control-group">
-          <label class="control-label" for="assessment_geo_scale">Geographical scale of the assessment</label>
+          <label class="control-label" for="assessment_geo_scale">Geographical scale</label>
           <div class="controls">
-            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {include_blank: true, selected: params[:geo_scale]}, {class: 'full-width'}) %>
+            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {selected: params[:geo_scale]}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="assessment_systems_assessed">Systems assessed</label>
+          <div class="controls">
+            <%= select('assessment', 'systems_assessed', ['Marine', 'Coastal', 'Island', 'Inland water', 'Forest and woodland', 'Cultivated/Agricultural land', 'Grassland', 'Mountain', 'Dryland', 'Polar', 'Urban'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="assessment_ecosystem_services_functions_assessed">Ecosystem services/functions assessed</label>
+          <div class="controls">
+            <%= select('assessment', 'ecosystem_services_functions_assessed', grouped_options_for_select({'Provisioning' => ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel', ['Other', 'other_provisioning']], 'Regulating' => ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control', ['Other', 'other_regulating']], 'Supporting services/Functions' => ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production', ['Other', 'other_supporting']], 'Cultural' => ['Recreation and tourism', 'Spiritual, inspiration and cognitive development', ['Other', 'other_cultural']]}, params[:ecosystem_services_functions_assessed]), {}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="assessment_tools_and_approaches">Tools and approaches used in the assessment</label>
+          <div class="controls">
+            <%= select('assessment', 'tools_and_approaches', ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
           </div>
         </div>
       </fieldset>
