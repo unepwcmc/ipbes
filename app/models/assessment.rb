@@ -11,10 +11,9 @@ class Assessment < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   
   def self.search(filters)
-<<<<<<< HEAD
     return scoped if filters['q'].blank? && filters['geo_scale'].blank? &&
       filters['systems_assessed'].blank? && filters['ecosystem_services_functions_assessed'].blank? &&
-      filters['tools_and_approaches'].blank?
+      filters['tools_and_approaches'].blank? && filters['countryId'].blank?
 
     attachments = (filters['attachments'] == 't')
     cse_query(filters['q'], attachments)
@@ -25,14 +24,7 @@ class Assessment < ActiveRecord::Base
         ['cultural_services', filters['ecosystem_services_functions_assessed'], ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], 'other_cultural'],
         ['regulating', filters['ecosystem_services_functions_assessed'], ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], 'other_regulating']])
       .filter_by_answer_type('tools_and_approaches', filters['tools_and_approaches'])
-=======
-    return scoped if filters['q'].blank? && filters['geo_scale'].blank? && filters['countryId'].blank?
-    
-    attachments = filters['attachments'] == 't'
-    results = cse_query(filters['q'], attachments).
-      filter_by_answer_type('geo_scale', filters['geo_scale']).
-      in_country(filters['countryId'])
->>>>>>> a54957f272744754b87c7a8d995f6c96941cd334
+      .in_country(filters['countryId'])
   end
 
   def self.cse_query(q, attachments = false)
