@@ -21,7 +21,7 @@ getSearchResults = () ->
     ecosystem_services_functions_assessed: $('#assessment_ecosystem_services_functions_assessed').select2('val')
     tools_and_approaches: $('#assessment_tools_and_approaches').select2('val')
     page: window.IPBES.page
-    countryId: window.IPBES.countryId
+    country_id: window.IPBES.countryId
 
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()

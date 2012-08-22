@@ -95,11 +95,11 @@
         </tr>
       </tbody>
       <tbody id="assessment-search-results">
-        <%= render @assessments %>
+        <%= render (@assessments.any? ? @assessments : 'no_results') %>
       </tbody>
     </table>
-    <ul class="pager" id='assessment-paginator'>
-      <%= render :partial => 'pagination', :locals => {:page => @page, :is_last_page => @is_last_page} %>
+    <ul class="pager" id="assessment-paginator">
+      <%= render 'pagination' %>
     </ul>
   </div>
 </div>
