@@ -4,7 +4,8 @@ class AssessmentsController < ApplicationController
   # GET /assessments
   # GET /assessments.json
   def index
-    @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(params[:page])
+    @page = (params[:page] ? params[:page] : 1)
+    @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(@page)
     authorize! :read, Assessment
     @countries = Country.for_assessments @assessments
 

@@ -26,7 +26,9 @@ getSearchResults = () ->
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()
 
-  window.History.pushState(data, null, "?#{serialize(data)}")
+  newUrl = "?#{serialize(data)}"
+  window.History.pushState(data, null, newUrl)
+  _gaq.push(['_trackPageview', newUrl])
 
   $.ajax
     url: '/assessments/search'
