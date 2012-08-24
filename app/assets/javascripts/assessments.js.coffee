@@ -99,18 +99,20 @@ window.addMapMarkers = (points) ->
 
 # Shows the number of assessments for a country on hover
 window.countryStats = (name, assessmentCount, event) ->
-  hoverPosition = $(event.target._icon).offset()
-  hoverPosition.top = hoverPosition.top - 25
-  $('#country-hover').html("#{name}: #{assessmentCount} assessments").stop(true, true).
-    offset(hoverPosition).animate({opacity:1}, 500)
+  if window.IPBES.browsingMap
+    hoverPosition = $(event.target._icon).offset()
+    hoverPosition.top = hoverPosition.top - 25
+    $('#country-hover').html("#{name}: #{assessmentCount} assessments").stop(true, true).
+      offset(hoverPosition).animate({opacity:1}, 500)
 
 window.hideCountryStats = (name, assessmentCount, event) ->
   $('#country-hover').stop(true, true).animate({opacity:0}, 500)
 
 # Shows the number of assessments for a country on hover
 window.filterByCountry = (id, name) ->
-  setCountryFilter(id,name)
-  getSearchResults()
+  if window.IPBES.browsingMap
+    setCountryFilter(id,name)
+    getSearchResults()
 
 # sets the country filter and shows its' state
 window.setCountryFilter = (id, name) ->
@@ -183,6 +185,22 @@ $ ->
     clearCountryFilter()
 
     getSearchResults()
+
+  $('#browse-map').click (e) ->
+    window.IPBES.browsingMap = !window.IPBES.browsingMap
+    if window.IPBES.browsingMap
+      $('#map').removeClass('inactive')
+      $('#map-cover').fadeOut()
+      $('#map-help').fadeIn()
+      $('.leaflet-objects-pane img').animate({opacity: 1})
+      $('#browse-map').html('&larr; Return to text search')
+    else
+      $('#map').addClass('inactive')
+      $('#map-cover').fadeIn()
+      $('#map-help').fadeOut()
+      $('.leaflet-objects-pane img').animate({opacity: 0.3})
+      $('#browse-map').text('Browse the map')
+
 
   $('#selected-country-strip a').click (e) ->
     e.preventDefault()

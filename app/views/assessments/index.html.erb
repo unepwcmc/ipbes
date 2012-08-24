@@ -9,9 +9,9 @@
   });
 <% end %>
 <div class="map-holder">
-  <div id="map"></div>
+  <div id="map" class='inactive'></div>
   <div id="country-hover"></div>
-  <div class="block">
+  <div id='map-cover' class="block">
     <div class="block-text">
       <h2>Catalogue of Assessments</h2>
       <p>Welcome to the Catalogue of Assessments, which aims to be a useful source of information on ecosystem assessments from the global to the sub-national scales.</p>
@@ -30,62 +30,60 @@
       </fieldset>
     </form>
   </div>
+  <div id='map-help'>Click a country to filter assessments</div>
+  <a href='#' id='browse-map'>Browse the map</a>
   <div id="selected-country-strip">
     <span></span>
     <a id="clear-country-selection" href='#'>X</a>
   </div>
 </div>
-            <div class="main-content">
-              <div id="content">
-                <table class="countries">
-                  <thead>
-                    <tr>
-                      <td>Title</td>
-                      <td>Countries</td>
-                      <td></td>
-                    </tr>
-                  </thead>
-                  <tbody id="assessment-search-results">
-                    <%= render (@assessments.any? ? @assessments : 'no_results') %>
-                  </tbody>
-                </table>
-                <ul class="pager" id="assessment-paginator">
-                  <%= render 'pagination' %>
-                </ul>
-              </div>
-              <div id="sidebar">
-                <form class="form-search" action="#">
-                  <fieldset>
-                    <div class="heading">
-                      <h2>Advanced search</h2><a href="#" id="clear_search" class="btn">Clear</a>
-                    </div>
-                    <div class="box">
-                      <div class="row">
-                        <strong class="title">Geographical scale</strong>
-                        <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {selected: params[:geo_scale]}, {class: 'select2 full-width', multiple: true}) %>
-                      </div>
-                      <div class="row">
-                        <strong class="title">Systems assessed</strong>
-                        <%= select('assessment', 'systems_assessed', ['Marine', 'Coastal', 'Island', 'Inland water', 'Forest and woodland', 'Cultivated/Agricultural land', 'Grassland', 'Mountain', 'Dryland', 'Polar', 'Urban'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
-                      </div>
-                      <div class="row">
-                        <strong class="title">Ecosystem services/functions assessed</strong>
-                        <%= select('assessment', 'ecosystem_services_functions_assessed', grouped_options_for_select({'Provisioning' => ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel', ['Other', 'other_provisioning']], 'Regulating' => ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control', ['Other', 'other_regulating']], 'Supporting services/Functions' => ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production', ['Other', 'other_supporting']], 'Cultural' => ['Recreation and tourism', 'Spiritual, inspiration and cognitive development', ['Other', 'other_cultural']]}, params[:ecosystem_services_functions_assessed]), {}, {class: 'select2 full-width', multiple: true}) %>
-                      </div>
-                      <div class="row">
-                        <strong class="title">Tools and approaches used</strong>
-                        <%= select('assessment', 'tools_and_approaches', ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
-                      </div>
-                    </div>
-                    <div class="buttons">
-                      <a href="#" onclick="window.print();return false">PRINT SEARCH</a>
-                      <%= link_to 'DOWNLOAD EXCEL', download_assessments_path(format: 'csv') %>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
-
-
+<div class="main-content">
+  <div id="content">
+    <table class="countries">
+      <thead>
+        <tr>
+          <td>Title</td>
+          <td>Countries</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody id="assessment-search-results">
+        <%= render (@assessments.any? ? @assessments : 'no_results') %>
+      </tbody>
+    </table>
+    <ul class="pager" id="assessment-paginator">
+      <%= render 'pagination' %>
+    </ul>
+  </div>
+  <div id="sidebar">
+    <form class="form-search" action="#">
+      <fieldset>
+        <div class="heading">
+          <h2>Advanced search</h2><a href="#" id="clear_search" class="btn">Clear</a>
+        </div>
+        <div class="box">
+          <div class="row">
+            <strong class="title">Geographical scale</strong>
+            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {selected: params[:geo_scale]}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+          <div class="row">
+            <strong class="title">Systems assessed</strong>
+            <%= select('assessment', 'systems_assessed', ['Marine', 'Coastal', 'Island', 'Inland water', 'Forest and woodland', 'Cultivated/Agricultural land', 'Grassland', 'Mountain', 'Dryland', 'Polar', 'Urban'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+          <div class="row">
+            <strong class="title">Ecosystem services/functions assessed</strong>
+            <%= select('assessment', 'ecosystem_services_functions_assessed', grouped_options_for_select({'Provisioning' => ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel', ['Other', 'other_provisioning']], 'Regulating' => ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control', ['Other', 'other_regulating']], 'Supporting services/Functions' => ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production', ['Other', 'other_supporting']], 'Cultural' => ['Recreation and tourism', 'Spiritual, inspiration and cognitive development', ['Other', 'other_cultural']]}, params[:ecosystem_services_functions_assessed]), {}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+          <div class="row">
+            <strong class="title">Tools and approaches used</strong>
+            <%= select('assessment', 'tools_and_approaches', ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
+          </div>
+        </div>
+        <div class="buttons">
+          <a href="#" onclick="window.print();return false">PRINT SEARCH</a>
+          <%= link_to 'DOWNLOAD EXCEL', download_assessments_path(format: 'csv') %>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </div>
