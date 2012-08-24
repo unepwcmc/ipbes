@@ -16,7 +16,7 @@
       <h2>Catalogue of Assessments</h2>
       <p>Welcome to the Catalogue of Assessments, which aims to be a useful source of information on ecosystem assessments from the global to the sub-national scales.</p>
     </div>
-    <form class="form-search" action="#">
+    <form onsubmit="return false;" class="form-search">
       <fieldset>
         <p>Get started! Try searching below</p>
         <div class="row">
@@ -24,7 +24,7 @@
         </div>
         <div class="row">
           <%= check_box("search", "attachements", checked: params[:attachments] == 't') %>
-          <label for="check">Search in attachments</label>
+          <label for="search_attachements">Search in attachments</label>
         </div>
         <a id="search-assessments-btn" href="#" class="submit"><span>SEARCH</span></a>
       </fieldset>
