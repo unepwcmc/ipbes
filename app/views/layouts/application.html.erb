@@ -1,96 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>IPBES Assessment Catalogue</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IPBES</title>
+    <meta name="google-site-verification" content="op-y1zSx2tsSFN-DHN0gqxBY9_tUrDsicpHk_N4T_f4" />
 
-  <meta name="google-site-verification" content="op-y1zSx2tsSFN-DHN0gqxBY9_tUrDsicpHk_N4T_f4" />
+    <!--[if lte IE 8]>
+      <script src="/assets/leaflet.ie.css"></script>
+    <![endif]-->
 
-  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <!--[if lte IE 8]>
-    <script src="/assets/leaflet.ie.css"></script>
-  <![endif]-->
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-34262615-1']);
-    _gaq.push(['_trackPageview']);
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-34262615-1']);
+      _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
-  <%= stylesheet_link_tag    "application", media: "screen,print" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <script type='text/javascript'>
-    <%= yield :javascript %>
-  </script>
-</head>
-<body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <%= link_to "IPBES Assessment Catalogue", root_path, :class => "brand" %>
-        <div class="nav-collapse">
-          <!--<ul class="nav">
-            <li class="active"><%= link_to "Home", root_path %></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>-->
-          <% if user_signed_in? %>
-            <ul class="nav pull-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to 'Profile', edit_user_registration_path %></li>
-                  <li><%= link_to 'New Assessment', new_assessment_path if can?(:create, Assessment) %></li>
-                  <li><%= link_to 'Users', users_path if can?(:manage, User) %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></a></li>
-                </ul>
-              </li>
-            </ul>
-          <% else %>
-            <ul class="nav pull-right">
-              <li><%= link_to 'Login to add/edit data', new_user_session_path %></li>
-            </ul>
-          <% end %>
+
+    <link media="all" rel="stylesheet" type="text/css" href="css/all.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic' rel='stylesheet' type='text/css' />
+    <script type="text/javascript" src="js/main.js"></script>
+    <%= stylesheet_link_tag    "application", media: "screen,print" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <script type='text/javascript'>
+      <%= yield :javascript %>
+    </script>
+  </head>
+  <body>
+    <div id="wrapper" class="home">
+      <div class="w1">
+        <div class="w2">
+          <div id="header">
+            <h1 class="logo"><a href="#"><%= image_tag "logo.png",  width:"118", height:"56", alt:"ipbes" %></a></h1>
+            <div class="container">
+              <ul id="nav">
+                <li class="active"><%= link_to "Home", root_path %></li>
+                <li><a href="#">About the Catalogue</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+              <% if user_signed_in? %>
+                <!--
+                <li><%= link_to 'Profile', edit_user_registration_path %></li>
+                <li><%= link_to 'New Assessment', new_assessment_path if can?(:create, Assessment) %></li>
+                <li><%= link_to 'Users', users_path if can?(:manage, User) %></li>
+                <li class="divider"></li>
+                <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></a></li>
+                -->
+              <% else %>
+                <%= link_to 'Login to add/edit data', new_user_session_path, :class => 'login' %>
+              <% end %>
+            </div>
+          </div>
+          <div id="main">
+            <%= yield %>
+          </div>
+          <div id="footer">
+            <div class="block-text">
+              <strong class="logo"><a href="#"><%= image_tag "logo-01.gif", width:"118", height:"56", alt:"ipbes" %></a></strong>
+              <p>Copyright &copy; 2012 Intergovernmental Platform on Biodiversity and Ecosystem Services</p>
+            </div>
+            <div class="logo-holder">
+              <a href="#"><%= image_tag "logo-02.gif", width:"56", height:"67", alt:"unep" %></a>
+              <a href="#"><%= image_tag "logo-04.gif", width:"66", height:"67", alt:"sga network" %></a>
+              <a href="#"><%= image_tag "logo-03.gif", width:"100", height:"67", alt:"wcmc" %></a>
+              <a href="#"><%= image_tag "logo-02.gif", width:"56", height:"67", alt:"unep" %></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, :class => "alert #{name == :error ? "alert-error" : "alert-success" }" do %>
-        <a class="close" data-dismiss="alert" href="#">×</a>
-        <%= msg %>
-      <% end %>
-    <% end %>
-    <%= yield %>
-    <hr>
-    <footer>
-      <p class="left">&copy; UNEP-WCMC 2012</p>
-      <ul class="right unstyled">
-        <li><a href="#">UNEP</a></li>
-        <li><a href="#">IPBES</a></li>
-        <li><a href="#">SGAN</a></li>
-      </ul>
-    </footer>
-  </div>
-</body>
+  </body>
 </html>
