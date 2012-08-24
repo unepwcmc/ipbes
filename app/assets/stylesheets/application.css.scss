@@ -82,6 +82,11 @@
   font-weight: bold;
 }
 
-#map.inactive .leaflet-objects-pane img {
-  opacity: 0.3;
+#map.inactive{
+  .leaflet-objects-pane img {
+    opacity: 0.3;
+  }
+  .leaflet-control-container {
+    opacity: 0;
+  }
 }

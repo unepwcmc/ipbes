@@ -188,17 +188,16 @@ $ ->
 
   $('#browse-map').click (e) ->
     window.IPBES.browsingMap = !window.IPBES.browsingMap
+    setTimeout((->$('#map').toggleClass('inactive')), 500)
+    $('#map-cover').fadeToggle()
+    $('#map-help').fadeToggle()
     if window.IPBES.browsingMap
-      $('#map').removeClass('inactive')
-      $('#map-cover').fadeOut()
-      $('#map-help').fadeIn()
       $('.leaflet-objects-pane img').animate({opacity: 1})
+      $('.leaflet-control-container').animate({opacity: 1})
       $('#browse-map').html('&larr; Return to text search')
     else
-      $('#map').addClass('inactive')
-      $('#map-cover').fadeIn()
-      $('#map-help').fadeOut()
       $('.leaflet-objects-pane img').animate({opacity: 0.3})
+      $('.leaflet-control-container').animate({opacity: 0})
       $('#browse-map').text('Browse the map')
 
 
