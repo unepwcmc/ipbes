@@ -32,12 +32,16 @@
   color: #EEE;
   display:none;
   padding: 5px 10px;
-  border: 1px solid #CCC;
-  border-top: 0px;
+  background: #333;
+  background: linear-gradient(to bottom, rgba(33,33,33,1) 0%,rgba(63,63,63,1) 100%);
 
   a {
     float: right;
     color: #CCC;
+
+    img {
+      margin: 4px 2px 0 0;
+    }
   }
 }
 

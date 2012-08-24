@@ -186,6 +186,7 @@ $ ->
 
     getSearchResults()
 
+  # Enable and disable map browsing
   $('#browse-map').click (e) ->
     window.IPBES.browsingMap = !window.IPBES.browsingMap
     setTimeout((->$('#map').toggleClass('inactive')), 500)
@@ -245,7 +246,7 @@ $ ->
     maxZoom: 18
   })
 
-  map.addLayer(tileLayer).setView(new L.LatLng(0, 0), 1)
+  map.addLayer(tileLayer).setView(new L.LatLng(15, 0), 2)
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
