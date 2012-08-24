@@ -3,450 +3,487 @@
     addMapMarkers(<%= countries_to_point_json(@assessment.countries) %>);
   });
 <% end %>
-<div class="page-header">
-  <%= link_to :back, :class => 'btn' do %>
-    <i class="icon-list-alt"></i>
-    Back
-  <% end %>
-  <% if can? :update, Assessment %>
-    <%= link_to edit_assessment_path(@assessment), class: 'btn btn-primary' do %>
-      <i class="icon-pencil icon-white"></i>
-      Edit
-    <% end %>
-  <% end %>
-  <% if can? :destroy, Assessment %>
-    <%= link_to @assessment, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' do %>
-      <i class="icon-remove icon-white"></i>
-      Destroy
-    <% end %>
-  <% end %>
-  <a href="#" onclick="window.print();return false" class="btn">Print Assessment</a>
-  <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'download_csv btn' %>
-  <% if (can? :update, Assessment) && @assessment.last_editor.present? %>
-    <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
-  <% end %>
-  <h1><%= @assessment.title %> (<%= @assessment.short_title %>)</h1>
-  <div style='margin-top:5px;'>
-    <h2>Geographical coverage</h2>
+<div class="block-heading">
+  <div class="headline">
+    <h2><%= @assessment.title %> (<%= @assessment.short_title %>)</h2>
+    <h3>Geographical coverage</h3>
   </div>
-  <div class="row">
-    <div class="span6">
-      <div id="map"></div>
-      <p><em>Only countries are displayed on the map.</em></p>
-    </div>
-    <div class="span6">
-      <table class="table table-striped table-bordered">
-        <tbody>
-          <tr>
-            <td>Geographical scale of the assessment</td>
-            <td>
-              <% @assessment.answers.where(answer_type: 'geo_scale').each do |answer| %>
-                <%= answer.text_value %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>Countries covered</td>
-            <td>
-              <%= list_countries_without_multiple(@assessment) %>
-            </td>
-          </tr>
-          <tr>
-            <td>Any other necessary information or explanation for identifying the location of the assessment, including site or region name</td>
-            <td>
-              <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
-                <%= answer.text_value %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="buttons">
+    <a href="#" onclick="window.print();return false">PRINT ASSESSMENT</a>
+    <%= link_to 'DOWNLOAD EXCEL', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'blue' %>
+    <% if can? :update, Assessment %>
+      <%= link_to 'EDIT', edit_assessment_path(@assessment), class: 'btn btn-primary' %>
+    <% end %>
+    <% if can? :destroy, Assessment %>
+      <%= link_to 'DELETE', @assessment, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' %>
+    <% end %>
+
+    <% if (can? :update, Assessment) && @assessment.last_editor.present? %>
+      <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
+    <% end %>
   </div>
 </div>
 
-<section id="geographical_coverage">
+<div class="map-holder">
+  <div id="map"></div>
+  <table class="info">
+    <tbody>
+      <tr>
+        <td>Geographical scale of the assessment</td>
+        <td>
+          <% @assessment.answers.where(answer_type: 'geo_scale').each do |answer| %>
+            <%= answer.text_value %>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="mark">
+        <td>Countries covered</td>
+        <td>
+          <%= list_countries_without_multiple(@assessment) %>
+        </td>
+      </tr>
+      <tr class="last-row">
+        <td>Any other necessary information or explanation for identifying the location of the assessment, including site or region name	    </td>
+        <td>
+          <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
+            <%= answer.text_value %>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
+<div class="section-container">
+  <div class='section' id="conceptual_framework">
+    <h2>Conceptual framework, methodology and scope</h2>
 
-  <!--
-  <h2>Geographical scale of the assessment</h2>
+    <div class='block'>
+      <h3>Assessment objectives</h3>
 
-  <% @assessment.answers.where(answer_type: 'geo_scale').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
+      <% @assessment.answers.where(answer_type: 'objectives').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
 
-  <h2>Countries covered</h2>
+    <div class='block'>
+      <h3>Mandate for the assessment</h3>
 
-  <% @assessment.answers.where(answer_type: 'geo_countries').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
+      <% @assessment.answers.where(answer_type: 'mandate').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
 
-  <h2>Any other necessary information or explanation for identifying the location of the assessment, including site or region name</h2>
+    <div class='block'>
+      <h3>Conceptual framework and/or methodology used for the assessment</h3>
 
-  <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-  -->
-</section>
-<section id="conceptual_framework">
-  <div class="page-header">
-    <h1>Conceptual framework, methodology and scope</h1>
+      <% @assessment.answers.where(answer_type: 'conceptual_framework').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'conceptual_framework_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>URL or copy of conceptual framework developed or adapted</h3>
+
+      <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>References</h3>
+      <% @assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>System(s) assessed</h3>
+
+      <% @assessment.answers.where(answer_type: 'systems_assessed').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'systems_assessed_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Species groups assessed</h3>
+
+      <% @assessment.answers.where(answer_type: 'species_groups_assessed').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
   </div>
-
-  <h2>Assessment objectives</h2>
-
-  <% @assessment.answers.where(answer_type: 'objectives').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Mandate for the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'mandate').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Conceptual framework and/or methodology used for the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'conceptual_framework').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'conceptual_framework_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>URL or copy of conceptual framework developed or adapted</h2>
-
-  <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-  <h3>References</h3>
-  <% @assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-
-  <h2>System(s) assessed</h2>
-
-  <% @assessment.answers.where(answer_type: 'systems_assessed').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'systems_assessed_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Species groups assessed</h2>
-
-  <% @assessment.answers.where(answer_type: 'species_groups_assessed').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="ecosystem_services">
-  <h1>Ecosystem services/functions assessed</h1>
-
-  <h2>Provisioning</h2>
-
-  <% @assessment.answers.where(answer_type: 'provisioning').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'provisioning_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Regulating</h2>
-
-  <% @assessment.answers.where(answer_type: 'regulating').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'regulating_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Supporting Services/Functions</h2>
-
-  <% @assessment.answers.where(answer_type: 'supporting').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'supporting_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Cultural Services</h2>
-
-  <% @assessment.answers.where(answer_type: 'cultural_services').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'cultural_services_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h1>Scope of assessment includes</h1>
-
-  <h2>Drivers of change in systems and services</h2>
-
-  <% @assessment.answers.where(answer_type: 'scope_drivers_of_change').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Impacts of change in services on human well-being</h2>
-
-  <% @assessment.answers.where(answer_type: 'scope_impacts_of_change').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Options for responding/interventions to the trends observed</h2>
-
-  <% @assessment.answers.where(answer_type: 'scope_options_for_responding').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Explicit consideration of the role of biodiversity in the systems and services covered by the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'scope_explicit_consideration').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="timing">
-  <h1>Timing of the assessment</h1>
-
-  <h2>Year assessment started</h2>
-
-  <% @assessment.answers.where(answer_type: 'year_started').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Year assessment finished</h2>
-
-  <% @assessment.answers.where(answer_type: 'year_finished').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>If ongoing, year assessment is anticipated to finish</h2>
-
-  <% @assessment.answers.where(answer_type: 'anticipated_to_finish').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Periodicity of assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'periodicity').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>If repeated, how frequently</h2>
-
-  <% @assessment.answers.where(answer_type: 'how_frequently').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="outputs">
-  <h1>Assessment outputs</h1>
-
-  <h2>Website(s)</h2>
-
-  <% @assessment.answers.where(answer_type: 'websites').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Report(s)</h2>
-
-  <% @assessment.references.where(reference_type: 'reports').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h2>
-
-  <% @assessment.references.where(reference_type: 'communication_materials').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Journal publications</h2>
-
-  <% @assessment.references.where(reference_type: 'journal_publications').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Training materials</h2>
-
-  <% @assessment.references.where(reference_type: 'training_materials').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Other documents/outputs</h2>
-
-  <% @assessment.references.where(reference_type: 'other_documents').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-</section>
-<section id="tools_and_processes">
-  <h1>Tools and processes</h1>
-
-  <h2>Tools and approaches used in the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <% @assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-  <h5>References</h5>
-  <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Process used for stakeholder engagement in the assessment process and which component</h2>
-
-  <% @assessment.answers.where(answer_type: 'process_used_for_stakeholder').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Key stakeholder groups engaged</h2>
-
-  <% @assessment.answers.where(answer_type: 'key_stakeholder').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>The number of people directly involved in the assessment process</h2>
-
-  <% @assessment.answers.where(answer_type: 'number_of_people').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Incorporation of scientific and other types of knowledge</h2>
-
-  <% @assessment.answers.where(answer_type: 'incorporation_of_knowledge').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h2>
-
-  <% @assessment.references.where(reference_type: 'supporting_documentation').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Assessment reports peer reviewed</h2>
-
-  <% @assessment.answers.where(answer_type: 'reports_peer').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="data">
-  <h1>Data</h1>
-
-  <h2>Accessibility of data used in assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'accessibility_of_data').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="policy_impact">
-  <h1>Policy Impact</h1>
-
-  <h2>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h2>
-
-  <% @assessment.references.where(reference_type: 'impacts').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Independent or other review on policy impact of the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'review_on_policy').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-  <% @assessment.references.where(reference_type: 'review_on_policy').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-
-  <h2>Lessons learnt for future assessments from these reviews</h2>
-
-  <% @assessment.answers.where(answer_type: 'lessons_learnt').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="capacity_building">
-  <h1>Capacity-building</h1>
-
-  <h2>Capacity building needs idenfified during the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'capacity_building_needs').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>Actions taken by the assessment to build capacity</h2>
-
-  <% @assessment.answers.where(answer_type: 'actions_taken_build_capacity').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>How have gaps in capacity been communicated to the different stakeholders</h2>
-
-  <% @assessment.answers.where(answer_type: 'gaps_in_capacity').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
-<section id="knowledge_generation">
-  <h1>Knowledge generation</h1>
-
-  <h2>Gaps in knowledge identified from the assessment</h2>
-
-  <% @assessment.answers.where(answer_type: 'gaps_in_knowledge').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-
-  <h2>How gaps in knowledge have been communicated to the different stakeholders</h2>
-
-  <% @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-  <% @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
-    <p>
-      <%= reference.reference_text %><br/>
-      <%= link_to reference.file.original_filename, reference.file.url %>
-    </p>
-  <% end %>
-</section>
-<section id="additional_information">
-  <h1>Additional information</h1>
-
-  <h2>Additional relevant information</h2>
-
-  <% @assessment.answers.where(answer_type: 'additional_information').each do |answer| %>
-    <p><%= answer.text_value %></p>
-  <% end %>
-</section>
+  <div class='section' id="ecosystem_services">
+    <h2>Ecosystem services/functions assessed</h2>
+
+    <div class='block'>
+      <h3>Provisioning</h3>
+
+      <% @assessment.answers.where(answer_type: 'provisioning').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'provisioning_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Regulating</h3>
+
+      <% @assessment.answers.where(answer_type: 'regulating').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'regulating_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Supporting Services/Functions</h3>
+
+      <% @assessment.answers.where(answer_type: 'supporting').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'supporting_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Cultural Services</h3>
+
+      <% @assessment.answers.where(answer_type: 'cultural_services').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'cultural_services_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <h2>Scope of assessment includes</h2>
+
+    <div class='block'>
+      <h3>Drivers of change in systems and services</h3>
+
+      <% @assessment.answers.where(answer_type: 'scope_drivers_of_change').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Impacts of change in services on human well-being</h3>
+
+      <% @assessment.answers.where(answer_type: 'scope_impacts_of_change').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Options for responding/interventions to the trends observed</h3>
+
+      <% @assessment.answers.where(answer_type: 'scope_options_for_responding').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Explicit consideration of the role of biodiversity in the systems and services covered by the assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'scope_explicit_consideration').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="timing">
+    <h2>Timing of the assessment</h2>
+
+    <div class='block'>
+      <h3>Year assessment started</h3>
+
+      <% @assessment.answers.where(answer_type: 'year_started').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Year assessment finished</h3>
+
+      <% @assessment.answers.where(answer_type: 'year_finished').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>If ongoing, year assessment is anticipated to finish</h3>
+
+      <% @assessment.answers.where(answer_type: 'anticipated_to_finish').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Periodicity of assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'periodicity').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>If repeated, how frequently</h3>
+
+      <% @assessment.answers.where(answer_type: 'how_frequently').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="outputs">
+    <h2>Assessment outputs</h2>
+
+    <div class='block'>
+      <h3>Website(s)</h3>
+
+      <% @assessment.answers.where(answer_type: 'websites').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Report(s)</h3>
+
+      <% @assessment.references.where(reference_type: 'reports').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class='block'>
+      <h3>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h3>
+
+      <% @assessment.references.where(reference_type: 'communication_materials').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Journal publications</h3>
+
+      <% @assessment.references.where(reference_type: 'journal_publications').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Training materials</h3>
+
+      <% @assessment.references.where(reference_type: 'training_materials').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Other documents/outputs</h3>
+
+      <% @assessment.references.where(reference_type: 'other_documents').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="tools_and_processes">
+    <h2>Tools and processes</h2>
+
+    <div class='block'>
+      <h3>Tools and approaches used in the assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+
+      <% @assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+      <h5>References</h5>
+      <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Process used for stakeholder engagement in the assessment process and which component</h3>
+
+      <% @assessment.answers.where(answer_type: 'process_used_for_stakeholder').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Key stakeholder groups engaged</h3>
+
+      <% @assessment.answers.where(answer_type: 'key_stakeholder').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>The number of people directly involved in the assessment process</h3>
+
+      <% @assessment.answers.where(answer_type: 'number_of_people').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Incorporation of scientific and other types of knowledge</h3>
+
+      <% @assessment.answers.where(answer_type: 'incorporation_of_knowledge').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h3>
+
+      <% @assessment.references.where(reference_type: 'supporting_documentation').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Assessment reports peer reviewed</h3>
+
+      <% @assessment.answers.where(answer_type: 'reports_peer').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="data">
+    <h2>Data</h2>
+
+    <div class='block'>
+      <h3>Accessibility of data used in assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'accessibility_of_data').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="policy_impact">
+    <h2>Policy Impact</h2>
+
+    <div class='block'>
+      <h3>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h3>
+
+      <% @assessment.references.where(reference_type: 'impacts').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Independent or other review on policy impact of the assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'review_on_policy').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+      <% @assessment.references.where(reference_type: 'review_on_policy').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Lessons learnt for future assessments from these reviews</h3>
+
+      <% @assessment.answers.where(answer_type: 'lessons_learnt').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="capacity_building">
+    <h2>Capacity-building</h2>
+
+    <div class='block'>
+      <h3>Capacity building needs idenfified during the assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'capacity_building_needs').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>Actions taken by the assessment to build capacity</h3>
+
+      <% @assessment.answers.where(answer_type: 'actions_taken_build_capacity').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>How have gaps in capacity been communicated to the different stakeholders</h3>
+
+      <% @assessment.answers.where(answer_type: 'gaps_in_capacity').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='section' id="knowledge_generation">
+      <h2>Knowledge generation</h2>
+    </div>
+    <div class='block'>
+      <h3>Gaps in knowledge identified from the assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'gaps_in_knowledge').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+    <div class='block'>
+      <h3>How gaps in knowledge have been communicated to the different stakeholders</h3>
+
+      <% @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+      <% @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
+        <p>
+          <%= reference.reference_text %><br/>
+          <%= link_to reference.file.original_filename, reference.file.url %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <div class='section' id="additional_information">
+    <h2>Additional information</h2>
+
+    <div class='block'>
+      <h3>Additional relevant information</h3>
+
+      <% @assessment.answers.where(answer_type: 'additional_information').each do |answer| %>
+        <p><%= answer.text_value %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
