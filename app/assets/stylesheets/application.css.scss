@@ -51,9 +51,12 @@
 }
 
 #last-editor {
-  float:right;
-  clear:both;
   margin-top: 5px;
+  color: #CCC;
+  a {
+    color: #0F2B61;
+    text-decoration: none;
+  }
 }
 
 #clear_search {
@@ -98,4 +101,8 @@
 table a {
   color: #0F2B61;
   text-decoration:none;
+}
+
+h2.no-margin {
+  margin: 0;
 }

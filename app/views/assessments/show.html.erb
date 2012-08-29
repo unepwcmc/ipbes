@@ -4,9 +4,16 @@
   });
 <% end %>
 <div class="block-heading">
-  <div class="headline">
-    <h2><%= @assessment.title %> (<%= @assessment.short_title %>)</h2>
-    <h3>Geographical coverage</h3>
+  <%
+    headline_width = 635
+    headline_width -= 90 if can? :update, Assessment
+    headline_width -= 90 if can? :destroy, Assessment
+  %>
+  <div class="headline" style='width:<%= headline_width %>px'>
+    <h2 class='no-margin'><%= @assessment.title %> (<%= @assessment.short_title %>)</h2>
+    <% if (can? :update, Assessment) && @assessment.last_editor.present? %>
+      <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
+    <% end %>
   </div>
   <div class="buttons">
     <a href="#" onclick="window.print();return false">PRINT ASSESSMENT</a>
@@ -18,12 +25,10 @@
       <%= link_to 'DELETE', @assessment, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' %>
     <% end %>
 
-    <% if (can? :update, Assessment) && @assessment.last_editor.present? %>
-      <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
-    <% end %>
   </div>
 </div>
 
+<h3 class='section-title'>Geographical coverage</h3>
 <div class="map-holder">
   <div id="map"></div>
   <table class="info">
@@ -475,7 +480,7 @@
       <% end %>
     </div>
   </div>
-  <div class='section' id="additional_information">
+  <div class='section last' id="additional_information">
     <h2>Additional information</h2>
 
     <div class='block'>
