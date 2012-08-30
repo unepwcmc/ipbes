@@ -38,7 +38,7 @@ getSearchResults = () ->
 
 updateSectionStatus = (section) ->
   complete = true
-  section.find('input[type=text], section textarea, section select, section input[type=radio], input[type=checkbox]').each () ->
+  section.find('input[type=text], div.block textarea, div.block select, div.block input[type=radio], input[type=checkbox]').each () ->
     # Previous hidden input element with the value for the field key
     prev_hidden = $(this).closest('.control-group').prev('.control-group.hidden').find('input[type=hidden]')
 
@@ -52,8 +52,10 @@ updateSectionStatus = (section) ->
     else if !$(this).parent().hasClass('select2-search') && !$(this).parent().hasClass('select2-search-field') && !$(this).is(':hidden')
       complete = complete && ($(this).val() != '' && $(this).val() != null)
 
-  className = (if complete then 'completed' else 'not_completed')
-  $("#sidelink_#{section.attr('id')}").removeClass('completed not_completed').addClass(className)
+  if complete 
+    $("#sidelink_#{section.attr('id')}").closest('li').addClass('active')
+  else
+    $("#sidelink_#{section.attr('id')}").closest('li').removeClass('active')
 
 # Adds a given array of points to the map
 window.addMapMarkers = (points) ->
@@ -138,16 +140,16 @@ $ ->
   $('div.select2-container').removeAttr('style')
   
   # Scroll sidebar
-  if $('#form-sidebar').length > 0
-    offset = $('#form-sidebar').offset()
+  if $('#sidebar').length > 0
+    offset = $('#sidebar').offset()
     topPadding = 60
 
     $(window).scroll ->
       if $(window).scrollTop() > offset.top - topPadding && $(window).width() > 767
-        $('#form-sidebar').css
+        $('#sidebar').css
           marginTop: $(window).scrollTop() - offset.top + topPadding
       else
-        $('#form-sidebar').css
+        $('#sidebar').css
           marginTop: 0
 
   # Search assessments
@@ -156,10 +158,10 @@ $ ->
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)
 
-  $('section').delegate 'input[type=text], textarea, select, input[type=radio], input[type=checkbox]',  'change', () ->
-    updateSectionStatus($(this).closest('section'))
+  $('div.block').delegate 'input[type=text], textarea, select, input[type=radio], input[type=checkbox]',  'change', () ->
+    updateSectionStatus($(this).closest('div.block'))
 
-  $('section').each () ->
+  $('div.block').each () ->
     updateSectionStatus($(this))
 
   $('.download_csv').click () ->
