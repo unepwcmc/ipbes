@@ -433,7 +433,7 @@ input[type="submit"]::-moz-focus-inner{
 .form-selection .container {
 	float: left;
 	padding: 13px 0 0;
-	width: 180px;
+	width: 130px;
 }
 .form-selection .buttons {float: right;}
 .form-selection .buttons a {
@@ -523,7 +523,7 @@ input[type="submit"]::-moz-focus-inner{
 .form-edit input,
 .form-edit textarea,
 .form-edit label,
-.form-edit .field .controls {float: left;}
+.form-edit .field .controls {float: left; min-width: 100px;}
 .form-edit label {margin: 0 0 13px;}
 .form-edit label.radio,
 .form-edit label.checkbox {
