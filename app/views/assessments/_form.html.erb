@@ -26,50 +26,64 @@
         <% end %>
       </div>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_countries') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :select, label: 'Countries covered', collection: Country.all.map { |c| [c.name, c.id] }, input_html: { class: 'select_geo_countries span8', multiple: true }, selected: answer_object(@assessment, 'geo_countries').text_value.try(:split, ',') %>
-      <% end %>
+      <div class='row'>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_countries') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, as: :select, label: 'Countries covered', collection: Country.all.map { |c| [c.name, c.id] }, input_html: { class: 'select_geo_countries span8', multiple: true }, selected: answer_object(@assessment, 'geo_countries').text_value.try(:split, ',') %>
+        <% end %>
+      </div>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_info') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Any other necessary information or explanation for identifying the location of the assessment, including site or region name', input_html: { rows: 10 } %>
-      <% end %>
+      <div class='row'>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_info') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: 'Any other necessary information or explanation for identifying the location of the assessment, including site or region name', input_html: { rows: 10 } %>
+        <% end %>
+      </div>
     </div>
     <div class="block" id="conceptual_framework">
       <h3>Conceptual framework, methodology and scope</h3>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'objectives') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Assessment objectives', input_html: { rows: 10 } %>
-      <% end %>
-
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'mandate') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'Mandate for the assessment', input_html: { rows: 10 } %>
-      <% end %>
-
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :radio_buttons, label: 'Conceptual framework and/or methodology used for the assessment', collection: ['Millennium Ecosystem Assessment (MA)', 'Global Environment Outlook (GEO)', 'The Economics of Ecosystems and Biodiversity (TEEB)', 'Other (please specify)'], input_html: { class: false } %>
-      <% end %>
-
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_other') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, as: :string, label: false %>
-      <% end %>
-      <h5>References for conceptual framework</h5>
-      <div id="conceptual_framework_urls">
-        <%= f.simple_fields_for :references, reference_objects(@assessment, 'conceptual_framework_url') do |builder| %>
-          <%= render 'reference_fields', :f => builder %>
+      <div class='row'>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'objectives') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: 'Assessment objectives', input_html: { rows: 10 } %>
         <% end %>
       </div>
-      <%= link_to_add_fields 'Add a Reference', f, :references, 'conceptual_framework_url' %>
 
-      <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_url') do |builder| %>
-        <%= builder.input :answer_type, as: :hidden %>
-        <%= builder.input :text_value, label: 'URL or copy of conceptual framework developed or adapted', input_html: { rows: 10 } %>
-      <% end %>
+      <div class='row'>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'mandate') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: 'Mandate for the assessment', input_html: { rows: 10 } %>
+        <% end %>
+      </div>
+
+      <div class='row'>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, as: :radio_buttons, label: 'Conceptual framework and/or methodology used for the assessment', collection: ['Millennium Ecosystem Assessment (MA)', 'Global Environment Outlook (GEO)', 'The Economics of Ecosystems and Biodiversity (TEEB)', 'Other (please specify)'], input_html: { class: false } %>
+        <% end %>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_other') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, as: :string, label: false, :input_html => {:class => 'other'} %>
+        <% end %>
+      </div>
+
+      <h4>References for conceptual framework</h4>
+      <div class='row'>
+        <div id="conceptual_framework_urls">
+          <%= f.simple_fields_for :references, reference_objects(@assessment, 'conceptual_framework_url') do |builder| %>
+            <%= render 'reference_fields', :f => builder %>
+          <% end %>
+        </div>
+        <%= link_to_add_fields 'Add a Reference', f, :references, 'conceptual_framework_url' %>
+      </div>
+
+      <div class='row'>
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_url') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: 'URL or copy of conceptual framework developed or adapted', input_html: { rows: 10 } %>
+        <% end %>
+      </div>
 
       <%= f.simple_fields_for :answers, answer_object(@assessment, 'systems_assessed') do |builder| %>
         <%= builder.input :answer_type, as: :hidden %>

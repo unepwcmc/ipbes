@@ -51,6 +51,21 @@ body {
 	min-width: 1000px;
 	background: #f7f7f7 url(../assets/bg-page.gif);
 }
+.btn.btn-green,
+.form-edit .btn.btn-green {
+  float: left;
+  background: #78BF22;
+  -moz-box-shadow: inset 0 -4px 0 0 #599a0a;
+  -webkit-box-shadow: inset 0 -4px 0 0 #599A0A;
+  box-shadow: inset 0 -4px 0 0 #599A0A;
+}
+.btn.btn-danger,
+.form-edit .btn.btn-danger {
+  background: #E4140A;
+  -moz-box-shadow: inset 0 -4px 0 0 #b90800;
+  -webkit-box-shadow: inset 0 -4px 0 0 #B90800;
+  box-shadow: inset 0 -4px 0 0 #B90800;
+}
 input[type="submit"]:hover {cursor: pointer;}
 input[type="submit"]::-moz-focus-inner{
 	padding: 0;
@@ -493,14 +508,22 @@ input[type="submit"]::-moz-focus-inner{
 	line-height: 22px;
 	margin: 0 0 16px;
 }
+.form-edit h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;
+}
 .form-edit .row {padding: 0 0 19px;}
 .form-edit .row:after {
 	content: '';	display: block;	clear: both;
 }
 .form-edit input,
+.form-edit textarea,
 .form-edit label,
 .form-edit .field .controls {float: left;}
 .form-edit label {margin: 0 0 13px;}
+.form-edit label.radio {width: 100%;}
+
 .form-edit .field .controls {
 	border: 1px solid #a7d1ee;
 	background: #f5f5f5;
@@ -508,7 +531,8 @@ input[type="submit"]::-moz-focus-inner{
 	height: 49px;
 }
 .form-edit ul.select2-choices,
-.form-edit input[type="text"] {
+.form-edit input[type="text"],
+.form-edit textarea {
         background: none;
 	border: 0;
 	color: #676666;
@@ -517,9 +541,33 @@ input[type="submit"]::-moz-focus-inner{
 	width: 558px;
 	font: 16px/22px "Open Sans", Arial, Helvetica, sans-serif;
 }
-#assessment-form.form-edit ul.select2-choices {
+#assessment-form.form-edit ul.select2-choices,
+#assessment-form.form-edit textarea,
+#assessment-form.form-edit input.other {
         border: 1px solid #A7D1EE;
         background: whiteSmoke;
+}
+.form-edit .multi-file {
+  overflow:hidden;
+  margin: 0 10px 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #EEE;
+  float:left;
+  width: 577px;
+
+  label {
+    width: 175px;
+    margin-top: 11px;
+  }
+  textarea {
+    float:left;
+    width: 547px;
+    height:20px;
+    margin-bottom: 15px;
+  }
+  input {
+    margin-top: 14px;
+  }
 }
 .webkit .form-edit input[type="text"] {padding: 10px 14px 17px;}
 .form-edit .block {margin: 0 0 12px;}
@@ -571,13 +619,8 @@ input[type="submit"]::-moz-focus-inner{
 	overflow: hidden;
 	padding: 7px 0 26px;
 }
-.form-edit .btn-holder .btn {
-	float: left;
-	background: #78bf22;
-	-moz-box-shadow: inset 0 -4px 0 0 #599a0a;
-	-webkit-box-shadow: inset 0 -4px 0 0 #599a0a;
-	box-shadow: inset 0 -4px 0 0 #599a0a;
-	padding: 16px 21px 19px;
+.form-edit .btn-holder .btn.btn-danger {
+  float:right;
 }
 .form-edit .radio-holder {margin: 0 0 10px;}
 .form-edit .radio-holder .row {padding: 0 0 3px;}
@@ -589,7 +632,7 @@ input[type="submit"]::-moz-focus-inner{
 	height: 18px;
 	width: 18px;
 	padding: 0;
-	margin: 1px 12px 0 0;
+	margin: 4px 9px 0 0;
 }
 .form-edit .radio-holder .field {
 	width: 389px;
