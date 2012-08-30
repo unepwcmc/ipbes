@@ -539,6 +539,9 @@ input[type="submit"]::-moz-focus-inner{
 	width: 558px;
 	font: 16px/22px "Open Sans", Arial, Helvetica, sans-serif;
 }
+.form-edit div.select2-container.select {
+  width: 588px;
+}
 .form-edit .multi-file {
   overflow:hidden;
   margin: 0 10px 10px;
@@ -593,7 +596,10 @@ input[type="submit"]::-moz-focus-inner{
 	margin: 0 0 23px;
 }
 .form-edit .checkbox-holder {margin: 0 0 11px;}
-.form-edit .checkbox-holder .row {padding: 0 0 2px;}
+.form-edit .checkbox-holder .row {
+  padding: 0 0 2px;
+  margin-bottom: 15px;
+}
 .form-edit .checkbox-holder label {
 	font-size: 15px;
 	line-height: 18px;
