@@ -2,7 +2,7 @@
   <fieldset>
     <div class="heading">
       <h2>Editing assessment</h2>
-      <%= link_to 'BACK', assessments_path, :class => 'btn' %>
+      <%= link_to 'BACK', @assessment, :class => 'btn' %>
     </div>
     <%= f.error_notification %>
 
@@ -489,7 +489,7 @@
         <%= f.input :note %>
       </div>
       <div class='row'>
-        <%= f.input :published, input_html: { class: false } %>
+        <%= f.input :published, input_html: { class: false, id: 'published-box' } %>
       </div>
     </div>
 

@@ -79,12 +79,12 @@
     </ul>
     <div class="row">
       <div class="container">
-        <input id="check" type="checkbox" />
+        <input id="shadow-published-box" type="checkbox" />
         <label for="check">Published</label>
       </div>
       <div class="buttons">
-        <a href="#">SAVE</a>
-        <a href="#">CANCEL</a>
+        <a id='side-save' href="#">SAVE</a>
+        <%= link_to 'CANCEL', @assessment %>
       </div>
     </div>
   </fieldset>

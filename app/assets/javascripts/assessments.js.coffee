@@ -131,6 +131,11 @@ window.clearCountryFilter = () ->
   window.IPBES.countryId = ''
   $('#selected-country-strip').slideUp()
 
+syncPublishedCheckboxes = () ->
+  $('#shadow-published-box').attr('checked', $('#published-box').is(':checked'))
+
+togglePublishedCheckbox = () ->
+  $('#published-box').attr('checked', !$('#published-box').is(':checked'))
 
 $ ->
   $('select.select2').select2()
@@ -238,6 +243,22 @@ $ ->
       type: 'POST'
       data: State.data
       dataType: 'script'
+
+  ## Form side panel
+  # Save
+  $('#side-save').click((e) ->
+    e.preventDefault()
+    $('#assessment-form').submit()
+  )
+  # Published box syncing
+  syncPublishedCheckboxes()
+  $('#published-box').change((e) ->
+    syncPublishedCheckboxes()
+  )
+  $('#shadow-published-box').click((e) ->
+    togglePublishedCheckbox()
+  )
+
 
   # Maps
   window.map = new L.Map('map', {scrollWheelZoom: false})
