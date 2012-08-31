@@ -37,21 +37,24 @@
       <div class="w1">
         <div class="w2">
           <div id="header">
-            <h1 class="logo"><a href="#"><%= image_tag "logo.png",  width:"118", height:"56", alt:"ipbes" %></a></h1>
+            <h1 class="logo"><a href="/"><%= image_tag "logo.png",  width:"118", height:"56", alt:"ipbes" %></a></h1>
             <div class="container">
               <ul id="nav">
-                <li class="active"><%= link_to "Home", root_path %></li>
+                <li><%= link_to "Home", root_path %></li>
                 <li><a href="#">About the Catalogue</a></li>
                 <li><a href="#">Contact</a></li>
               </ul>
               <% if user_signed_in? %>
-                <!--
-                <li><%= link_to 'Profile', edit_user_registration_path %></li>
-                <li><%= link_to 'New Assessment', new_assessment_path if can?(:create, Assessment) %></li>
-                <li><%= link_to 'Users', users_path if can?(:manage, User) %></li>
-                <li class="divider"></li>
-                <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></a></li>
-                -->
+                <div id='user-panel'>
+                  <%= link_to current_user, current_user, :class => 'login' %>
+                  <ul id='login-options'>
+                    <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
+                    <li><%= link_to 'New Assessment', new_assessment_path if can?(:create, Assessment) %></li>
+                    <li><%= link_to 'Users', users_path if can?(:manage, User) %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></a></li>
+                  </ul>
+                </div>
               <% else %>
                 <%= link_to 'Login to add/edit data', new_user_session_path, :class => 'login' %>
               <% end %>

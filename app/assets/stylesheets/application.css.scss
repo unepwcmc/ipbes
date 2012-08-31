@@ -106,3 +106,34 @@ table a {
 h2.no-margin {
   margin: 0;
 }
+
+#user-panel {
+  float:right;
+  position:relative;
+}
+#login-options {
+  display:none;
+  position:absolute;
+  top: 34px;
+  z-index: 1;
+  background-color: #031D4E;
+  padding: 10px;
+  width: 142px;
+  border-radius: 5px;
+
+  li {
+    text-align:right;
+    a {
+      color: #93ADE0;
+      text-decoration: none;
+      font: 600 15px/18px "Open Sans", Arial, Helvetica, sans-serif;
+    }
+    a:hover {
+      color:white;
+    }
+  }
+}
+
+#user-panel:hover #login-options {
+  display:block
+}
