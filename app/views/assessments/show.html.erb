@@ -115,13 +115,19 @@
     <div class='block'>
       <h3>System(s) assessed</h3>
 
-      <% @assessment.answers.where(answer_type: 'systems_assessed').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'systems_assessed').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer| %>
+              <li><%= sub_answer %></li>
+            <% end %>
+          <% end %>
 
-      <% @assessment.answers.where(answer_type: 'systems_assessed_other').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+          <% @assessment.answers.where(answer_type: 'systems_assessed_other').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
+        </ul>
+      </p>
     </div>
 
     <div class='block'>
@@ -138,49 +144,73 @@
     <div class='block'>
       <h3>Provisioning</h3>
 
-      <% @assessment.answers.where(answer_type: 'provisioning').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'provisioning').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer| %>
+              <li><%= sub_answer %></li>
+            <% end %>
+          <% end %>
 
-      <% @assessment.answers.where(answer_type: 'provisioning_other').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+          <% @assessment.answers.where(answer_type: 'provisioning_other').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
+        </ul>
+      </p>
     </div>
 
     <div class='block'>
       <h3>Regulating</h3>
 
-      <% @assessment.answers.where(answer_type: 'regulating').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'regulating').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer| %>
+              <li><%= sub_answer %></li>
+            <% end%>
+          <% end %>
 
-      <% @assessment.answers.where(answer_type: 'regulating_other').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+          <% @assessment.answers.where(answer_type: 'regulating_other').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
+        </ul>
+      </p>
     </div>
 
     <div class='block'>
       <h3>Supporting Services/Functions</h3>
 
-      <% @assessment.answers.where(answer_type: 'supporting').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'supporting').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer| %>
+              <li><%= sub_answer %></li>
+            <% end%>
+          <% end %>
 
-      <% @assessment.answers.where(answer_type: 'supporting_other').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+          <% @assessment.answers.where(answer_type: 'supporting_other').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
+        </ul>
+      </p>
     </div>
 
     <div class='block'>
       <h3>Cultural Services</h3>
 
-      <% @assessment.answers.where(answer_type: 'cultural_services').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'cultural_services').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer| %>
+              <li><%= sub_answer %></li>
+            <% end%>
+          <% end %>
 
-      <% @assessment.answers.where(answer_type: 'cultural_services_other').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+          <% @assessment.answers.where(answer_type: 'cultural_services_other').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
+        </ul>
+      </p>
     </div>
 
     <h2>Scope of assessment includes</h2>
@@ -329,13 +359,19 @@
     <div class='block'>
       <h3>Tools and approaches used in the assessment</h3>
 
-      <% @assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer| %>
+              <li><%= sub_answer %></li>
+            <% end%>
+          <% end %>
 
-      <% @assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+          <% @assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
+        </ul>
+      </p>
       <h5>References</h5>
       <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
         <p>
@@ -368,9 +404,15 @@
     <div class='block'>
       <h3>Incorporation of scientific and other types of knowledge</h3>
 
-      <% @assessment.answers.where(answer_type: 'incorporation_of_knowledge').each do |answer| %>
-        <p><%= answer.text_value %></p>
-      <% end %>
+      <p>
+        <ul>
+          <% @assessment.answers.where(answer_type: 'incorporation_of_knowledge').each do |answer| %>
+            <% answer.text_value.split(',').each do |sub_answer|%>
+              <li><%= sub_answer %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </p>
     </div>
     <div class='block'>
       <h3>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h3>

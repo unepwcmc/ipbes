@@ -810,6 +810,12 @@ h3.section-title,
 .section .block {margin: 0 0 26px;}
 .section.mark .block {margin: 0 0 30px;}
 .section.last .block {margin: 0 0 27px;}
+.section .block ul {
+  margin-left: 25px;
+  li {
+    list-style-type: disc;
+  }
+}
 .section a {
 	text-decoration: none;
 	color: #78bf22;

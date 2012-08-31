@@ -44,7 +44,9 @@
         <tr>
           <td>Title</td>
           <td>Countries</td>
-          <td></td>
+          <% if can?(:manage, Assessment) %>
+            <td></td>
+          <% end %>
         </tr>
       </thead>
       <tbody id="assessment-search-results">
