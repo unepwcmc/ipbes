@@ -240,7 +240,7 @@ $ ->
       dataType: 'script'
 
   # Maps
-  window.map = new L.Map('map')
+  window.map = new L.Map('map', {scrollWheelZoom: false})
    
   #tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
   tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
@@ -249,6 +249,20 @@ $ ->
   })
 
   map.addLayer(tileLayer).setView(new L.LatLng(15, 0), 2)
+
+  # Hide the over map table on hover
+  $('.map-holder').hover(
+    () ->
+      $('.map-holder table').stop(true, true).animate({opacity:0.4})
+    ,() ->
+      $('.map-holder table').stop(true, true).animate({opacity:1})
+  )
+  $('.map-holder table').hover(
+    () -> 
+      $('.map-holder table').stop(true, true).animate({opacity:1})
+    ,() ->
+      $('.map-holder table').stop(true, true).animate({opacity:0.4})
+  )
 
 window.remove_fields = (link) ->
   $(link).prev('input[type=hidden]').val('1')
