@@ -1,7 +1,7 @@
 <%= simple_form_for(@assessment, :html => { :id => 'assessment-form', :class => 'form-edit' }) do |f| %>
   <fieldset>
     <div class="heading">
-      <h2>Editing assessment</h2>
+      <h2><%= action %> assessment</h2>
       <%= link_to 'BACK', @assessment, :class => 'btn' %>
     </div>
     <%= f.error_notification %>

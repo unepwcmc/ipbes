@@ -1,16 +1,9 @@
-<div class="row">
-  <div class="span4">
-    <%= render 'sidebar' %>
+<div class="main-content">
+  <div id="content">
+    <%= render partial: 'form', locals: {action: 'New'} %>
   </div>
-  <div class="span8">
-    <div class="page-header">
-      <%= link_to assessments_path, :class => 'btn' do %>
-        <i class="icon-list-alt"></i>
-        Back
-      <% end %>
-      <h1>New assessment</h1>
-    </div>
 
-    <%= render 'form' %>
+  <div id="sidebar">
+    <%= render 'sidebar' %>
   </div>
 </div>

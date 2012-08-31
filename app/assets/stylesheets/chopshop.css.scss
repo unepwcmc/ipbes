@@ -164,6 +164,7 @@ input[type="submit"]::-moz-focus-inner{
 	color: #121212;
 	left: 102px;
 	top: 31px;
+        z-index: 6;
 }
 .map-holder .block h2 {
 	font-size: 45px;
@@ -335,7 +336,6 @@ input[type="submit"]::-moz-focus-inner{
 }
 #sidebar .form-search .row {margin: 0 0 28px;}
 #sidebar .form-search .title {
-	font-style: italic;
 	display: block;
 	margin: 0 -11px 22px 0;
 }
