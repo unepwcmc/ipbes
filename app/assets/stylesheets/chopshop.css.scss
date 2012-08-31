@@ -180,23 +180,27 @@ input[type="submit"]::-moz-focus-inner{
 	color: #383838;
 	line-height: 21px;
 }
-.map-holder .info td {
+.map-holder .info td,
+.map-holder .info th {
 	padding: 19px 22px 21px;
 	vertical-align: middle;
 }
-.map-holder .info td:first-child {
+.map-holder .info th {
 	border-right: 1px solid #cbcbcb;
 	width: 342px;
-	font-style: italic;
 	padding: 19px 28px 21px;
+        color: #1A6FAA;
+        font-weight: bold;
 }
-.map-holder .info .mark td {
+.map-holder .info .mark td,
+.map-holder .info .mark th {
 	background: #f1f1f1;
 	padding: 14px 22px 18px;
 }
-.map-holder .info .mark td:first-child {padding: 14px 28px 18px;}
-.map-holder .info .last-row td {padding: 17px 22px 29px;}
-.map-holder .info .last-row td:first-child {padding: 17px 18px 29px 28px;}
+.map-holder .info .mark th {padding: 14px 28px 18px;}
+.map-holder .info .last-row td,
+.map-holder .info .last-row th {padding: 17px 22px 29px;}
+.map-holder .info .last-row th {padding: 17px 18px 29px 28px;}
 .form-search {
 	font-size: 20px;
 	line-height: 23px;
@@ -695,6 +699,11 @@ input[type="submit"]::-moz-focus-inner{
 	font-weight: 600;
 	color: #121212;
 	margin: 0 0 9px;
+}
+.block-heading .headline h3 {
+        color: #555;
+        font-size: 17px;
+        font-style: italic;
 }
 .block-heading h3 {
 	font-size: 20px;
