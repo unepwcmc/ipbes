@@ -12,7 +12,7 @@
   <div class="headline" style='width:<%= headline_width %>px'>
     <h2 class='no-margin'><%= @assessment.title %></h2>
     <% if @assessment.short_title.present? %><h3><%= @assessment.short_title %></h3><% end %>
-    <% if (can? :update, Assessment) && @assessment.last_editor.present? %>
+    <% if current_user.admin? && @assessment.last_editor.present? %>
       <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
     <% end %>
   </div>

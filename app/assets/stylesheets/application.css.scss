@@ -159,10 +159,25 @@ h2.no-margin {
 }
 
 .page-header {
-  padding-top: 5px;
+  padding-top: 10px;
+
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 36px;
+  }
 
   h2 {
     font-size: 24px;
     font-weight: bold;
+    line-height: 30px;
   }
+}
+
+.row {
+  margin-left: 0;
+}
+
+[class*="span"] {
+  margin-left: 0;
 }
