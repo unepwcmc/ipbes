@@ -1,3 +1,4 @@
+@import "bootstrap-generators";
 @import "chopshop";
 @import "select2";
 @import "leaflet";
@@ -12,6 +13,13 @@
   color: #fff;
   text-decoration: none;
   text-transform: uppercase;
+  padding: 12px;
+  text-shadow: none;
+  
+  &:hover {
+    background: #2399C4;
+    color: $white;
+  }
 }
 
 #map {
@@ -67,7 +75,7 @@
 #map-help {
   display:none;
   position: absolute;
-  z-index: 6;
+  z-index: 1;
   opacity: 0.9;
   border-radius: 5px;
   top: 10px;
@@ -143,4 +151,13 @@ h2.no-margin {
 
 #user-panel:hover #login-options {
   display:block
+}
+
+.page-header {
+  padding-top: 5px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
 }

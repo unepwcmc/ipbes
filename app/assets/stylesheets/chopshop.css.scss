@@ -113,9 +113,14 @@ input[type="submit"]::-moz-focus-inner{
 	box-shadow: 1px 1px 1px -1px #8badcf;
 }
 #header:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
-#header .container {float: right;}
+#header .container {
+  float: right;
+  width: auto;
+}
 .logo {
 	float: left;
 	margin: 1px 10px 0 1px;
@@ -211,7 +216,9 @@ input[type="submit"]::-moz-focus-inner{
 .form-search p {margin: 0 0 18px;}
 .form-search .row {margin: 0 0 14px;}
 .form-search .row:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
 .form-search input,
 .form-search .field,
@@ -269,7 +276,9 @@ input[type="submit"]::-moz-focus-inner{
 	margin: 0 -1px 0 0;
 }
 .main-content:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
 #content {
 	float: right;
@@ -386,7 +395,9 @@ input[type="submit"]::-moz-focus-inner{
 	margin: 0 -101px;
 }
 #footer:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
 #footer .block-text {
 	float: left;
@@ -433,7 +444,9 @@ input[type="submit"]::-moz-focus-inner{
 }
 .form-selection .row {margin: 0 0 10px;}
 .form-selection .row:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
 .form-selection input,
 .form-selection label {float: left;}
@@ -531,7 +544,9 @@ input[type="submit"]::-moz-focus-inner{
 }
 .form-edit .row {padding: 0 0 19px;}
 .form-edit .row:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
 .form-edit input,
 .form-edit textarea,
@@ -630,7 +645,9 @@ input[type="submit"]::-moz-focus-inner{
 }
 .form-edit .input-holder {margin: 0 0 23px;}
 .form-edit .input-holder:after {
-	content: '';	display: block;	clear: both;
+	content: '';
+	display: block;
+	clear: both;
 }
 .form-edit .input-holder label {margin: 11px 41px 0 0;}
 .form-edit .input-holder .field {
