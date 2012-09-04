@@ -65,14 +65,14 @@
           </div>
           <div id="footer">
             <div class="block-text">
-              <strong class="logo"><a href="#"><%= image_tag "logo-01.gif", width:"118", height:"56", alt:"ipbes" %></a></strong>
+              <strong class="logo"><%= link_to image_tag('logo-01.gif', width: 118, height: 56, alt: 'IPBES'), 'http://www.ipbes.net' %></strong>
               <p>Copyright &copy; 2012 Intergovernmental Platform on Biodiversity and Ecosystem Services</p>
             </div>
             <div class="logo-holder">
-              <a href="#"><%= image_tag "logo-02.gif", width:"56", height:"67", alt:"unep" %></a>
-              <a href="#"><%= image_tag "logo-04.gif", width:"66", height:"67", alt:"sga network" %></a>
-              <a href="#"><%= image_tag "logo-03.gif", width:"100", height:"67", alt:"wcmc" %></a>
-              <a href="#"><%= image_tag "logo-02.gif", width:"56", height:"67", alt:"unep" %></a>
+              <%= link_to image_tag('logo-02.gif', width: 56, height: 67, alt: 'UNEP'), 'http://www.unep-wcmc.org' %>
+              <%= link_to image_tag('logo-04.gif', width: 66, height: 67, alt: 'WCMC'), 'http://www.unep-wcmc.org' %>
+              <%= link_to image_tag('logo-03.gif', width: 100, height: 67, alt: 'SGA Network'), 'http://www.ecosystemassessments.net/' %>
+              <%= link_to image_tag('logo-02.gif', width: 56, height: 67, alt: 'UNEP'), 'http://www.unep.org/' %>
             </div>
           </div>
         </div>
