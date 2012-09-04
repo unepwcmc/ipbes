@@ -263,8 +263,8 @@ $ ->
   # Maps
   window.map = new L.Map('map', {scrollWheelZoom: false})
    
-  #tileLayerUrl = 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png'
-  tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
+  #tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
+  tileLayerUrl = 'http://carbon-tool.cartodb.com/tiles/ne_countries/{z}/{x}/{y}.png'
   tileLayer = new L.TileLayer(tileLayerUrl, {
     maxZoom: 18
   })
