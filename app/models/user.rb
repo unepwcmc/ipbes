@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :institution, :description, :email, :password, :password_confirmation, :remember_me
 
   validates :name, presence: true
+  validates :description, presence: true
+  validates :institution, presence: true
 
   has_many :assessments_where_last_editor, class_name: 'Assessment', foreign_key: :last_editor_id
   
