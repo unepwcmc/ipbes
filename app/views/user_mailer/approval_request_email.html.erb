@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1><%= @user.name %> (<%= @user.email %>) has requested access to IPBES Assessment Catalogue</h1>
+    <p>
+      If you want to approve this user to use the site, please review their account here:<br/>
+      <%= @url %>
+    </p>
+    <p>Thanks!</p>
+  </body>
+</html>

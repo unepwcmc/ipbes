@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   end
 
   scope :unapproved, where("approved != true OR approved IS NULL")
+  scope :admins, where(admin: true)
 
   def active_for_authentication? 
     super && approved? 
@@ -43,11 +44,18 @@ class User < ActiveRecord::Base
   end
 
   after_create :send_welcome_email
+  after_create :send_approval_request_email
   after_update :send_approved_email
 
   private
     def send_welcome_email
       UserMailer.welcome_email(self).deliver
+    end
+
+    def send_approval_request_email
+      User.admins.each do |admin|
+        UserMailer.approval_request_email(self, admin).deliver
+      end
     end
 
     def send_approved_email
