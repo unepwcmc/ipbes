@@ -222,14 +222,14 @@
         <% end %>
       </div>
 
-      <div class='row'>
+      <div class='row periodicity'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'periodicity') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
           <%= builder.input :text_value, as: :radio_buttons, label: 'Periodicity of assessment', collection: ['One off', 'Repeated'], input_html: { class: false } %>
         <% end %>
       </div>
 
-      <div class='row'>
+      <div class='row how_frequently' <%= "style='display:none'" unless answer_object(@assessment, 'periodicity').text_value == 'Repeated' %>>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'how_frequently') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
           <%= builder.input :text_value, as: :string, label: 'If repeated, how frequently' %>

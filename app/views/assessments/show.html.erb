@@ -282,7 +282,7 @@
       <% end %>
     </div>
 
-    <div class='block'>
+    <div class='block' <%= "style='display:none'" unless answer_object(@assessment, 'periodicity').text_value == 'Repeated' %>>
       <h3>If repeated, how frequently</h3>
 
       <% @assessment.answers.where(answer_type: 'how_frequently').each do |answer| %>

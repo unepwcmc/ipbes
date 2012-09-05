@@ -159,6 +159,13 @@ $ ->
         $('#sidebar.sidebar-status').stop().animate
           marginTop: 0
 
+  # Periodicity of assessment
+  $('.row.periodicity input').change () ->
+    if $(this).val() == 'Repeated'
+      $('.row.how_frequently').show()
+    else
+      $('.row.how_frequently').hide()
+
   # Search assessments
   $('#search-assessments-btn').on('click', getSearchResults)
   $('#assessment_geo_scale, #assessment_systems_assessed, #assessment_ecosystem_services_functions_assessed, #assessment_tools_and_approaches').on('change', getSearchResults)
