@@ -347,7 +347,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'incorporation_of_knowledge') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :check_boxes, label: 'Incorporation of scientific and other types of knowledge', collection: ['Scientific information only', 'Resource experts (e.g. foresters etc)', 'Traditional/local knowledge', 'Citizen science', 'Other (please specify)'], input_html: { class: false }, checked: answer_object(@assessment, 'incorporation_of_knowledge').text_value.try(:split, ',') %>
+          <%= builder.input :text_value, as: :check_boxes, label: 'Incorporation of scientific and other types of knowledge', collection: ['Scientific information only', 'Resource experts (e.g. foresters etc)', 'Traditional/local knowledge', 'Citizen science', 'Other (please specify)'], input_html: { class: nil }, checked: answer_object(@assessment, 'incorporation_of_knowledge').text_value.try(:split, ',') %>
         <% end %>
       </div>
 
@@ -424,8 +424,15 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'actions_taken_build_capacity') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :select, label: 'Actions taken by the assessment to build capacity', collection: ['Fellowships/exchanges/secondments/mentoring programmes', 'Network and sharing experiences', 'Access to funding', 'Sharing of data/repatriation of data', 'Workshops', 'Developing/promoting and providing access to support tools', 'Formal training', 'Communication and awareness raising', 'Other (please specify)'], input_html: { class: 'select2 span8' } %>
+          <%= builder.input :text_value, as: :check_boxes, label: 'Actions taken by the assessment to build capacity', collection: ['Fellowships/exchanges/secondments/mentoring programmes', 'Network and sharing experiences', 'Access to funding', 'Sharing of data/repatriation of data', 'Workshops', 'Developing/promoting and providing access to support tools', 'Formal training', 'Communication and awareness raising'], input_html: { class: nil }, checked: answer_object(@assessment, 'actions_taken_build_capacity').text_value.try(:split, ',') %>
         <% end %>
+
+        <div id="actions_taken_build_capacity_others" class="indent">
+          <%= f.simple_fields_for :answers, answer_objects(@assessment, 'actions_taken_build_capacity_others') do |builder| %>
+            <%= render 'answer_fields', :f => builder %>
+          <% end %>
+          <%= link_to_add_fields 'Add Answer', f, :answers, 'tools_and_approaches_other' %>
+        </div>
       </div>
 
       <div class='row'>
