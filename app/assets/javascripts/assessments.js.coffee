@@ -52,6 +52,10 @@ updateSectionStatus = (section) ->
     else if !$(this).parent().hasClass('select2-search') && !$(this).parent().hasClass('select2-search-field') && !$(this).is(':hidden')
       complete = complete && ($(this).val() != '' && $(this).val() != null)
 
+  # Additional information
+  if section.attr('id') == 'additional_information' && section.find('input[type=text], div.block textarea, div.block select, div.block input[type=radio], input[type=checkbox]').length == 0
+    complete = false
+
   if complete 
     $("#sidelink_#{section.attr('id')}").closest('li').addClass('active')
   else
