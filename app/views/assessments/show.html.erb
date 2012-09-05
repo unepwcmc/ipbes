@@ -54,7 +54,7 @@
           <th>Any other necessary information or explanation for identifying the location of the assessment, including site or region name	    </th>
           <td>
             <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
-              <%= answer.text_value %>
+              <%= markdown answer.text_value %>
             <% end %>
             <%= 'No information added' if @assessment.answers.where(answer_type: 'geo_info').empty? || @assessment.answers.where(answer_type: 'geo_info').first.text_value == '' %>
           </td>
@@ -72,7 +72,7 @@
       <h3>Assessment objectives</h3>
 
       <% @assessment.answers.where(answer_type: 'objectives').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'objectives').empty? || @assessment.answers.where(answer_type: 'objectives').first.text_value == '' %>
     </div>
@@ -81,7 +81,7 @@
       <h3>Mandate for the assessment</h3>
 
       <% @assessment.answers.where(answer_type: 'mandate').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'mandate').empty? || @assessment.answers.where(answer_type: 'mandate').first.text_value == '' %>
     </div>
@@ -103,7 +103,7 @@
       <h3>URL or copy of conceptual framework developed or adapted</h3>
 
       <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'conceptual_framework_url').empty? || @assessment.answers.where(answer_type: 'conceptual_framework_url').first.text_value == '' %>
     </div>
@@ -422,7 +422,7 @@
       <h3>Process used for stakeholder engagement in the assessment process and which component</h3>
 
       <% @assessment.answers.where(answer_type: 'process_used_for_stakeholder').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'process_used_for_stakeholder').empty? %>
     </div>
@@ -430,7 +430,7 @@
       <h3>Key stakeholder groups engaged</h3>
 
       <% @assessment.answers.where(answer_type: 'key_stakeholder').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'key_stakeholder').empty? %>
     </div>
@@ -483,7 +483,7 @@
       <h3>Accessibility of data used in assessment</h3>
 
       <% @assessment.answers.where(answer_type: 'accessibility_of_data').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'accessibility_of_data').empty? %>
     </div>
@@ -520,7 +520,7 @@
       <h3>Lessons learnt for future assessments from these reviews</h3>
 
       <% @assessment.answers.where(answer_type: 'lessons_learnt').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'lessons_learnt').empty? %>
     </div>
@@ -532,7 +532,7 @@
       <h3>Capacity building needs idenfified during the assessment</h3>
 
       <% @assessment.answers.where(answer_type: 'capacity_building_needs').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'capacity_building_needs').empty? %>
     </div>
@@ -548,7 +548,7 @@
       <h3>How have gaps in capacity been communicated to the different stakeholders</h3>
 
       <% @assessment.answers.where(answer_type: 'gaps_in_capacity').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'gaps_in_capacity').empty? %>
     </div>
@@ -559,7 +559,7 @@
       <h3>Gaps in knowledge identified from the assessment</h3>
 
       <% @assessment.answers.where(answer_type: 'gaps_in_knowledge').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'gaps_in_knowledge').empty? %>
     </div>
@@ -567,7 +567,7 @@
       <h3>How gaps in knowledge have been communicated to the different stakeholders</h3>
 
       <% @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <%= markdown answer.text_value %>
       <% end %>
       <% @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
         <p>
