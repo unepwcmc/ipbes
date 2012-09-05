@@ -2,7 +2,7 @@
   <fieldset>
     <div class="heading">
       <h2><%= action %> assessment</h2>
-      <%= link_to 'BACK', @assessment, :class => 'btn' %>
+      <%= link_to 'Back', @assessment, :class => 'btn btn-brown' %>
     </div>
     <%= f.error_notification %>
 
@@ -417,7 +417,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'capacity_building_needs') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Capacity building needs idenfified during the assessment' %>
+          <%= builder.input :text_value, label: 'Capacity building needs idenfied during the assessment' %>
         <% end %>
       </div>
 
@@ -489,12 +489,8 @@
         <%= f.input :note %>
       </div>
       <div class='row'>
-        <%= f.input :published, input_html: { class: false, id: 'published-box' } %>
+        <%= f.input :published, as: :hidden, input_html: { class: nil, id: 'published-box' } %>
       </div>
-    </div>
-
-    <div id="save_assessment" class="form-actions">
-      <%= f.button :submit, :class => "btn btn-green" %>
     </div>
   </fieldset>
 <% end %>

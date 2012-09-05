@@ -132,10 +132,10 @@ window.clearCountryFilter = () ->
   $('#selected-country-strip').slideUp()
 
 syncPublishedCheckboxes = () ->
-  $('#shadow-published-box').attr('checked', $('#published-box').is(':checked'))
+  #$('#shadow-published-box').attr('checked', $('#published-box').val() == 't')
 
 togglePublishedCheckbox = () ->
-  $('#published-box').attr('checked', !$('#published-box').is(':checked'))
+  $('#published-box').val($('#published-box').val() == 't' ? 'f' : 't')
 
 $ ->
   $('select.select2').select2()
@@ -145,16 +145,18 @@ $ ->
   $('div.select2-container').removeAttr('style')
   
   # Scroll sidebar
-  if $('#sidebar').length > 0
-    offset = $('#sidebar').offset()
+  if $('#sidebar.sidebar-status').length > 0
+    offset = $('#sidebar.sidebar-status').offset()
+    footerOffeset = $('#footer').offset()
     topPadding = 60
+    bottomMargin = 80
 
     $(window).scroll ->
       if $(window).scrollTop() > offset.top - topPadding && $(window).width() > 767
-        $('#sidebar').css
-          marginTop: $(window).scrollTop() - offset.top + topPadding
+        $('#sidebar.sidebar-status').stop().animate
+          marginTop: Math.min( $(window).scrollTop() - offset.top + topPadding, Math.max(footerOffeset.top - $('#sidebar.sidebar-status').outerHeight() - topPadding - bottomMargin, 0) )
       else
-        $('#sidebar').css
+        $('#sidebar.sidebar-status').stop().animate
           marginTop: 0
 
   # Search assessments
