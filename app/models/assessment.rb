@@ -37,7 +37,7 @@ class Assessment < ActiveRecord::Base
     return scoped if q.blank?
 
     require 'open-uri'
-    response = Nokogiri::XML(open("http://www.google.com/search?cx=013379249883164858539:b_mvcbrgpgk&client=google-csbe&output=xml_no_dtd&q=#{q}"))
+    response = Nokogiri::XML(open("http://www.google.com/search?cx=013379249883164858539:b_mvcbrgpgk&client=google-csbe&output=xml_no_dtd&q=#{Rack::Utils.escape(q)}"))
 
     ids_array = response.xpath('//GSP/RES/R/U').map { |u|
       id = 0
