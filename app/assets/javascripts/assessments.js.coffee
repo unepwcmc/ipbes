@@ -21,7 +21,8 @@ getSearchResults = () ->
     ecosystem_services_functions_assessed: $('#assessment_ecosystem_services_functions_assessed').select2('val')
     tools_and_approaches: $('#assessment_tools_and_approaches').select2('val')
     page: window.IPBES.page
-    country_id: window.IPBES.countryId
+
+  data.country_id = window.IPBES.countryId if window.IPBES.countryId
 
   $('#loading-assessments').show()
   $('#assessment-search-results').hide()
@@ -127,7 +128,7 @@ window.setCountryFilter = (id, name) ->
     unless name?
       for country in window.IPBES.points
         name = country.name if country.id == id
-    $('#selected-country-strip span').text("Showing only assessments in #{name}")
+    $('#selected-country-strip span').text("Showing only assessments associated with #{name}")
     $('#selected-country-strip').fadeIn()
 
 # Reset the countryId param and hide the filter strip
@@ -171,7 +172,9 @@ $ ->
       $('.row.how_frequently').hide()
 
   # Search assessments
-  $('#search-assessments-btn').on('click', getSearchResults)
+  $('#search-assessments-btn').on 'click', (e) ->
+    e.preventDefault()
+    getSearchResults()
   $('#assessment_geo_scale, #assessment_systems_assessed, #assessment_ecosystem_services_functions_assessed, #assessment_tools_and_approaches').on('change', getSearchResults)
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)

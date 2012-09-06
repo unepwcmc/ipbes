@@ -32,8 +32,8 @@
   </div>
   <div id='map-help'>Click a country to filter assessments</div>
   <a href='#' id='browse-map'>Browse the map</a>
-  <div id="selected-country-strip">
-    <span></span>
+  <div id="selected-country-strip"<%= " style='display:block;'" unless params[:country_id].blank? %>>
+    <span><%= "Showing only assessments associated with #{@countries.first.name}" unless params[:country_id].blank? %></span>
     <a id="clear-country-selection" href='#'><%= image_tag 'remove_icon_white.png' %></a>
   </div>
 </div>

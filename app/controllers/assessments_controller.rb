@@ -7,7 +7,12 @@ class AssessmentsController < ApplicationController
     @page = (params[:page] ? params[:page] : 1)
     @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(@page)
     authorize! :read, Assessment
-    @countries = Country.for_assessments @assessments
+
+    if params[:country_id].blank?
+      @countries = Country.for_assessments @assessments
+    else
+      @countries = Country.find_all_by_id(params[:country_id])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,7 +25,11 @@ class AssessmentsController < ApplicationController
     @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(params[:page])
     authorize! :read, Assessment
 
-    @countries = Country.for_assessments @assessments
+    if params[:country_id].blank?
+      @countries = Country.for_assessments @assessments
+    else
+      @countries = Country.find_all_by_id(params[:country_id])
+    end
 
     respond_to do |format|
       format.js { render :layout => false }
