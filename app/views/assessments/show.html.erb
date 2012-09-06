@@ -4,26 +4,22 @@
   });
 <% end %>
 <div class="block-heading">
-  <%
-    headline_width = 635
-    headline_width -= 90 if can? :update, Assessment
-    headline_width -= 90 if can? :destroy, Assessment
-  %>
-  <div class="headline" style='width:<%= headline_width %>px'>
-    <h2 class='no-margin'><%= @assessment.title %></h2>
-    <% if @assessment.short_title.present? %><h3><%= @assessment.short_title %></h3><% end %>
+  <div class="headline">
+    <h2 class="no-margin"><%= @assessment.title %></h2>
+    <div class="buttons">
+      <a href="#" onclick="window.print();return false">Print assessment</a>
+      <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'blue' %>
+      <%= link_to 'Back', :back, :class => 'btn btn-brown' %>
+      <% if can? :update, Assessment %>
+        <%= link_to 'Edit', edit_assessment_path(@assessment), class: 'btn' %>
+      <% end %>
+      <% if can? :destroy, Assessment %>
+        <%= link_to 'Delete', @assessment, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+    <%= content_tag 'h3', @assessment.short_title if @assessment.short_title.present? %>
     <% if current_user && current_user.admin? && @assessment.last_editor.present? %>
       <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
-    <% end %>
-  </div>
-  <div class="buttons">
-    <a href="#" onclick="window.print();return false">Print assessment</a>
-    <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'blue' %>
-    <% if can? :update, Assessment %>
-      <%= link_to 'EDIT', edit_assessment_path(@assessment), class: 'btn btn-primary' %>
-    <% end %>
-    <% if can? :destroy, Assessment %>
-      <%= link_to 'DELETE', @assessment, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' %>
     <% end %>
   </div>
 </div>

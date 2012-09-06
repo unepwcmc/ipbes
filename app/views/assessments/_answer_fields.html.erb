@@ -1,5 +1,5 @@
 <div class="fields multi-text">
   <%= f.input :answer_type, as: :hidden %>
-  <%= f.input :text_value, as: :string, label: 'Other (please specify)' %>
+  <%= f.input :text_value, as: :string, label: 'Other (please specify)', label_html: { class: 'other' } %>
   <%= link_to_remove_fields "remove", f %>
 </div>

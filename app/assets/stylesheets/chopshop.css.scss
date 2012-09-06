@@ -551,12 +551,12 @@ input[type="submit"]::-moz-focus-inner{
 .form-edit input,
 .form-edit textarea,
 .form-edit label,
-.form-edit .field .controls {float: left; min-width: 100px;}
+.form-edit .field .controls {float: left; /*min-width: 100px;*/}
 .form-edit label {margin: 0 0 13px;}
 .form-edit label.radio,
 .form-edit label.checkbox {
   width: 100%;
-  margin-left: 25px;
+  /*margin-left: 25px;*/
 }
 
 .form-edit ul.select2-choices,
@@ -710,8 +710,8 @@ input[type="submit"]::-moz-focus-inner{
 	margin: 0 -1px 0 0;
 }
 .block-heading .headline {
-	float: left;
-	width: 550px;
+	/*float: left;
+	width: 550px;*/
 }
 .block-heading h2 {
 	font-size: 24px;
@@ -732,7 +732,7 @@ input[type="submit"]::-moz-focus-inner{
 }
 .block-heading .buttons {
 	float: right;
-	padding: 7px 0 0;
+	padding: 7px 0 0 7px;
 }
 .block-heading .buttons a {
 	float: left;

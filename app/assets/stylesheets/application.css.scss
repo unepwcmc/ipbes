@@ -8,7 +8,7 @@
   top: 10px;
 }
 
-.btn {
+a.btn {
   background: #50bae0;
   border-radius: 2px;
   box-shadow: inset 0 -3px 0 0 #2399c4;
@@ -20,15 +20,12 @@
   text-transform: uppercase;
   padding: 12px;
   text-shadow: none;
-  
-  &:hover {
-    background: #2399C4;
-    color: $white;
-  }
-  
-  &.btn-brown:hover {
-    background: #AB6D00;
-    color: $white;
+
+  &.btn-brown {
+    background: #e49409;
+    -moz-box-shadow: inset 0 -4px 0 0 #ab6d00;
+    -webkit-box-shadow: inset 0 -4px 0 0 #ab6d00;
+    box-shadow: inset 0 -4px 0 0 #ab6d00;
   }
 }
 
@@ -202,4 +199,16 @@ h2.no-margin {
 
 table.table-bordered th, table.table-bordered td {
   border-left: 0;
+}
+
+label {
+  font-weight: bold;
+  
+  &.radio, &.checkbox, &.other {
+    font-weight: normal;
+  }
+}
+
+.form-edit label.text {
+  min-width: 100px;
 }
