@@ -39,8 +39,8 @@
             <div class="container">
               <ul id="nav">
                 <li><%= link_to "Home", root_path %></li>
-                <li><a href="#">About the Catalogue</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><%= link_to "About the Catalogue", about_path %></li>
+                <li><%= link_to "Contact", contact_path %></li>
               </ul>
               <% if user_signed_in? %>
                 <div id='user-panel'>

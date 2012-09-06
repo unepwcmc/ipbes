@@ -1,4 +1,7 @@
 Ipbes::Application.routes.draw do
+  match 'about' => 'static#about'
+  match 'contact' => 'static#contact'
+
   devise_for :users, path_prefix: 'd'
   resources :assessments do
     collection do
