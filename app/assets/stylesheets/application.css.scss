@@ -3,6 +3,11 @@
 @import "select2";
 @import "leaflet";
 
+.form-edit .heading h2.admin-only {
+  font-size: 24px;
+  line-height: 27px;
+}
+
 .remember_me_checkbox {
   position: relative;
   top: 10px;
