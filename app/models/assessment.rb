@@ -57,6 +57,8 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.filter_by_answer_type(queries)
+    answer_join = 1
+
     queries.
       # Make sure value is an Array or Nil
       each { |query|
@@ -71,27 +73,34 @@ class Assessment < ActiveRecord::Base
         text_value_queries = query[:value].
           map { |v|
             if !v.blank? && (!query[:accepted_values] || query[:accepted_values].include?(v))
-              sanitize_sql_array(["',' || answers.text_value || ',' ILIKE ?", "%,#{ v },%"])
+              sanitize_sql_array(["',' || answers_#{answer_join}.text_value || ',' ILIKE ?", "%,#{ v },%"])
             end
-          }.compact.join(' OR ')
+          }.compact.join(' AND ')
 
         final_query = []
 
         unless text_value_queries.empty?
-          final_query.push("(#{ sanitize_sql_array(["answers.answer_type = ?", query[:type]]) } AND (#{ text_value_queries }))")
+          final_query.push("(#{ sanitize_sql_array(["answers_#{answer_join}.answer_type = ?", query[:type]]) } AND (#{ text_value_queries }))")
         end
 
         if query[:other_option] && query[:value].any? { |v| v == query[:other_option] }
-          final_query.push( sanitize_sql_array(["answers.answer_type = ?", "#{query[:type]}_other"]) )
+          final_query.push( sanitize_sql_array(["answers_#{answer_join}.answer_type = ?", "#{query[:type]}_other"]) )
         end
 
-        final_query.empty? ? nil : final_query.join(' OR ')
+        # Increment answer_join
+        answer_join += 1
+
+        final_query.empty? ? nil : final_query.join(' AND ')
       }.compact!
 
     if queries.empty?
       scoped
     else
-      includes(:answers).where(queries.join(' OR '))
+      join_queries = []
+      (1...answer_join).to_a.each { |answer_num|
+        join_queries.push("LEFT OUTER JOIN answers AS answers_#{answer_num} ON answers_#{answer_num}.assessment_id = assessments.id")
+      }
+      joins(join_queries).where(queries.join(' AND '))
     end
   end
 
