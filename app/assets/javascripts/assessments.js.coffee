@@ -137,10 +137,13 @@ window.clearCountryFilter = () ->
   $('#selected-country-strip').slideUp()
 
 syncPublishedCheckboxes = () ->
-  #$('#shadow-published-box').attr('checked', $('#published-box').val() == 't')
+  $('#shadow-published-box').attr('checked', $('#published-box').val() == 't')
 
 togglePublishedCheckbox = () ->
-  $('#published-box').val($('#published-box').val() == 't' ? 'f' : 't')
+  if $('#published-box').val() == 't'
+    $('#published-box').val('f')
+  else
+    $('#published-box').val('t')
 
 $ ->
   $('select.select2').select2()

@@ -225,7 +225,7 @@
       <h3>Drivers of change in systems and services</h3>
 
       <% @assessment.answers.where(answer_type: 'scope_drivers_of_change').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'scope_drivers_of_change').empty? %>
     </div>
@@ -234,7 +234,7 @@
       <h3>Impacts of change in services on human well-being</h3>
 
       <% @assessment.answers.where(answer_type: 'scope_impacts_of_change').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'scope_impacts_of_change').empty? %>
     </div>
@@ -243,7 +243,7 @@
       <h3>Options for responding/interventions to the trends observed</h3>
 
       <% @assessment.answers.where(answer_type: 'scope_options_for_responding').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'scope_options_for_responding').empty? %>
     </div>
@@ -252,7 +252,7 @@
       <h3>Explicit consideration of the role of biodiversity in the systems and services covered by the assessment</h3>
 
       <% @assessment.answers.where(answer_type: 'scope_explicit_consideration').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'scope_explicit_consideration').empty? %>
     </div>
@@ -459,7 +459,7 @@
       <h3>Assessment reports peer reviewed</h3>
 
       <% @assessment.answers.where(answer_type: 'reports_peer').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'reports_peer').empty? %>
     </div>
@@ -494,7 +494,7 @@
       <h3>Independent or other review on policy impact of the assessment</h3>
 
       <% @assessment.answers.where(answer_type: 'review_on_policy').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
       <% @assessment.references.where(reference_type: 'review_on_policy').each do |reference| %>
         <p>
