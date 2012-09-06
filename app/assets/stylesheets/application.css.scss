@@ -212,3 +212,23 @@ label {
 .form-edit label.text {
   min-width: 100px;
 }
+
+.section-container {
+  font-size: 14px;
+  line-height: 22px;
+
+  .section {
+    padding: 0;
+    margin: 0;
+
+    h2 {
+      font-size: 22px;
+      line-height: 25px;
+    }
+
+    h3 {
+      font-size: 17px;
+      line-height: 20px;
+    }
+  }
+}
