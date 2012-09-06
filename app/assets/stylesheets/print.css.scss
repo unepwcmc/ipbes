@@ -1,0 +1,19 @@
+@import "mixins";
+@import "bootstrap-variables";
+@import "tables";
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 62.5%; /* 1em = 10px */
+}
+
+#header, .map-holder, #sidebar, #footer, .buttons {
+  display: none;
+}
+
+table td {
+  background: #fff;
+}

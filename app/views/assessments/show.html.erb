@@ -18,7 +18,7 @@
   </div>
   <div class="buttons">
     <a href="#" onclick="window.print();return false">Print assessment</a>
-    <%= link_to 'DOWNLOAD EXCEL', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'blue' %>
+    <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'blue' %>
     <% if can? :update, Assessment %>
       <%= link_to 'EDIT', edit_assessment_path(@assessment), class: 'btn btn-primary' %>
     <% end %>

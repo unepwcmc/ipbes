@@ -198,3 +198,7 @@ h2.no-margin {
   -webkit-box-shadow: inset 0 -4px 0 0 #B90800;
   box-shadow: inset 0 -4px 0 0 #B90800;
 }
+
+table.table-bordered th, table.table-bordered td {
+  border-left: 0;
+}
