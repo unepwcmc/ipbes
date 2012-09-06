@@ -68,7 +68,7 @@
         <% end %>
       </div>
 
-      <h4>References for conceptual framework</h4>
+      <h4>URL or copy of conceptual framework developed or adapted</h4>
       <div class='row'>
         <div id="conceptual_framework_urls">
           <%= f.simple_fields_for :references, reference_objects(@assessment, 'conceptual_framework_url') do |builder| %>
@@ -76,13 +76,6 @@
           <% end %>
         </div>
         <%= link_to_add_fields 'Add a Reference', f, :references, 'conceptual_framework_url' %>
-      </div>
-
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_url') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'URL or copy of conceptual framework developed or adapted', input_html: { rows: 10 } %>
-        <% end %>
       </div>
 
       <div class='row'>
