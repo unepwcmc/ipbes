@@ -409,7 +409,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'capacity_building_needs') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Capacity building needs idenfied during the assessment' %>
+          <%= builder.input :text_value, label: 'Capacity building needs identified during the assessment' %>
         <% end %>
       </div>
 
