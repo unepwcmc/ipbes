@@ -20,6 +20,8 @@
     <%= content_tag 'h3', @assessment.short_title if @assessment.short_title.present? %>
     <% if current_user && current_user.admin? && @assessment.last_editor.present? %>
       <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
+    <% elsif current_user && @assessment.last_editor.present? %>
+      <span id='last-editor'>last edited by <%= @assessment.last_editor %></span>
     <% end %>
   </div>
 </div>
