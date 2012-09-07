@@ -13,7 +13,7 @@
   top: 10px;
 }
 
-a.btn {
+a.btn, input.btn {
   background: #50bae0;
   border-radius: 2px;
   box-shadow: inset 0 -3px 0 0 #2399c4;
@@ -31,6 +31,13 @@ a.btn {
     -moz-box-shadow: inset 0 -4px 0 0 #ab6d00;
     -webkit-box-shadow: inset 0 -4px 0 0 #ab6d00;
     box-shadow: inset 0 -4px 0 0 #ab6d00;
+  }
+
+  &.btn-grey {
+    background: #999;
+    -moz-box-shadow: inset 0 -4px 0 0 #444;
+    -webkit-box-shadow: inset 0 -4px 0 0 #444;
+    box-shadow: inset 0 -4px 0 0 #444;
   }
 }
 
@@ -114,6 +121,11 @@ a.btn {
 
 table.info {
   z-index: 6;
+
+  ol, ul {
+    list-style: disc;
+    margin: 0 0 9px 25px;
+  }
 }
 
 #map.inactive{
@@ -235,5 +247,9 @@ label {
       font-size: 17px;
       line-height: 20px;
     }
+  }
+
+  ol, ul {
+    list-style: disc;
   }
 }
