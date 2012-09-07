@@ -133,9 +133,11 @@ table.info {
 #map.inactive{
   .leaflet-objects-pane img {
     opacity: 0.3;
+    filter: alpha(opacity = 10);
   }
   .leaflet-control-container {
     opacity: 0;
+    filter: alpha(opacity = 0);
   }
 }
 
