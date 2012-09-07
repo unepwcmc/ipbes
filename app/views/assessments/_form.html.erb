@@ -341,8 +341,15 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'incorporation_of_knowledge') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :check_boxes, label: 'Incorporation of scientific and other types of knowledge', collection: ['Scientific information only', 'Resource experts (e.g. foresters etc)', 'Traditional/local knowledge', 'Citizen science', 'Other (please specify)'], input_html: { class: nil }, checked: answer_object(@assessment, 'incorporation_of_knowledge').text_value.try(:split, ',') %>
+          <%= builder.input :text_value, as: :check_boxes, label: 'Incorporation of scientific and other types of knowledge', collection: ['Scientific information only', 'Resource experts (e.g. foresters etc)', 'Traditional/local knowledge', 'Citizen science'], input_html: { class: nil }, checked: answer_object(@assessment, 'incorporation_of_knowledge').text_value.try(:split, ',') %>
         <% end %>
+
+        <div id="incorporation_of_knowledge_others" class="indent">
+          <%= f.simple_fields_for :answers, answer_objects(@assessment, 'incorporation_of_knowledge_others') do |builder| %>
+            <%= render 'answer_fields', :f => builder %>
+          <% end %>
+          <%= link_to_add_fields 'Add Answer', f, :answers, 'incorporation_of_knowledge_others' %>
+        </div>
       </div>
 
       <div class="row">

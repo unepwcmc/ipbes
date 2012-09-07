@@ -465,12 +465,20 @@
               <li><%= sub_answer %></li>
             <% end %>
           <% end %>
+
+          <% @assessment.answers.where(answer_type: 'incorporation_of_knowledge_others').each do |answer| %>
+            <li><%= answer.text_value %></li>
+          <% end %>
         </ul>
         <%= 'No information added' if @assessment.answers.where(answer_type: 'incorporation_of_knowledge').empty? || @assessment.answers.where(answer_type: 'incorporation_of_knowledge').first.text_value == '' %>
       </p>
     </div>
     <div class='block'>
       <h3>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h3>
+
+      <% @assessment.answers.where(answer_type: 'supporting_documentation_text').each do |answer| %>
+        <%= markdown answer.text_value %>
+      <% end %>
 
       <% @assessment.references.where(reference_type: 'supporting_documentation').each do |reference| %>
         <p>
@@ -506,6 +514,10 @@
 
     <div class='block'>
       <h3>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h3>
+
+      <% @assessment.answers.where(answer_type: 'impacts_text').each do |answer| %>
+        <%= markdown answer.text_value %>
+      <% end %>
 
       <% @assessment.references.where(reference_type: 'impacts').each do |reference| %>
         <p>
