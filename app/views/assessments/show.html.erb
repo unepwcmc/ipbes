@@ -42,7 +42,7 @@
           </td>
         </tr>
         <tr class="mark">
-          <th>Countries covered</th>
+          <th>Country or countries covered</th>
           <td>
             <%= list_countries_without_multiple(@assessment) %>
             <%= 'No information added' if list_countries_without_multiple(@assessment) == '' %>
@@ -69,7 +69,7 @@
     <% end %>
     <p><%= 'No information added' if @assessment.answers.where(answer_type: 'geo_scale').empty? || @assessment.answers.where(answer_type: 'geo_scale').first.text_value == '' %></p>
 
-    <h3>Countries covered</h3>
+    <h3>Country or countries covered</h3>
 
     <p>
       <%= list_countries_without_multiple(@assessment) %>

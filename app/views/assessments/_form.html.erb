@@ -28,7 +28,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_countries') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :select, label: 'Countries covered', collection: Country.all.map { |c| [c.name, c.id] }, input_html: { class: 'select_geo_countries span8', multiple: true }, selected: answer_object(@assessment, 'geo_countries').text_value.try(:split, ',') %>
+          <%= builder.input :text_value, as: :select, label: 'Country or countries covered', collection: Country.all.map { |c| [c.name, c.id] }, input_html: { class: 'select_geo_countries span8', multiple: true }, selected: answer_object(@assessment, 'geo_countries').text_value.try(:split, ',') %>
         <% end %>
       </div>
 
