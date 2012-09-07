@@ -66,19 +66,19 @@
         <div class="box">
           <div class="row">
             <strong class="title">Geographical scale</strong>
-            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {selected: params[:geo_scale]}, {class: 'select2 full-width', multiple: true}) %>
+            <%= select('assessment', 'geo_scale', ['Global', 'Regional', 'Sub-regional', 'National', 'Sub-national', 'Set of sites', 'Single site'], {selected: params[:geo_scale].try(:split, ',')}, {class: 'select2 full-width', multiple: true}) %>
           </div>
           <div class="row">
             <strong class="title">Systems assessed</strong>
-            <%= select('assessment', 'systems_assessed', ['Marine', 'Coastal', 'Island', 'Inland water', 'Forest and woodland', 'Cultivated/Agricultural land', 'Grassland', 'Mountain', 'Dryland', 'Polar', 'Urban'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
+            <%= select('assessment', 'systems_assessed', ['Marine', 'Coastal', 'Island', 'Inland water', 'Forest and woodland', 'Cultivated/Agricultural land', 'Grassland', 'Mountain', 'Dryland', 'Polar', 'Urban'], {selected: params[:systems_assessed].try(:split, ',')}, {class: 'select2 full-width', multiple: true}) %>
           </div>
           <div class="row">
             <strong class="title">Ecosystem services/functions assessed</strong>
-            <%= select('assessment', 'ecosystem_services_functions_assessed', grouped_options_for_select({'Provisioning' => ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel', ['Other', 'other_provisioning']], 'Regulating' => ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control', ['Other', 'other_regulating']], 'Supporting services/Functions' => ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production', ['Other', 'other_supporting']], 'Cultural' => ['Recreation and tourism', 'Spiritual, inspiration and cognitive development', ['Other', 'other_cultural']]}, params[:ecosystem_services_functions_assessed]), {}, {class: 'select2 full-width', multiple: true}) %>
+            <%= select('assessment', 'ecosystem_services_functions_assessed', grouped_options_for_select({'Provisioning' => ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel', ['Other', 'other_provisioning']], 'Regulating' => ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control', ['Other', 'other_regulating']], 'Supporting services/Functions' => ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production', ['Other', 'other_supporting']], 'Cultural' => ['Recreation and tourism', 'Spiritual, inspiration and cognitive development', ['Other', 'other_cultural']]}, params[:ecosystem_services_functions_assessed].try(:split, ',')), {}, {class: 'select2 full-width', multiple: true}) %>
           </div>
           <div class="row">
             <strong class="title">Tools and approaches used</strong>
-            <%= select('assessment', 'tools_and_approaches', ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation'], {selected: params[:systems_assessed]}, {class: 'select2 full-width', multiple: true}) %>
+            <%= select('assessment', 'tools_and_approaches', ['Modelling', 'Trade-off analysis', 'Geospatial analysis', 'Indicators', 'Scenarios', 'Economic valuation', 'Social (non-monetary) valuation'], {selected: params[:tools_and_approaches].try(:split, ',')}, {class: 'select2 full-width', multiple: true}) %>
           </div>
         </div>
         <div class="buttons">
