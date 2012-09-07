@@ -271,3 +271,17 @@ h2.question-with-sections {
 .print-only {
   display: none;
 }
+
+#content {
+  h5 {
+    font-weight: bold;
+  }
+  
+  .form-edit .multi-file label {
+    font-weight: normal;
+  }
+  
+  .fields {
+    clear: both;
+  }
+}
