@@ -17,6 +17,7 @@ gem 'whenever', :require => false
 gem 'geocoder'
 gem 'kaminari'
 gem 'redcarpet'
+gem 'rails_autolink'
 
 # Gems used only for assets and not required
 # in production environments by default.
