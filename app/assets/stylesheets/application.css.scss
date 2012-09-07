@@ -90,6 +90,7 @@ a.btn, input.btn {
 
 #clear_search {
   float: right;
+  padding: 5px;
 }
 
 #map-help {
@@ -264,4 +265,7 @@ h2.question-with-sections {
   label {
     font-size: 15px;
   }
+}
+.print-only {
+  display: none;
 }

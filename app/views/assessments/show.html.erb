@@ -20,6 +20,8 @@
     <%= content_tag 'h3', @assessment.short_title if @assessment.short_title.present? %>
     <% if current_user && current_user.admin? && @assessment.last_editor.present? %>
       <span id='last-editor'>last edited by <%= link_to @assessment.last_editor, user_path(@assessment.last_editor) %></span>
+    <% elsif current_user && @assessment.last_editor.present? %>
+      <span id='last-editor'>last edited by <%= @assessment.last_editor %></span>
     <% end %>
   </div>
 </div>
@@ -47,7 +49,7 @@
           </td>
         </tr>
         <tr class="last-row">
-          <th>Any other necessary information or explanation for identifying the location of the assessment, including site or region name	    </th>
+          <th>Any other necessary information or explanation for identifying the location of the assessment, including site or region name</th>
           <td>
             <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
               <%= markdown answer.text_value %>
@@ -57,6 +59,29 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  
+  <div class="print-only">
+    <h3>Geographical scale of the assessment</h3>
+
+    <% @assessment.answers.where(answer_type: 'geo_scale').each do |answer| %>
+      <p><%= answer.text_value %></p>
+    <% end %>
+    <p><%= 'No information added' if @assessment.answers.where(answer_type: 'geo_scale').empty? || @assessment.answers.where(answer_type: 'geo_scale').first.text_value == '' %></p>
+
+    <h3>Countries covered</h3>
+
+    <p>
+      <%= list_countries_without_multiple(@assessment) %>
+      <%= 'No information added' if list_countries_without_multiple(@assessment) == '' %>
+    </p>
+
+    <h3>Any other necessary information or explanation for identifying the location of the assessment, including site or region name</h3>
+
+    <% @assessment.answers.where(answer_type: 'geo_info').each do |answer| %>
+      <%= markdown answer.text_value %>
+    <% end %>
+    <p><%= 'No information added' if @assessment.answers.where(answer_type: 'geo_info').empty? || @assessment.answers.where(answer_type: 'geo_info').first.text_value == '' %></p>
   </div>
 </div>
 
@@ -332,7 +357,7 @@
     </div>
 
     <div class='block'>
-      <h3>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h3>
+      <h3>Communication Materials (e.g. brochure, presentations, posters, audio-visual media)</h3>
 
       <% @assessment.references.where(reference_type: 'communication_materials').each do |reference| %>
         <p>
@@ -567,11 +592,9 @@
     </div>
   </div>
   <div class='section last' id="additional_information">
-    <h2>Additional information</h2>
+    <h2>Additional relevant information</h2>
 
     <div class='block'>
-      <h3>Additional relevant information</h3>
-
       <% @assessment.answers.where(answer_type: 'additional_information').each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
