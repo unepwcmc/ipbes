@@ -161,8 +161,9 @@ $ ->
 
     $(window).scroll ->
       if $(window).scrollTop() > offset.top - topPadding && $(window).width() > 767
-        $('#sidebar.sidebar-status').stop().animate
+        $('#sidebar.sidebar-status').stop().animate({
           marginTop: Math.min( $(window).scrollTop() - offset.top + topPadding, Math.max(footerOffeset.top - $('#sidebar.sidebar-status').outerHeight() - topPadding - bottomMargin, 0) )
+        }, 'fast')
       else
         $('#sidebar.sidebar-status').stop().animate
           marginTop: 0
