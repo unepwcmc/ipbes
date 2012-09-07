@@ -345,7 +345,13 @@
         <% end %>
       </div>
 
-      <h5>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h5>
+      <div class="row">
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'supporting_documentation_text') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: "Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment" %>
+        <% end %>
+      </div>
+
       <div class='row indent'>
         <div id="supporting_documentation">
           <%= f.simple_fields_for :references, reference_objects(@assessment, 'supporting_documentation') do |builder| %>
@@ -375,7 +381,7 @@
     <div class="block" id="policy_impact">
       <h3>Policy Impact</h3>
 
-      <div class="row indent">
+      <div class="row">
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'impacts_text') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
           <%= builder.input :text_value, label: "Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions" %>
@@ -470,7 +476,7 @@
     <div class="block" id="additional_information">
       <h3>Additional relevant information</h3>
 
-      <div class="row indent">
+      <div class="row">
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'additional_information_text') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
           <%= builder.input :text_value, label: false %>
