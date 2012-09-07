@@ -249,7 +249,7 @@
         <%= link_to_add_fields 'Add a report', f, :references, 'reports' %>
       </div>
 
-      <h5>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h5>
+      <h5>Communication Materials (e.g. brochure, presentations, posters, audio-visual media)</h5>
       <div class='row indent'>
         <div id="communication_materials">
           <%= f.simple_fields_for :references, reference_objects(@assessment, 'communication_materials') do |builder| %>
