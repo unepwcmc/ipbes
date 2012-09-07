@@ -161,34 +161,36 @@
         </div>
       </div>
 
-      <h2>Scope of assessment includes</h2>
+      <h2 class='question-with-sections'>Scope of assessment includes:</h2>
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_drivers_of_change') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Drivers of change in systems and services', input_html: { class: false } %>
-        <% end %>
-      </div>
+      <div class='indent answer-sections'>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_drivers_of_change') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '1). Drivers of change in systems and services', input_html: { class: false } %>
+          <% end %>
+        </div>
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_impacts_of_change') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Impacts of change in services on human well-being', input_html: { class: false } %>
-        <% end %>
-      </div>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_impacts_of_change') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '2). Impacts of change in services on human well-being', input_html: { class: false } %>
+          <% end %>
+        </div>
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_options_for_responding') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Options for responding/interventions to the trends observed', input_html: { class: false } %>
-        <% end %>
-      </div>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_options_for_responding') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '3). Options for responding/interventions to the trends observed', input_html: { class: false } %>
+          <% end %>
+        </div>
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_explicit_consideration') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Explicit consideration of the role of biodiversity in the systems and services covered by the assessment', input_html: { class: false } %>
-        <% end %>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_explicit_consideration') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '4). Explicit consideration of the role of biodiversity in the systems and services covered by the assessment', input_html: { class: false } %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="block" id="timing">
