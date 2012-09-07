@@ -158,7 +158,7 @@
       <% @assessment.answers.where(answer_type: 'species_groups_assessed').each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'species_groups_assessed').empty? %>
+      <%= 'No information added' if @assessment.answers.where(answer_type: 'species_groups_assessed').empty? || @assessment.answers.where(answer_type: 'species_groups_assessed').first.text_value == '' %>
     </div>
   </div>
   <div class='section' id="ecosystem_services">
