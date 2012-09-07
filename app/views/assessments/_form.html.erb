@@ -102,61 +102,63 @@
     <div class="block" id="ecosystem_services">
       <h3>Ecosystem services/functions assessed</h3>
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'provisioning') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :check_boxes, label: 'Provisioning', collection: ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], input_html: { class: false }, checked: answer_object(@assessment, 'provisioning').text_value.try(:split, ',') %>
-        <% end %>
-
-        <div id="provisioning_others" class="indent">
-          <%= f.simple_fields_for :answers, answer_objects(@assessment, 'provisioning_other') do |builder| %>
-            <%= render 'answer_fields', :f => builder %>
+      <div class='indent answer-sections'>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'provisioning') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :check_boxes, label: '1). Provisioning', collection: ['Food', 'Water', 'Timber/fibres', 'Genetic resources', 'Medicinal resources', 'Ornamental resources', 'Energy/fuel'], input_html: { class: false }, checked: answer_object(@assessment, 'provisioning').text_value.try(:split, ',') %>
           <% end %>
-        <%= link_to_add_fields 'Add Answer', f, :answers, 'provisioning_other' %>
+
+          <div id="provisioning_others" class="indent">
+            <%= f.simple_fields_for :answers, answer_objects(@assessment, 'provisioning_other') do |builder| %>
+              <%= render 'answer_fields', :f => builder %>
+            <% end %>
+          <%= link_to_add_fields 'Add Answer', f, :answers, 'provisioning_other' %>
+          </div>
         </div>
-      </div>
 
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'regulating') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :check_boxes, label: 'Regulating', collection: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], input_html: { class: false }, checked: answer_object(@assessment, 'regulating').text_value.try(:split, ',') %>
-        <% end %>
-
-        <div id="regulating_others" class="indent">
-          <%= f.simple_fields_for :answers, answer_objects(@assessment, 'regulating_other') do |builder| %>
-            <%= render 'answer_fields', :f => builder %>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'regulating') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :check_boxes, label: '2). Regulating', collection: ['Air quality', 'Climate regulation', 'Moderation of extreme events', 'Regulation of water flows', 'Regulation of water quality', 'Waste treatment', 'Erosion prevention', 'Pollination', 'Pest and disease control'], input_html: { class: false }, checked: answer_object(@assessment, 'regulating').text_value.try(:split, ',') %>
           <% end %>
-          <%= link_to_add_fields 'Add Answer', f, :answers, 'regulating_other' %>
+
+          <div id="regulating_others" class="indent">
+            <%= f.simple_fields_for :answers, answer_objects(@assessment, 'regulating_other') do |builder| %>
+              <%= render 'answer_fields', :f => builder %>
+            <% end %>
+            <%= link_to_add_fields 'Add Answer', f, :answers, 'regulating_other' %>
+          </div>
         </div>
-      </div>
 
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'supporting') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :check_boxes, label: 'Supporting Services/Functions', collection: ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], input_html: { class: false }, checked: answer_object(@assessment, 'supporting').text_value.try(:split, ',') %>
-        <% end %>
-
-        <div id="supporting_others" class="indent">
-          <%= f.simple_fields_for :answers, answer_objects(@assessment, 'supporting_other') do |builder| %>
-            <%= render 'answer_fields', :f => builder %>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'supporting') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :check_boxes, label: '3). Supporting Services/Functions', collection: ['Habitat maintenance', 'Nutrient cycling', 'Soil formation and fertility', 'Primary production'], input_html: { class: false }, checked: answer_object(@assessment, 'supporting').text_value.try(:split, ',') %>
           <% end %>
-          <%= link_to_add_fields 'Add Answer', f, :answers, 'supporting_other' %>
+
+          <div id="supporting_others" class="indent">
+            <%= f.simple_fields_for :answers, answer_objects(@assessment, 'supporting_other') do |builder| %>
+              <%= render 'answer_fields', :f => builder %>
+            <% end %>
+            <%= link_to_add_fields 'Add Answer', f, :answers, 'supporting_other' %>
+          </div>
         </div>
-      </div>
 
-      <div class='row'>
-        <%= f.simple_fields_for :answers, answer_object(@assessment, 'cultural_services') do |builder| %>
-          <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :check_boxes, label: 'Cultural Services', collection: ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], input_html: { class: false }, checked: answer_object(@assessment, 'cultural_services').text_value.try(:split, ',') %>
-        <% end %>
-
-        <div id="cultural_services_others" class="indent">
-          <%= f.simple_fields_for :answers, answer_objects(@assessment, 'cultural_services_other') do |builder| %>
-            <%= render 'answer_fields', :f => builder %>
+        <div class='row'>
+          <%= f.simple_fields_for :answers, answer_object(@assessment, 'cultural_services') do |builder| %>
+            <%= builder.input :answer_type, as: :hidden %>
+            <%= builder.input :text_value, as: :check_boxes, label: '4). Cultural Services', collection: ['Recreation and tourism', 'Spiritual, inspiration and cognitive development'], input_html: { class: false }, checked: answer_object(@assessment, 'cultural_services').text_value.try(:split, ',') %>
           <% end %>
-          <%= link_to_add_fields 'Add Answer', f, :answers, 'cultural_services_other' %>
+
+          <div id="cultural_services_others" class="indent">
+            <%= f.simple_fields_for :answers, answer_objects(@assessment, 'cultural_services_other') do |builder| %>
+              <%= render 'answer_fields', :f => builder %>
+            <% end %>
+            <%= link_to_add_fields 'Add Answer', f, :answers, 'cultural_services_other' %>
+          </div>
         </div>
       </div>
 
