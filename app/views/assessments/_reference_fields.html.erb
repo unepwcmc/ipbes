@@ -1,6 +1,6 @@
 <div class="fields multi-file">
     <%= f.input :reference_type, as: :hidden %>
-    <%= f.input :reference_text %>
+    <%= f.input :reference_text, as: :string %>
     <%= f.input :file, label: 'Reference document' %>
     <%= f.object.file_file_name if f.object.persisted? %>
     <%= link_to_remove_fields "remove", f %>
