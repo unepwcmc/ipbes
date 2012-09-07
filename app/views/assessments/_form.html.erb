@@ -375,7 +375,13 @@
     <div class="block" id="policy_impact">
       <h3>Policy Impact</h3>
 
-      <h5>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h5>
+      <div class="row indent">
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'impacts_text') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: "Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions" %>
+        <% end %>
+      </div>
+
       <div id="impacts" class="indent row">
         <%= f.simple_fields_for :references, reference_objects(@assessment, 'impacts') do |builder| %>
           <%= render 'reference_fields', :f => builder %>
