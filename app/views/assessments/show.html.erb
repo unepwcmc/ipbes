@@ -594,6 +594,10 @@
   <div class='section last' id="additional_information">
     <h2>Additional relevant information</h2>
 
+    <% @assessment.answers.where(answer_type: 'additional_information_text').each do |answer| %>
+      <%= markdown answer.text_value %>
+    <% end %>
+
     <div class='block'>
       <% @assessment.answers.where(answer_type: 'additional_information').each do |answer| %>
         <p><%= answer.text_value %></p>

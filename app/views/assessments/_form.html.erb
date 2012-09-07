@@ -462,6 +462,13 @@
     <div class="block" id="additional_information">
       <h3>Additional relevant information</h3>
 
+      <div class="row indent">
+        <%= f.simple_fields_for :answers, answer_object(@assessment, 'additional_information_text') do |builder| %>
+          <%= builder.input :answer_type, as: :hidden %>
+          <%= builder.input :text_value, label: false %>
+        <% end %>
+      </div>
+
       <div id="additional_information" class="row indent">
         <%= f.simple_fields_for :references, reference_objects(@assessment, 'additional_information') do |builder| %>
           <%= render 'additional_information', :f => builder %>
