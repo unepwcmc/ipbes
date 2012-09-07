@@ -460,9 +460,8 @@
       </div>
     </div>
     <div class="block" id="additional_information">
-      <h3>Additional information</h3>
+      <h3>Additional relevant information</h3>
 
-      <h5>Additional relevant information</h5>
       <div id="additional_information" class="row indent">
         <%= f.simple_fields_for :references, reference_objects(@assessment, 'additional_information') do |builder| %>
           <%= render 'additional_information', :f => builder %>

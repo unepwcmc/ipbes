@@ -592,11 +592,9 @@
     </div>
   </div>
   <div class='section last' id="additional_information">
-    <h2>Additional information</h2>
+    <h2>Additional relevant information</h2>
 
     <div class='block'>
-      <h3>Additional relevant information</h3>
-
       <% @assessment.answers.where(answer_type: 'additional_information').each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
