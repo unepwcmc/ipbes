@@ -91,6 +91,21 @@ a.btn, input.btn {
 #clear_search {
   float: right;
   padding: 5px;
+  color: #fff;
+
+  &:hover {
+    background: #2399C4;
+  }
+}
+
+#selected-country-strip a#clear-country-selection {
+  color: #fff;
+  padding: 5px;
+  margin-top: 5px;
+
+  &:hover {
+    background: #2399C4;
+  }
 }
 
 #map-help {

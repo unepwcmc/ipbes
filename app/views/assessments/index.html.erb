@@ -34,7 +34,7 @@
   <a href='#' id='browse-map'>Browse the map</a>
   <div id="selected-country-strip"<%= " style='display:block;'" unless params[:country_id].blank? %>>
     <span><%= "Showing only assessments associated with #{@countries.first.name}" unless params[:country_id].blank? %></span>
-    <a id="clear-country-selection" href='#'><%= image_tag 'remove_icon_white.png' %></a>
+    <a id="clear-country-selection" href="#" class="btn">Clear country selection</a>
   </div>
 </div>
 <div class="main-content">
