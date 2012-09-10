@@ -59,7 +59,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Conceptual framework and/or methodology used for the assessment', collection: ['Millennium Ecosystem Assessment (MA)', 'Global Environment Outlook (GEO)', 'The Economics of Ecosystems and Biodiversity (TEEB)', 'Other (please specify)'], input_html: { class: false } %>
+          <%= builder.input :text_value, as: :radio_buttons, label: 'Conceptual framework and/or methodology used for the assessment', collection: ['Millennium Ecosystem Assessment (MA)', 'Global Environment Outlook (GEO)', 'The Economics of Ecosystems and Biodiversity (TEEB)', 'Unknown', 'Other (please specify)'], input_html: { class: false } %>
         <% end %>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'conceptual_framework_other') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
@@ -168,28 +168,28 @@
         <div class='row'>
           <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_drivers_of_change') do |builder| %>
             <%= builder.input :answer_type, as: :hidden %>
-            <%= builder.input :text_value, as: :radio_buttons, label: '1). Drivers of change in systems and services', input_html: { class: false } %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '1). Drivers of change in systems and services', collection: [['Yes', 'true'], ['No', 'false'], ['Unknown', 'Unknown']], input_html: { class: false } %>
           <% end %>
         </div>
 
         <div class='row'>
           <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_impacts_of_change') do |builder| %>
             <%= builder.input :answer_type, as: :hidden %>
-            <%= builder.input :text_value, as: :radio_buttons, label: '2). Impacts of change in services on human well-being', input_html: { class: false } %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '2). Impacts of change in services on human well-being', collection: [['Yes', 'true'], ['No', 'false'], ['Unknown', 'Unknown']], input_html: { class: false } %>
           <% end %>
         </div>
 
         <div class='row'>
           <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_options_for_responding') do |builder| %>
             <%= builder.input :answer_type, as: :hidden %>
-            <%= builder.input :text_value, as: :radio_buttons, label: '3). Options for responding/interventions to the trends observed', input_html: { class: false } %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '3). Options for responding/interventions to the trends observed', collection: [['Yes', 'true'], ['No', 'false'], ['Unknown', 'Unknown']], input_html: { class: false } %>
           <% end %>
         </div>
 
         <div class='row'>
           <%= f.simple_fields_for :answers, answer_object(@assessment, 'scope_explicit_consideration') do |builder| %>
             <%= builder.input :answer_type, as: :hidden %>
-            <%= builder.input :text_value, as: :radio_buttons, label: '4). Explicit consideration of the role of biodiversity in the systems and services covered by the assessment', input_html: { class: false } %>
+            <%= builder.input :text_value, as: :radio_buttons, label: '4). Explicit consideration of the role of biodiversity in the systems and services covered by the assessment', collection: [['Yes', 'true'], ['No', 'false'], ['Unknown', 'Unknown']], input_html: { class: false } %>
           <% end %>
         </div>
       </div>
@@ -200,28 +200,28 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'year_started') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :select, label: 'Year assessment started', collection: (2001..(Time.now.year + 2)).to_a.prepend('Pre 2000'), input_html: { class: 'select2' } %>
+          <%= builder.input :text_value, as: :select, label: 'Year assessment started', collection: (2001..(Time.now.year + 2)).to_a.prepend('Pre 2000'), include_blank: '-', input_html: { class: 'select2' } %>
         <% end %>
       </div>
 
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'year_finished') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :select, label: 'Year assessment finished', collection: (2001..(Time.now.year + 2)).to_a.prepend('Pre 2000').append('Ongoing'), input_html: { class: 'select2' } %>
+          <%= builder.input :text_value, as: :select, label: 'Year assessment finished', collection: (2001..(Time.now.year + 2)).to_a.prepend('Pre 2000').append('Ongoing'), include_blank: '-', input_html: { class: 'select2' } %>
         <% end %>
       </div>
 
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'anticipated_to_finish') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :select, label: 'If ongoing, year assessment is anticipated to finish', collection: Time.now.year..2020, input_html: { class: 'select2' } %>
+          <%= builder.input :text_value, as: :select, label: 'If ongoing, year assessment is anticipated to finish', collection: Time.now.year..2020, include_blank: '-', input_html: { class: 'select2' } %>
         <% end %>
       </div>
 
       <div class='row periodicity'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'periodicity') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Periodicity of assessment', collection: ['One off', 'Repeated'], input_html: { class: false } %>
+          <%= builder.input :text_value, as: :radio_buttons, label: 'Periodicity of assessment', collection: ['Unknown', 'One off', 'Repeated'], input_html: { class: false } %>
         <% end %>
       </div>
 
@@ -336,7 +336,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'number_of_people') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :select, label: 'The number of people directly involved in the assessment process', collection: ['Less than 10', '10-100', '100-1000', 'More than 1000'], input_html: { class: 'select2 span8' } %>
+          <%= builder.input :text_value, as: :select, label: 'The number of people directly involved in the assessment process', collection: ['Less than 10', '10-100', '100-1000', 'More than 1000'], include_blank: '-', input_html: { class: 'select2 span8' } %>
         <% end %>
       </div>
 
@@ -373,7 +373,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'reports_peer') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Assessment reports peer reviewed', input_html: { class: false } %>
+          <%= builder.input :text_value, as: :radio_buttons, label: 'Assessment reports peer reviewed', collection: [['Yes', 'true'], ['No', 'false'], ['Unknown', 'Unknown']], input_html: { class: false } %>
         <% end %>
       </div>
     </div>
@@ -407,7 +407,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'review_on_policy') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, as: :radio_buttons, label: 'Independent or other review on policy impact of the assessment', input_html: { class: false } %>
+          <%= builder.input :text_value, as: :radio_buttons, label: 'Independent or other review on policy impact of the assessment', collection: [['Yes', 'true'], ['No', 'false'], ['Unknown', 'Unknown']], input_html: { class: false } %>
         <% end %>
       </div>
 
