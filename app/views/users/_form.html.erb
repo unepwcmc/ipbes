@@ -3,6 +3,8 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
+    <%= f.input :institution %>
+    <%= f.input :description, hint: 'Should include title of assessment' %>
     <%= f.input :approved, input_html: { class: false } %>
     <%= f.input :admin, input_html: { class: false } %>
   </div>

@@ -44,9 +44,8 @@
               </ul>
               <% if user_signed_in? %>
                 <div id='user-panel'>
-                  <%= link_to current_user, current_user, :class => 'login' %>
+                  <%= link_to current_user, edit_user_registration_path, :class => 'login' %>
                   <ul id='login-options'>
-                    <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
                     <li><%= link_to 'New Assessment', new_assessment_path if can?(:create, Assessment) %></li>
                     <li><%= link_to 'Users', users_path if can?(:manage, User) %></li>
                     <li class="divider"></li>
@@ -59,6 +58,12 @@
             </div>
           </div>
           <div id="main">
+            <% flash.each do |name, msg| %>
+              <%= content_tag :div, :class => "alert #{name == :error ? "alert-error" : "alert-success" }" do %>
+                <a class="close" data-dismiss="alert" href="#">×</a>
+                <%= msg %>
+              <% end %>
+            <% end %>
             <%= yield %>
           </div>
           <div id="footer">
