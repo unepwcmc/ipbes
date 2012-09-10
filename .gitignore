@@ -24,4 +24,6 @@
 # OS X
 *.DS_Store
 
-public/sitemap*.xml.gz
+/public/system
+
+/public/sitemap*.xml.gz
