@@ -9,7 +9,6 @@
     <div class="buttons">
       <a href="#" onclick="window.print();return false">Print assessment</a>
       <%= link_to 'Download excel', download_assessment_assessment_path(@assessment, format: 'csv'), class: 'blue' %>
-      <%= link_to 'Back', :back, :class => 'btn btn-grey' %>
       <% if can? :update, Assessment %>
         <%= link_to 'Edit', edit_assessment_path(@assessment), class: 'btn' %>
       <% end %>
