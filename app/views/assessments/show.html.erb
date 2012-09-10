@@ -339,7 +339,7 @@
       <h3>Website(s)</h3>
 
       <% @assessment.answers.where(answer_type: 'websites').each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= markdown answer.text_value %></p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'websites').empty? %>
     </div>

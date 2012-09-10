@@ -311,3 +311,13 @@ h2.question-with-sections {
   position: relative;
   top: 9px;
 }
+
+.help-block {
+  width: 100%;
+  float: left;
+  margin-top: 10px;
+  font-size: 12px;
+  a {
+    color: black;
+  }
+}
