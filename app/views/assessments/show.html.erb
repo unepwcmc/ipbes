@@ -137,7 +137,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'systems_assessed').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer| %>
+            <% extract_answers(answer.text_value).each do |sub_answer| %>
               <li><%= sub_answer %></li>
             <% end %>
           <% end %>
@@ -168,7 +168,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'provisioning').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer| %>
+            <% extract_answers(answer.text_value).each do |sub_answer| %>
               <li><%= sub_answer %></li>
             <% end %>
           <% end %>
@@ -188,7 +188,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'regulating').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer| %>
+            <% extract_answers(answer.text_value).each do |sub_answer| %>
               <li><%= sub_answer %></li>
             <% end%>
           <% end %>
@@ -208,7 +208,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'supporting').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer| %>
+            <% extract_answers(answer.text_value).each do |sub_answer| %>
               <li><%= sub_answer %></li>
             <% end%>
           <% end %>
@@ -228,7 +228,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'cultural_services').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer| %>
+            <% extract_answers(answer.text_value).each do |sub_answer| %>
               <li><%= sub_answer %></li>
             <% end%>
           <% end %>
@@ -408,7 +408,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'tools_and_approaches').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer| %>
+            <% extract_answers(answer.text_value).each do |sub_answer| %>
               <li><%= sub_answer %></li>
             <% end%>
           <% end %>
@@ -459,7 +459,7 @@
       <p>
         <ul>
           <% @assessment.answers.where(answer_type: 'incorporation_of_knowledge').each do |answer| %>
-            <% answer.text_value.split(',').each do |sub_answer|%>
+            <% extract_answers(answer.text_value).each do |sub_answer|%>
               <li><%= sub_answer %></li>
             <% end %>
           <% end %>
