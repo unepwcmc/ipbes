@@ -286,47 +286,52 @@
     <div class='block'>
       <h3>Year assessment started</h3>
 
-      <% @assessment.answers.where(answer_type: 'year_started').each do |answer| %>
+      <% year_started = @assessment.answers.where(answer_type: 'year_started')
+      year_started.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'year_started').empty? %>
+      <%= 'No information added' if year_started.empty? || year_started.first.text_value.blank? %>
     </div>
 
     <div class='block'>
       <h3>Year assessment finished</h3>
 
-      <% @assessment.answers.where(answer_type: 'year_finished').each do |answer| %>
+      <% year_finished = @assessment.answers.where(answer_type: 'year_finished')
+      year_finished.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'year_finished').empty? %>
+      <%= 'No information added' if year_finished.empty? || year_finished.first.text_value.blank? %>
     </div>
 
     <div class='block'>
       <h3>If ongoing, year assessment is anticipated to finish</h3>
 
-      <% @assessment.answers.where(answer_type: 'anticipated_to_finish').each do |answer| %>
+      <% anticipated_to_finish = @assessment.answers.where(answer_type: 'anticipated_to_finish')
+      anticipated_to_finish.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'anticipated_to_finish').empty? %>
+      <%= 'No information added' if anticipated_to_finish.empty? || anticipated_to_finish.first.text_value.blank? %>
     </div>
 
     <div class='block'>
       <h3>Periodicity of assessment</h3>
 
-      <% @assessment.answers.where(answer_type: 'periodicity').each do |answer| %>
+      <% periodicity = @assessment.answers.where(answer_type: 'periodicity')
+      periodicity.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'periodicity').empty? %>
+      <%= 'No information added' if periodicity.empty? || periodicity.first.text_value.blank? %>
     </div>
 
     <% if answer_object(@assessment, 'periodicity').text_value == 'Repeated' %>
       <div class='block'>
         <h3>If repeated, how frequently</h3>
 
-        <% @assessment.answers.where(answer_type: 'how_frequently').each do |answer| %>
+        <% how_frequently = @assessment.answers.where(answer_type: 'how_frequently')
+        how_frequently.each do |answer| %>
           <p><%= answer.text_value %></p>
         <% end %>
-        <%= 'No information added' if @assessment.answers.where(answer_type: 'how_frequently').empty? %>
+        <%= 'No information added' if how_frequently.empty? || how_frequently.first.text_value.blank? %>
       </div>
     <% end %>
   </div>
@@ -336,10 +341,11 @@
     <div class='block'>
       <h3>Website(s)</h3>
 
-      <% @assessment.answers.where(answer_type: 'websites').each do |answer| %>
+      <% websites = @assessment.answers.where(answer_type: 'websites')
+      websites.each do |answer| %>
         <p><%= markdown answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'websites').empty? %>
+      <%= 'No information added' if websites.empty? || websites.first.text_value.blank? %>
     </div>
 
     <div class='block'>
@@ -418,7 +424,6 @@
           <% end %>
         </ul>
 
-        <%= 'No information added' if (@assessment.answers.where(answer_type: 'tools_and_approaches').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches').first.text_value == '') && (@assessment.answers.where(answer_type: 'tools_and_approaches_other').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches_other').first.text_value == '') %>
       </p>
 
       <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
@@ -427,31 +432,34 @@
           <%= link_to reference.file.original_filename, reference.file.url %>
         </p>
       <% end %>
-      <%= 'No information added' if @assessment.references.where(reference_type: 'tools_and_approaches_other').empty? %>
+      <%= 'No information added' if (@assessment.answers.where(answer_type: 'tools_and_approaches').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches').first.text_value == '') && (@assessment.answers.where(answer_type: 'tools_and_approaches_other').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches_other').first.text_value == '') && @assessment.references.where(reference_type: 'tools_and_approaches_other').empty? %>
     </div>
     <div class='block'>
       <h3>Process used for stakeholder engagement in the assessment process and which component</h3>
 
-      <% @assessment.answers.where(answer_type: 'process_used_for_stakeholder').each do |answer| %>
+      <% process_used_for_stakeholder = @assessment.answers.where(answer_type: 'process_used_for_stakeholder')
+      process_used_for_stakeholder.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'process_used_for_stakeholder').empty? %>
+      <%= 'No information added' if process_used_for_stakeholder.empty? || process_used_for_stakeholder.first.text_value.blank? %>
     </div>
     <div class='block'>
       <h3>Key stakeholder groups engaged</h3>
 
-      <% @assessment.answers.where(answer_type: 'key_stakeholder').each do |answer| %>
+      <% key_stakeholder = @assessment.answers.where(answer_type: 'key_stakeholder')
+      key_stakeholder.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'key_stakeholder').empty? %>
+      <%= 'No information added' if key_stakeholder.empty? || key_stakeholder.first.text_value.blank? %>
     </div>
     <div class='block'>
       <h3>The number of people directly involved in the assessment process</h3>
 
-      <% @assessment.answers.where(answer_type: 'number_of_people').each do |answer| %>
+      <% number_of_people = @assessment.answers.where(answer_type: 'number_of_people')
+      number_of_people.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'number_of_people').empty? %>
+      <%= 'No information added' if number_of_people.empty? || number_of_people.first.text_value.blank? %>
     </div>
     <div class='block'>
       <h3>Incorporation of scientific and other types of knowledge</h3>
@@ -474,7 +482,8 @@
     <div class='block'>
       <h3>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h3>
 
-      <% @assessment.answers.where(answer_type: 'supporting_documentation_text').each do |answer| %>
+      <% supporting_documentation_text = @assessment.answers.where(answer_type: 'supporting_documentation_text')
+      supporting_documentation_text.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
 
@@ -484,7 +493,7 @@
           <%= link_to reference.file.original_filename, reference.file.url %>
         </p>
       <% end %>
-      <%= 'No information added' if @assessment.references.where(reference_type: 'supporting_documentation').empty? %>
+      <%= 'No information added' if @assessment.references.where(reference_type: 'supporting_documentation').empty? && (supporting_documentation_text.empty? || supporting_documentation_text.first.try(:text_value).try(:blank?)) %>
     </div>
     <div class='block'>
       <h3>Assessment reports peer reviewed</h3>
@@ -542,10 +551,11 @@
     <div class='block'>
       <h3>Lessons learnt for future assessments from these reviews</h3>
 
-      <% @assessment.answers.where(answer_type: 'lessons_learnt').each do |answer| %>
+      <% lessons_learnt = @assessment.answers.where(answer_type: 'lessons_learnt')
+      lessons_learnt.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'lessons_learnt').empty? %>
+      <%= 'No information added' if lessons_learnt.empty? || lessons_learnt.first.text_value.blank? %>
     </div>
   </div>
   <div class='section' id="capacity_building">
@@ -554,26 +564,29 @@
     <div class='block'>
       <h3>Capacity building needs idenfified during the assessment</h3>
 
-      <% @assessment.answers.where(answer_type: 'capacity_building_needs').each do |answer| %>
+      <% capacity_building_needs = @assessment.answers.where(answer_type: 'capacity_building_needs')
+      capacity_building_needs.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'capacity_building_needs').empty? %>
+      <%= 'No information added' if capacity_building_needs.empty? || capacity_building_needs.first.text_value.blank? %>
     </div>
     <div class='block'>
       <h3>Actions taken by the assessment to build capacity</h3>
 
-      <% @assessment.answers.where(answer_type: 'actions_taken_build_capacity').each do |answer| %>
+      <% actions_taken_build_capacity = @assessment.answers.where(answer_type: 'actions_taken_build_capacity')
+      actions_taken_build_capacity.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'actions_taken_build_capacity').empty? %>
+      <%= 'No information added' if actions_taken_build_capacity.empty? || actions_taken_build_capacity.first.text_value.blank? %>
     </div>
     <div class='block'>
       <h3>How have gaps in capacity been communicated to the different stakeholders</h3>
 
-      <% @assessment.answers.where(answer_type: 'gaps_in_capacity').each do |answer| %>
+      <% gaps_in_capacity = @assessment.answers.where(answer_type: 'gaps_in_capacity')
+      gaps_in_capacity.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'gaps_in_capacity').empty? %>
+      <%= 'No information added' if gaps_in_capacity.empty? || gaps_in_capacity.first.text_value.blank? %>
     </div>
     <div class='section' id="knowledge_generation">
       <h2>Knowledge generation</h2>
@@ -581,15 +594,17 @@
     <div class='block'>
       <h3>Gaps in knowledge identified from the assessment</h3>
 
-      <% @assessment.answers.where(answer_type: 'gaps_in_knowledge').each do |answer| %>
+      <% gaps_in_knowledge = @assessment.answers.where(answer_type: 'gaps_in_knowledge')
+      gaps_in_knowledge.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'gaps_in_knowledge').empty? %>
+      <%= 'No information added' if gaps_in_knowledge.empty? || gaps_in_knowledge.first.text_value.blank? %>
     </div>
     <div class='block'>
       <h3>How gaps in knowledge have been communicated to the different stakeholders</h3>
 
-      <% @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').each do |answer| %>
+      <% gaps_in_knowledge_communicated = @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated')
+      gaps_in_knowledge_communicated.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
       <% @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
@@ -598,7 +613,7 @@
           <%= link_to reference.file.original_filename, reference.file.url %>
         </p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'gaps_in_knowledge_communicated').empty? && @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').empty? %>
+      <%= 'No information added' if (gaps_in_knowledge_communicated.empty? || gaps_in_knowledge_communicated.first.text_value.blank?) && @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').empty? %>
     </div>
   </div>
   <div class='section last' id="additional_information">
