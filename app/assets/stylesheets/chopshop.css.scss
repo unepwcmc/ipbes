@@ -410,7 +410,10 @@ input[type="submit"]::-moz-focus-inner{
 	margin: 0 0 18px;
 	width: 118px;
 }
-.logo-holder {float: right;}
+.logo-holder {
+  float: right;
+  width: 325px;
+}
 .logo-holder img {
 	float: left;
 	margin: 0 0 0 14px;
