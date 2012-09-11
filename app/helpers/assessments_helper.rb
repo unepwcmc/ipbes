@@ -17,7 +17,7 @@ module AssessmentsHelper
   end
 
   def answer_objects assessment, type
-    assessment.answers.where(answer_type: type) + [@assessment.answers.build(answer_type: type)]
+    assessment.answers.where(answer_type: type) # + [@assessment.answers.build(answer_type: type)]
   end
 
   # Builds an reference object for the given type, used for form building
