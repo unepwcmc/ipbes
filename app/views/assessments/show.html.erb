@@ -446,7 +446,7 @@
     <div class='block'>
       <h3>Key stakeholder groups engaged</h3>
 
-      <% key_stakeholder = @assessment.answers.where(answer_type: 'key_stakeholder')
+      <% key_stakeholder = @assessment.answers.where(answer_type: 'key_stakeholder') || []
       key_stakeholder.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
@@ -455,7 +455,7 @@
     <div class='block'>
       <h3>The number of people directly involved in the assessment process</h3>
 
-      <% number_of_people = @assessment.answers.where(answer_type: 'number_of_people')
+      <% number_of_people = @assessment.answers.where(answer_type: 'number_of_people') || []
       number_of_people.each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
@@ -482,7 +482,7 @@
     <div class='block'>
       <h3>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h3>
 
-      <% supporting_documentation_text = @assessment.answers.where(answer_type: 'supporting_documentation_text')
+      <% supporting_documentation_text = @assessment.answers.where(answer_type: 'supporting_documentation_text') || []
       supporting_documentation_text.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
