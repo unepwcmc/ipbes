@@ -474,7 +474,8 @@
     <div class='block'>
       <h3>Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment</h3>
 
-      <% @assessment.answers.where(answer_type: 'supporting_documentation_text').each do |answer| %>
+      <% supporting_documentation_text = @assessment.answers.where(answer_type: 'supporting_documentation_text')
+      supporting_documentation_text.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
 
@@ -484,7 +485,7 @@
           <%= link_to reference.file.original_filename, reference.file.url %>
         </p>
       <% end %>
-      <%= 'No information added' if @assessment.references.where(reference_type: 'supporting_documentation').empty? %>
+      <%= 'No information added' if @assessment.references.where(reference_type: 'supporting_documentation').empty? && (supporting_documentation_text.empty? || supporting_documentation_text.first.try(:text_value).try(:blank?)) %>
     </div>
     <div class='block'>
       <h3>Assessment reports peer reviewed</h3>
