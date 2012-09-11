@@ -154,19 +154,19 @@ $ ->
   
   # Scroll sidebar
   if $('#sidebar.sidebar-status').length > 0
-    offset = $('#sidebar.sidebar-status').offset()
-    footerOffeset = $('#footer').offset()
     topPadding = 60
-    bottomMargin = 80
 
     $(window).scroll ->
-      if $(window).scrollTop() > offset.top - topPadding && $(window).width() > 767
-        $('#sidebar.sidebar-status').stop().animate({
-          marginTop: Math.min( $(window).scrollTop() - offset.top + topPadding, Math.max(footerOffeset.top - $('#sidebar.sidebar-status').outerHeight() - topPadding - bottomMargin, 0) )
-        }, 'fast')
+      if $(window).scrollTop() + $(window).height() > $('#footer').offset().top
+        $('#sidebar.sidebar-status').addClass("fixed")
+        top = $(window).scrollTop() + $(window).height() - $('#footer').offset().top
+        $('#sidebar.sidebar-status').css({"top": "-#{top}px"})
+      else if $(window).scrollTop() > topPadding
+        $('#sidebar.sidebar-status').addClass("fixed")
+        $('#sidebar.sidebar-status').removeAttr("style")
       else
-        $('#sidebar.sidebar-status').stop().animate
-          marginTop: 0
+        $('#sidebar.sidebar-status').removeClass("fixed")
+        $('#sidebar.sidebar-status').removeAttr("style")
 
   # Periodicity of assessment
   $('.row.periodicity input').change () ->

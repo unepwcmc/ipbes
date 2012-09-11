@@ -159,9 +159,8 @@
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'species_groups_assessed').empty? || @assessment.answers.where(answer_type: 'species_groups_assessed').first.text_value == '' %>
     </div>
-  </div>
-  <div class='section' id="ecosystem_services">
-    <h2>Ecosystem services/functions assessed</h2>
+
+    <h3>Ecosystem services/functions assessed</h3>
 
     <div class='block'>
       <h3>Provisioning</h3>
@@ -356,7 +355,7 @@
     </div>
 
     <div class='block'>
-      <h3>Communication Materials (e.g. brochure, presentations, posters, audio-visual media)</h3>
+      <h3>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h3>
 
       <% @assessment.references.where(reference_type: 'communication_materials').each do |reference| %>
         <p>
@@ -421,7 +420,7 @@
 
         <%= 'No information added' if (@assessment.answers.where(answer_type: 'tools_and_approaches').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches').first.text_value == '') && (@assessment.answers.where(answer_type: 'tools_and_approaches_other').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches_other').first.text_value == '') %>
       </p>
-      <h3>References</h3>
+
       <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
@@ -505,11 +504,11 @@
       <% @assessment.answers.where(answer_type: 'accessibility_of_data').each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'accessibility_of_data').empty? %>
+      <%= 'No information added' if @assessment.answers.where(answer_type: 'accessibility_of_data').empty? || @assessment.answers.where(answer_type: 'accessibility_of_data').first.text_value == '' %>
     </div>
   </div>
   <div class='section' id="policy_impact">
-    <h2>Policy Impact</h2>
+    <h2>Policy impact</h2>
 
     <div class='block'>
       <h3>Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions</h3>
@@ -550,7 +549,7 @@
     </div>
   </div>
   <div class='section' id="capacity_building">
-    <h2>Capacity-building</h2>
+    <h2>Capacity building</h2>
 
     <div class='block'>
       <h3>Capacity building needs idenfified during the assessment</h3>

@@ -34,7 +34,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'geo_info') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Any other necessary information or explanation for identifying the location of the assessment, including site or region name', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 10 } %>
+          <%= builder.input :text_value, label: 'Any other necessary information or explanation for identifying the location of the assessment, including site or region name', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 10 } %>
         <% end %>
       </div>
     </div>
@@ -44,14 +44,14 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'objectives') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Assessment objectives', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 10 } %>
+          <%= builder.input :text_value, label: 'Assessment objectives', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 10 } %>
         <% end %>
       </div>
 
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'mandate') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Mandate for the assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 10 } %>
+          <%= builder.input :text_value, label: 'Mandate for the assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 10 } %>
         <% end %>
       </div>
 
@@ -99,7 +99,7 @@
       </div>
     </div>
     <div class="block" id="ecosystem_services">
-      <h3>Ecosystem services/functions assessed</h3>
+      <h4>Ecosystem services/functions assessed</h4>
 
       <div class='indent answer-sections'>
         <div class='row'>
@@ -237,7 +237,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'websites') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Website(s)', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Website(s)', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -251,7 +251,7 @@
         <%= link_to_add_fields 'Add a report', f, :references, 'reports' %>
       </div>
 
-      <h5>Communication Materials (e.g. brochure, presentations, posters, audio-visual media)</h5>
+      <h5>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h5>
       <div class='row indent'>
         <div id="communication_materials">
           <%= f.simple_fields_for :references, reference_objects(@assessment, 'communication_materials') do |builder| %>
@@ -321,14 +321,14 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'process_used_for_stakeholder') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Process used for stakeholder engagement in the assessment process and which component', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Process used for stakeholder engagement in the assessment process and which component', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'key_stakeholder') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Key stakeholder groups engaged', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Key stakeholder groups engaged', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -356,7 +356,7 @@
       <div class="row">
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'supporting_documentation_text') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: "Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment", hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: "Supporting documentation for specific approaches, methodology or criteria developed and/or used to integrate knowledge systems into the assessment", hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -382,17 +382,17 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'accessibility_of_data') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Accessibility of data used in assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Accessibility of data used in assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
     </div>
     <div class="block" id="policy_impact">
-      <h3>Policy Impact</h3>
+      <h3>Policy impact</h3>
 
       <div class="row">
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'impacts_text') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: "Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions", hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: "Impacts the assessment has had on policy and/or decision making, as evidenced through policy references and actions", hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -421,17 +421,17 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'lessons_learnt') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Lessons learnt for future assessments from these reviews', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Lessons learnt for future assessments from these reviews', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
     </div>
     <div class="block" id="capacity_building">
-      <h3>Capacity-building</h3>
+      <h3>Capacity building</h3>
 
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'capacity_building_needs') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Capacity building needs identified during the assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Capacity building needs identified during the assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -452,7 +452,7 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'gaps_in_capacity') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'How have gaps in capacity been communicated to the different stakeholders', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'How have gaps in capacity been communicated to the different stakeholders', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
     </div>
@@ -462,14 +462,14 @@
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'gaps_in_knowledge') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'Gaps in knowledge identified from the assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'Gaps in knowledge identified from the assessment', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
       <div class='row'>
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'gaps_in_knowledge_communicated') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: 'How gaps in knowledge have been communicated to the different stakeholders', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: 'How gaps in knowledge have been communicated to the different stakeholders', hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -487,7 +487,7 @@
       <div class="row">
         <%= f.simple_fields_for :answers, answer_object(@assessment, 'additional_information_text') do |builder| %>
           <%= builder.input :answer_type, as: :hidden %>
-          <%= builder.input :text_value, label: false, hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Markdown syntax</a>'.html_safe, input_html: { rows: 4 } %>
+          <%= builder.input :text_value, label: false, hint: '<a data-toggle="modal" href="#myModal" class="markdown-info"><i class="icon-question-sign"></i> Hints for formating text</a>'.html_safe, input_html: { rows: 4 } %>
         <% end %>
       </div>
 
@@ -533,26 +533,14 @@
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3 id="myModalLabel">Markdown syntax</h3>
+    <h3 id="myModalLabel">Hints for formating text</h3>
   </div>
   <div class="modal-body">
-    <pre>One or more consecutive lines of text
-separated by one or more blank lines.
-
-This is another paragraph.
-
-* Bullet lists are easy too
-- Another one
-+ Another one
-
-1. A numbered list
-2. Which is numbered
-3. With periods and a space
-
-I am *emphasized*
-I am _emphasized_
-
-I am **bold**
-I am __bold__</pre>
+    <p>When adding content there are three things you need to know:</p>
+    <ul class="markdown">
+      <li>To add a paragraph press "enter" twice (shown as a blank line).</li>
+      <li>To create a bullet point start your sentence with an asterisk (*) followed by a space.</li>
+      <li>To create a numbered list start your sentence with a number followed by a full stop and a space.</li>
+    </ul>
   </div>
 </div>
