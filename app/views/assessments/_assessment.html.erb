@@ -3,5 +3,6 @@
   <td><%= list_countries(assessment) %></td>
   <% if can?(:manage, Assessment) %>
     <td><%= assessment.published? ? 'Yes' : 'No' %></td>
+    <td><%= assessment.note.present? ? link_to('Yes', edit_assessment_path(assessment) + '#note') : 'No' %></td>
   <% end %>
 </tr>
