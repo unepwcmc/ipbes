@@ -512,17 +512,19 @@
 
     <hr />
 
-    <div class="block" id="contacts">
-      <h3>Contacts</h3>
-
-      <div id="contacts" class="row indent">
+    <div class="block <%= 'control-group error' if @assessment.errors.messages[:contacts].present? %>" id="contacts">
+      <h3>* Contacts</h3>
+      <% if @assessment.errors.messages[:contacts].present? %>
+        <span class="help-inline"><%= @assessment.errors.messages[:contacts].join(',') %></span>
+      <% end %>
+      <div class="row indent">
         <%= f.simple_fields_for :contacts do |builder| %>
           <%= render 'contact_fields', :f => builder %>
         <% end %>
         <%= link_to_add_fields 'Add Contact', f, :contacts, 'contacts' %>
       </div>
-
     </div>
+
     <div class="block" id="note">
       <h3>Note</h3>
 

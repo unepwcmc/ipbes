@@ -39,19 +39,29 @@ getSearchResults = () ->
 
 updateSectionStatus = (section) ->
   complete = true
-  section.find('input[type=text], div.block textarea, div.block select, div.block input[type=radio], input[type=checkbox]').each () ->
-    # Previous hidden input element with the value for the field key
-    prev_hidden = $(this).closest('.control-group').prev('.control-group.hidden').find('input[type=hidden]')
 
-    # Special case for conceptual_framework_other
-    if prev_hidden.length > 0 && prev_hidden.val() == 'conceptual_framework_other'
-      inputName = $('[value=conceptual_framework]').attr('name').replace('answer_type', 'text_value')
-      complete = complete && ($("input[name='#{inputName}']:checked").val() != 'Other (please specify)' || $(this).val() != '')
-    else if $(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio'
-      inputName = $(this).attr('name')
-      complete = complete && $("input[name='#{inputName}']:checked").val() != undefined
-    else if !$(this).parent().hasClass('select2-search') && !$(this).parent().hasClass('select2-search-field') && !$(this).is(':hidden')
-      complete = complete && ($(this).val() != '' && $(this).val() != null)
+  # Contacts
+  if section.attr('id') != 'contacts'
+    section.find('input[type=text], div.block textarea, div.block select, div.block input[type=radio], input[type=checkbox]').each () ->
+      # Previous hidden input element with the value for the field key
+      prev_hidden = $(this).closest('.control-group').prev('.control-group.hidden').find('input[type=hidden]')
+
+      # Special case for conceptual_framework_other
+      if prev_hidden.length > 0 && prev_hidden.val() == 'conceptual_framework_other'
+        inputName = $('[value=conceptual_framework]').attr('name').replace('answer_type', 'text_value')
+        complete = complete && ($("input[name='#{inputName}']:checked").val() != 'Other (please specify)' || $(this).val() != '')
+      else if $(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio'
+        inputName = $(this).attr('name')
+        complete = complete && $("input[name='#{inputName}']:checked").val() != undefined
+      else if !$(this).parent().hasClass('select2-search') && !$(this).parent().hasClass('select2-search-field') && !$(this).is(':hidden')
+        complete = complete && ($(this).val() != '' && $(this).val() != null)
+  else
+    # For contact, start false and if any field is filled, consider it complete
+    complete = false
+    section.find('input[type=text], input[type=tel], input[type=email], div.block textarea').each () ->
+      if $(this).val() != ''
+        console.log($(this).val())
+        complete = true
 
   # Additional information
   if section.attr('id') == 'additional_information' && section.find('input[type=text], div.block textarea, div.block select, div.block input[type=radio], input[type=checkbox]').length == 0
@@ -183,7 +193,7 @@ $ ->
   $('#assessment-query').keyup (event) ->
     getSearchResults() if(event.keyCode == 13)
 
-  $('div.block').delegate 'input[type=text], textarea, select, input[type=radio], input[type=checkbox]',  'change', () ->
+  $('div.block').delegate 'input[type=text], textarea, input[type=tel], input[type=email], select, input[type=radio], input[type=checkbox]',  'change', () ->
     updateSectionStatus($(this).closest('div.block'))
 
   $('div.block').each () ->
@@ -306,6 +316,9 @@ $ ->
   )
 
 window.remove_fields = (link) ->
+  $(link).closest('.fields').find('input, div.block textarea').each () ->
+    $(this).val('')
+  updateSectionStatus($(link).closest('div.block'))
   $(link).prev('input[type=hidden]').val('1')
   $(link).closest('.fields').hide()
 
