@@ -8,8 +8,17 @@ class AssessmentsController < ApplicationController
     @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(@page)
     authorize! :read, Assessment
 
+    @timeout_error = false
     if params[:country_id].blank?
-      @countries = Country.for_assessments @assessments
+      begin 
+        Assessment.set_db_timeout
+        @countries = Country.for_assessments @assessments
+      rescue
+        @timeout_error = true
+      ensure
+        Assessment.unset_db_timeout
+        @countries = []
+      end
     else
       @countries = Country.find_all_by_id(params[:country_id])
     end
@@ -25,8 +34,16 @@ class AssessmentsController < ApplicationController
     @assessments = Assessment.filter_by_published(user_signed_in?).search(params).page(params[:page])
     authorize! :read, Assessment
 
+    @timeout_error = false
     if params[:country_id].blank?
-      @countries = Country.for_assessments @assessments
+      begin 
+        Assessment.set_db_timeout
+        @countries = Country.for_assessments @assessments
+      rescue
+        @timeout_error = true
+      ensure
+        Assessment.unset_db_timeout
+      end
     else
       @countries = Country.find_all_by_id(params[:country_id])
     end

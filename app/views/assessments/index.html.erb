@@ -4,7 +4,9 @@
   }
   window.IPBES.page = <%= @page %>;
   $(function() {
-    addMapMarkers(<%= countries_to_point_json(@countries) %>);
+    <% unless @timeout_error %>
+      addMapMarkers(<%= countries_to_point_json(@countries) %>);
+    <% end %>
     setCountryFilter(<%= params['countryId'] %>);
   });
 <% end %>
@@ -52,11 +54,34 @@
         </tr>
       </thead>
       <tbody id="assessment-search-results">
-        <%= render (@assessments.any? ? @assessments : 'no_results') %>
+      <%
+        begin 
+          Assessment.set_db_timeout # Potentially troublesome query, set a timeout
+          raise if @timeout_error
+      %>
+          <%= render (@assessments.any? ? @assessments : 'no_results') %>
+      <%
+        rescue
+          @timeout_error = true
+      %>
+          <%= render 'search_error' %>
+      <% ensure
+          Assessment.unset_db_timeout
+        end
+      %>
       </tbody>
     </table>
     <ul class="pager" id="assessment-paginator">
-      <%= render 'pagination' %>
+      <%
+        begin 
+          Assessment.set_db_timeout # Potentially troublesome query, set a timeout
+          raise if @timeout_error
+      %>
+          <%= render 'pagination' %>
+      <% ensure
+          Assessment.unset_db_timeout
+        end
+      %>
     </ul>
   </div>
   <div id="sidebar" class="advanced-search">

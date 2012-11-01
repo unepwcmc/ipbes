@@ -110,4 +110,15 @@ class Assessment < ActiveRecord::Base
     countries_ids = self.answers.where(answer_type: 'geo_countries').first.try(:text_value).split(',')
     Country.where(:id => countries_ids)
   end
+
+  def self.set_db_timeout
+    timeout = 10000
+    Rails.logger.info "Setting DB timeout to #{timeout}"
+    Assessment.connection.execute("SET statement_timeout TO #{timeout};")
+  end
+
+  def self.unset_db_timeout
+    Rails.logger.info "Unsetting DB timeout"
+    Assessment.connection.execute('RESET statement_timeout;')
+  end
 end

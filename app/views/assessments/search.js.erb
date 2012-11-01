@@ -1,12 +1,25 @@
-<% if @assessments.empty? %>
-  var search_results = "<%= escape_javascript(render :partial => 'no_results') %>";
-<% else %>
-  var search_results = "<%= escape_javascript(render @assessments)%>";
-<% end %>
-
+<%
+  begin 
+    Assessment.set_db_timeout # Potentially troublesome query, set a timeout
+    raise "we timed out" if @timeout_error
+%>
+  <% if @assessments.empty? %>
+    var search_results = "<%= escape_javascript(render :partial => 'no_results') %>";
+  <% else %>
+    var search_results = "<%= escape_javascript(render @assessments)%>";
+  <% end %>
+  var pagination_html = "<%= escape_javascript(render :partial => 'pagination', :locals => {:page => @page, :is_last_page => @is_last_page})%>";
+  addMapMarkers(<%= countries_to_point_json(@countries) %>);
+<% rescue %>
+  var search_results = "<%= escape_javascript(render :partial => 'search_error') %>";
+  var pagination_html = "";
+<%
+  ensure
+    Assessment.unset_db_timeout
+  end
+%>
 $('#loading-assessments').hide();
 $('#assessment-search-results').html(search_results).show();
 
-$('#assessment-paginator').html("<%= escape_javascript(render :partial => 'pagination', :locals => {:page => @page, :is_last_page => @is_last_page})%>");
+$('#assessment-paginator').html(pagination_html);
 
-addMapMarkers(<%= countries_to_point_json(@countries) %>);
