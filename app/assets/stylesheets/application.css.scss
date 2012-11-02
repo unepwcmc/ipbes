@@ -325,6 +325,23 @@ h2.question-with-sections {
   line-height: 13px;
   position: relative;
   top: 9px;
+  
+  #content & {
+    h4 {
+      font-size: 18px;
+      line-height: 18px;
+      margin-top: 0;
+    }
+
+    ul {
+      list-style: disc;
+      margin: 10px 0 9px 25px;
+      
+      li {
+        padding-bottom: 6px;
+      }
+    }
+  }
 }
 
 .help-block {

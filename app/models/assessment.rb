@@ -11,7 +11,7 @@ class Assessment < ActiveRecord::Base
   accepts_nested_attributes_for :contacts, reject_if: lambda { |a| a[:name].blank? }, allow_destroy: true
 
   validates :title, presence: true, uniqueness: true
-  validates_presence_of :contacts
+  validates :contacts, presence: true
 
   scope :filter_by_published, lambda { |user_signed_in| user_signed_in ? scoped : where(published: true) }
   
