@@ -60,7 +60,6 @@ updateSectionStatus = (section) ->
     complete = false
     section.find('input[type=text], input[type=tel], input[type=email], div.block textarea').each () ->
       if $(this).val() != ''
-        console.log($(this).val())
         complete = true
 
   # Additional information
