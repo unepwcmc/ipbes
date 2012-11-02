@@ -7,11 +7,12 @@ class Assessment < ActiveRecord::Base
   default_scope order('LOWER(title)')
 
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:answer_type] =~ /\_other(s)?/ && a[:text_value].blank? }, allow_destroy: true
-  accepts_nested_attributes_for :references, reject_if: lambda { |a| a[:file].blank? }, allow_destroy: true
-  accepts_nested_attributes_for :contacts, reject_if: lambda { |a| a[:name].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :references, allow_destroy: true
+  accepts_nested_attributes_for :contacts, allow_destroy: true
 
   validates :title, presence: true, uniqueness: true
   validates :contacts, presence: true
+  validates_associated :contacts
 
   scope :filter_by_published, lambda { |user_signed_in| user_signed_in ? scoped : where(published: true) }
   
