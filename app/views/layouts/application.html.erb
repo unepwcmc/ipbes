@@ -5,10 +5,6 @@
     <title>IPBES</title>
     <meta name="google-site-verification" content="op-y1zSx2tsSFN-DHN0gqxBY9_tUrDsicpHk_N4T_f4" />
 
-    <!--[if lte IE 8]>
-      <script src="/assets/leaflet.ie.css"></script>
-    <![endif]-->
-
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-34262615-1']);
@@ -24,6 +20,10 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic' rel='stylesheet' type='text/css' />
     <%= stylesheet_link_tag    "application", media: "screen" %>
     <%= stylesheet_link_tag    "print", media: "print" %>
+    <!--[if lte IE 8]>
+      <script src="/assets/leaflet.ie.css"></script>
+    <![endif]-->
+
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <script type='text/javascript'>
