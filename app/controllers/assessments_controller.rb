@@ -15,9 +15,9 @@ class AssessmentsController < ApplicationController
         @countries = Country.for_assessments @assessments
       rescue
         @timeout_error = true
+        @countries = []
       ensure
         Assessment.unset_db_timeout
-        @countries = []
       end
     else
       @countries = Country.find_all_by_id(params[:country_id])
