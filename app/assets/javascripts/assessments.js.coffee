@@ -75,12 +75,13 @@ updateSectionStatus = (section) ->
 window.addMapMarkers = (points) ->
   window.IPBES.points = points
   MarkerIcon = L.Icon.extend
-    shadowUrl: '/assets/marker-shadow.png'
-    iconUrl: '/assets/marker.png'
-    iconSize: new L.Point(25,41)
-    iconAnchor: new L.Point(13,41)
-    popupAnchor: new L.Point(1,-34)
-    shadowSize: new L.Point(41,41)
+    options:
+      shadowUrl: '/assets/marker-shadow.png'
+      iconUrl: '/assets/marker.png'
+      iconSize: new L.Point(25,41)
+      iconAnchor: new L.Point(13,41)
+      popupAnchor: new L.Point(1,-34)
+      shadowSize: new L.Point(41,41)
   markerIcon = new MarkerIcon()
 
   window.mapMarkers = [] unless window.mapMarkers?
@@ -91,7 +92,7 @@ window.addMapMarkers = (points) ->
   for country in points
     markerLocation = new L.LatLng(country.lat, country.lng)
 
-    marker = new L.Marker(markerLocation, {icon: markerIcon})
+    marker = new L.Marker(markerLocation, {icon: markerIcon, opacity:0.3})
 
     if country.assessment_count?
       # Only add events on index page (which sets assessment_count)
