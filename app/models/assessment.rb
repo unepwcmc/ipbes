@@ -83,14 +83,15 @@ class Assessment < ActiveRecord::Base
 
         unless text_value_queries.empty?
           final_query.push("(#{ sanitize_sql_array(["answers_#{answer_join}.answer_type = ?", query[:type]]) } AND (#{ text_value_queries }))")
+          # Increment answer_join
+          answer_join += 1
         end
 
         if query[:other_option] && query[:value].any? { |v| v == query[:other_option] }
           final_query.push( sanitize_sql_array(["answers_#{answer_join}.answer_type = ?", "#{query[:type]}_other"]) )
+          # Increment answer_join
+          answer_join += 1
         end
-
-        # Increment answer_join
-        answer_join += 1
 
         final_query.empty? ? nil : final_query.join(' AND ')
       }.compact!
