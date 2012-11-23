@@ -122,6 +122,13 @@
     <div class='block'>
       <h3>URL or copy of conceptual framework developed or adapted</h3>
 
+      <% @assessment.answers.where(answer_type: 'conceptual_framework_url').each do |answer| %>
+        <p>
+          <%= answer.text_value %>
+        </p>
+      <% end %>
+      <%= 'No information added' if @assessment.answers.where(answer_type: 'conceptual_framework_url').empty? %>
+
       <% @assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
