@@ -69,6 +69,7 @@ module AssessmentsHelper
     end
     json << points.join(',')
     json << ']'
+    json.html_safe
   end
 
   def assessment_to_csv assessment
