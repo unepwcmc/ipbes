@@ -112,4 +112,8 @@ class Assessment < ActiveRecord::Base
     countries_ids = self.answers.where(answer_type: 'geo_countries').first.try(:text_value).split(',')
     Country.where(:id => countries_ids)
   end
+
+  def references_alphabetical
+    self.references.order("reference_text ASC")
+  end
 end

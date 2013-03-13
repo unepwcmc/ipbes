@@ -129,7 +129,7 @@
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'conceptual_framework_url').empty? %>
 
-      <% @assessment.references.where(reference_type: 'conceptual_framework_url').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'conceptual_framework_url').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -358,7 +358,7 @@
     <div class='block'>
       <h3>Report(s)</h3>
 
-      <% @assessment.references.where(reference_type: 'reports').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'reports').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -370,7 +370,7 @@
     <div class='block'>
       <h3>Communication materials (e.g. brochure, presentations, posters, audio-visual media)</h3>
 
-      <% @assessment.references.where(reference_type: 'communication_materials').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'communication_materials').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -381,7 +381,7 @@
     <div class='block'>
       <h3>Journal publications</h3>
 
-      <% @assessment.references.where(reference_type: 'journal_publications').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'journal_publications').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -392,7 +392,7 @@
     <div class='block'>
       <h3>Training materials</h3>
 
-      <% @assessment.references.where(reference_type: 'training_materials').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'training_materials').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -403,7 +403,7 @@
     <div class='block'>
       <h3>Other documents/outputs</h3>
 
-      <% @assessment.references.where(reference_type: 'other_documents').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'other_documents').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -433,7 +433,7 @@
 
       </p>
 
-      <% @assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -494,7 +494,7 @@
         <%= markdown answer.text_value %>
       <% end %>
 
-      <% @assessment.references.where(reference_type: 'supporting_documentation').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'supporting_documentation').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -533,7 +533,7 @@
         <%= markdown answer.text_value %>
       <% end %>
 
-      <% @assessment.references.where(reference_type: 'impacts').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'impacts').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -547,7 +547,7 @@
       <% @assessment.answers.where(answer_type: 'review_on_policy').each do |answer| %>
         <p><%= answer.text_value == 'true' ? 'Yes' : 'No' %></p>
       <% end %>
-      <% @assessment.references.where(reference_type: 'review_on_policy').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'review_on_policy').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
@@ -614,7 +614,7 @@
       gaps_in_knowledge_communicated.each do |answer| %>
         <%= markdown answer.text_value %>
       <% end %>
-      <% @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
+      <% @assessment.references_alphabetical.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
           <%= link_to reference.file.original_filename, reference.file.url %>
