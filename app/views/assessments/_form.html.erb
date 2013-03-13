@@ -525,6 +525,7 @@
 
     <div class="block <%= 'control-group error' if @assessment.errors.messages[:contacts].present? %>" id="contacts">
       <h3>* Contacts</h3>
+      <p>You must enter at least one contact (this will not be publicly visible).</p>
       <% if @assessment.errors.messages[:contacts].present? %>
         <span class="help-inline"><%= @assessment.errors.messages[:contacts].join(',') %></span>
       <% end %>
