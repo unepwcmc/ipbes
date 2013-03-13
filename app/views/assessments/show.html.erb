@@ -582,7 +582,7 @@
 
       <% actions_taken_build_capacity = @assessment.answers.where(answer_type: 'actions_taken_build_capacity')
       actions_taken_build_capacity.each do |answer| %>
-        <p><%= answer.text_value %></p>
+        <p><%= answer.text_value.split(',').join(', ') %></p>
       <% end %>
       <%= 'No information added' if actions_taken_build_capacity.empty? || actions_taken_build_capacity.first.text_value.blank? %>
     </div>
@@ -634,7 +634,7 @@
       <% @assessment.answers.where(answer_type: 'additional_information').each do |answer| %>
         <p><%= answer.text_value %></p>
       <% end %>
-      <%= 'No information added' if @assessment.answers.where(answer_type: 'additional_information').empty? || @assessment.answers.where(answer_type: 'additional_information').first.text_value == '' %>
+      <%= 'No information added' if (@assessment.answers.where(answer_type: 'additional_information_text').count == 0 || @assessment.answers.where(answer_type: 'additional_information_text').first.text_value == '') && (@assessment.answers.where(answer_type: 'additional_information').empty? || @assessment.answers.where(answer_type: 'additional_information').first.text_value == '') %>
     </div>
   </div>
 </div>
