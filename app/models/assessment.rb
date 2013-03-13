@@ -123,4 +123,8 @@ class Assessment < ActiveRecord::Base
     Rails.logger.info "Unsetting DB timeout"
     Assessment.connection.execute('RESET statement_timeout;')
   end
+
+  def references_alphabetical
+    self.references.order("reference_text ASC")
+  end
 end

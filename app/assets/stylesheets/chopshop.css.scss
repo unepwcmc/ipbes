@@ -444,12 +444,22 @@ input[type="submit"]::-moz-focus-inner{
     color: #111;
     text-decoration: none;
   }
+  .required {
+    color: red;
+  }
 }
 .form-selection .list .active,
 .form-selection .list li:hover {background: url(../assets/bg-list-selection.gif) -364px 0 repeat-y;}
-.form-selection .list .active .holder {background: url(../assets/check.png) 15px 50% no-repeat;}
-.form-selection .list .active .frame {
-  background: url(../assets/divider.png) 0 100% repeat-x;
+.form-selection .list .active {
+  .holder {
+    background: url(../assets/check.png) 15px 50% no-repeat;
+  }
+  .frame {
+    background: url(../assets/divider.png) 0 100% repeat-x;
+  }
+  .required {
+    display:none;
+  }
 }
 .form-selection .row {margin: 0 0 10px;}
 .form-selection .row:after {
