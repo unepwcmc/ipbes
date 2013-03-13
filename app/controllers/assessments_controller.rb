@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show, :search, :download]
+  before_filter :authenticate_user!, except: [:index, :show, :search, :download, :download_assessment]
 
   # GET /assessments
   # GET /assessments.json
