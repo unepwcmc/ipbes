@@ -163,20 +163,26 @@ input[type="submit"]::-moz-focus-inner{
 }
 .map-holder img {display: block;}
 .map-holder .block {
-	position: absolute;
-	width: 580px;
-	font: 600 20px/30px "Open Sans", Arial, Helvetica, sans-serif;
-	color: #121212;
-	left: 102px;
-	top: 31px;
-        z-index: 6;
+  position: absolute;
+  width: 580px;
+  font: 600 20px/30px "Open Sans", Arial, Helvetica, sans-serif;
+  color: #121212;
+  left: 102px;
+  top: 9px;
+  z-index: 6;
+
+  h2 {
+    font-size: 40px;
+    line-height: 42px;
+    margin: 0 0 16px;
+  }
 }
-.map-holder .block h2 {
-	font-size: 45px;
-	line-height: 48px;
-	margin: 0 0 24px;
+.map-holder .block-text {
+  margin: 0 0 16px;
+  p{
+    font-size:16px;
+  }
 }
-.map-holder .block-text {margin: 0 0 39px;}
 .map-holder .info {
 	position: absolute;
 	right: 100px;
