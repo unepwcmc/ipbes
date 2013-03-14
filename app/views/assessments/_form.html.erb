@@ -25,6 +25,21 @@
         <%= f.input :short_title, label: 'Short name of the assessment (if applicable)', wrapper_html: {:class => 'field'} %>
       </div>
     </div>
+
+    <div class="block <%= 'control-group error' if @assessment.errors.messages[:contacts].present? %>" id="contacts">
+      <h3>* Contacts</h3>
+      <p>Please enter some contact details (this will not be publicly visible).</p>
+      <% if @assessment.errors.messages[:contacts].present? %>
+        <span class="help-inline"><%= @assessment.errors.messages[:contacts].join(',') %></span>
+      <% end %>
+      <div class="row indent">
+        <%= f.simple_fields_for :contacts do |builder| %>
+          <%= render 'contact_fields', :f => builder %>
+        <% end %>
+        <%= link_to_add_fields 'Add Contact', f, :contacts, 'contacts' %>
+      </div>
+    </div>
+
     <div class="block" id="geographical_coverage">
       <h3>Geographical coverage</h3>
 
@@ -522,20 +537,6 @@
     </div>
 
     <hr />
-
-    <div class="block <%= 'control-group error' if @assessment.errors.messages[:contacts].present? %>" id="contacts">
-      <h3>* Contacts</h3>
-      <p>You must enter at least one contact (this will not be publicly visible).</p>
-      <% if @assessment.errors.messages[:contacts].present? %>
-        <span class="help-inline"><%= @assessment.errors.messages[:contacts].join(',') %></span>
-      <% end %>
-      <div class="row indent">
-        <%= f.simple_fields_for :contacts do |builder| %>
-          <%= render 'contact_fields', :f => builder %>
-        <% end %>
-        <%= link_to_add_fields 'Add Contact', f, :contacts, 'contacts' %>
-      </div>
-    </div>
 
     <div class="block" id="note">
       <h3>Note</h3>
