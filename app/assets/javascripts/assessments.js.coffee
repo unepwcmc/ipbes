@@ -41,7 +41,7 @@ updateSectionStatus = (section) ->
   complete = true
 
   # Contacts
-  if section.attr('id') != 'contacts'
+  if section.attr('id') != 'contacts' and section.attr('id') != 'title'
     section.find('input[type=text], div.block textarea, div.block select, div.block input[type=radio], input[type=checkbox]').each () ->
       # Previous hidden input element with the value for the field key
       prev_hidden = $(this).closest('.control-group').prev('.control-group.hidden').find('input[type=hidden]')
@@ -55,10 +55,16 @@ updateSectionStatus = (section) ->
         complete = complete && $("input[name='#{inputName}']:checked").val() != undefined
       else if !$(this).parent().hasClass('select2-search') && !$(this).parent().hasClass('select2-search-field') && !$(this).is(':hidden')
         complete = complete && ($(this).val() != '' && $(this).val() != null)
-  else
-    # For contact, start false and if any field is filled, consider it complete
+  else if section.attr('id') == 'title'
+    # For title, start false and true if name is filled in
     complete = false
-    section.find('input[type=text], input[type=tel], input[type=email], div.block textarea').each () ->
+    section.find('#assessment_title').each () ->
+      if $(this).val() != ''
+        complete = true
+  else
+    # For contact, start false and true if name is filled in
+    complete = false
+    section.find('#assessment_contacts_attributes_0_name').each () ->
       if $(this).val() != ''
         complete = true
 
@@ -278,8 +284,27 @@ $ ->
   # Save
   $('#side-save').click((e) ->
     e.preventDefault()
-    $('#assessment-form').submit()
+    if validateForm()
+      $('#assessment-form').submit()
   )
+
+  validateForm = () ->
+    if $('#assessment_title').val() == ''
+      alert("You must specifiy a title")
+      scrollToElement('#title')
+      return false
+    else if $('#assessment_contacts_attributes_0_name').val() == ''
+      alert("Please enter a contact name")
+      scrollToElement('#contacts')
+      return false
+    else
+      return true
+
+  scrollToElement = (element) ->
+    $('html, body').animate(
+      scrollTop: $(element).offset().top
+    , 200)
+
   # Published box syncing
   syncPublishedCheckboxes()
   $('#published-box').change((e) ->
