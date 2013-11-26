@@ -6,6 +6,9 @@ require 'brightbox/recipes'
 require 'brightbox/passenger'
 require "whenever/capistrano"
 
+require 'rvm/capistrano'
+set :rvm_ruby_string, '1.9.3'
+
 
 
 set :generate_webserver_config, false
