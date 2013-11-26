@@ -18,6 +18,7 @@ gem 'geocoder'
 gem 'kaminari'
 gem 'redcarpet'
 gem 'rails_autolink'
+gem 'rvm-capistrano'
 
 # Gems used only for assets and not required
 # in production environments by default.
