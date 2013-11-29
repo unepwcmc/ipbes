@@ -6,7 +6,7 @@ require 'brightbox/recipes'
 require 'brightbox/passenger'
 
 set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#require "whenever/capistrano"
 
 
 # The name of your application.  Used for deployment directory and filenames
