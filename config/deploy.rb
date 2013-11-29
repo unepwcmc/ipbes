@@ -188,7 +188,7 @@ task :setup_production_database_configuration do
 end
 after "deploy:setup", :setup_production_database_configuration
 after 'deploy:update_code', 'deploy:assets:precompile'
-after 'deploy:update_code', 'whenever:update_crontab'
+#after 'deploy:update_code', 'whenever:update_crontab'
 
 desc 'Generate setup_mail.rb file'
 task :setup_mail do
