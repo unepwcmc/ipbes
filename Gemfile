@@ -36,7 +36,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'brightbox', '>=2.3.9'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
 end
 
 gem 'jquery-rails'
