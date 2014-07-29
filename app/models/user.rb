@@ -6,14 +6,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :institution, :description, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :institution, :description, :email, :password, :password_confirmation, :remember_me, :admin
 
   validates :name, presence: true
   validates :description, presence: true
   validates :institution, presence: true
 
   has_many :assessments_where_last_editor, class_name: 'Assessment', foreign_key: :last_editor_id
-  
+
   def to_s
     name.presence || email
   end
@@ -21,15 +21,15 @@ class User < ActiveRecord::Base
   scope :unapproved, where("approved != true OR approved IS NULL")
   scope :admins, where(admin: true)
 
-  def active_for_authentication? 
-    super && approved? 
-  end 
+  def active_for_authentication?
+    super && approved?
+  end
 
   def inactive_message
     if approved?
       super # Use whatever other message
     else
-      :not_approved 
+      :not_approved
     end
   end
 
