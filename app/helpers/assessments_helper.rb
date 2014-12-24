@@ -333,7 +333,7 @@ module AssessmentsHelper
     ## Conceptual framework and/or methodology used for the assessment
     multi_answer = []
     assessment.answers.where(answer_type: 'conceptual_framework_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     assessment.answers.where(answer_type: 'conceptual_framework').each do |answer|
       csv << "#{(multi_answer << answer.text_value).join(', ')}"
@@ -351,10 +351,10 @@ module AssessmentsHelper
     ## System(s) assessed
     multi_answer = []
     assessment.answers.where(answer_type: 'systems_assessed_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     assessment.answers.where(answer_type: 'systems_assessed').each do |answer|
-      csv << (multi_answer << "#{answer.text_value).join(', ')}"
+      csv << "#{(multi_answer << answer.text_value).join(', ')}"
     end
 
     ## Species groups assessed
@@ -367,37 +367,37 @@ module AssessmentsHelper
     ## Provisioning
     multi_answer = []    
     assessment.answers.where(answer_type: 'provisioning_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     assessment.answers.where(answer_type: 'provisioning').each do |answer|
-      csv << (multi_answer << "#{answer.text_value).join(', ')}"
+      csv << "#{(multi_answer << answer.text_value).join(', ')}"
     end
 
     ## Regulating
     multi_answer = []
     assessment.answers.where(answer_type: 'regulating_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     assessment.answers.where(answer_type: 'regulating').each do |answer|
-      csv << (multi_answer << "#{answer.text_value).join(', ')}"
+      csv << "#{(multi_answer << answer.text_value).join(', ')}"
     end
 
     ## Supporting Services/Functions
     multi_answer = []
     assessment.answers.where(answer_type: 'supporting_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     assessment.answers.where(answer_type: 'supporting').each do |answer|
-      csv << (multi_answer << "#{answer.text_value).join(', ')}"
+      csv << "#{(multi_answer << answer.text_value).join(', ')}"
     end
 
     ## Cultural Services
     multi_answer = []
     assessment.answers.where(answer_type: 'cultural_services_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     assessment.answers.where(answer_type: 'cultural_services').each do |answer|
-      csv << (multi_answer << "#{answer.text_value).join(', ')}"
+      csv << "#{(multi_answer << answer.text_value).join(', ')}"
     end
 
     # Scope of assessment includes
@@ -486,7 +486,7 @@ module AssessmentsHelper
     ## Tools and approaches used in the assessment
     multi_answer = []
     assessment.answers.where(answer_type: 'tools_and_approaches_other').each do |answer|
-      multi_answer << "#{answer.text_value}"
+      multi_answer << answer.text_value
     end
     references = []
     assessment.references.where(reference_type: 'tools_and_approaches_other').each do |reference|
