@@ -132,7 +132,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'conceptual_framework_url').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? if reference_file?%>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'conceptual_framework_url').empty? %>
@@ -361,7 +361,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'reports').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'reports').empty? %>
@@ -373,7 +373,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'communication_materials').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'communication_materials').empty? %>
@@ -384,7 +384,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'journal_publications').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'journal_publications').empty? %>
@@ -395,7 +395,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'training_materials').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'training_materials').empty? %>
@@ -406,7 +406,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'other_documents').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'other_documents').empty? %>
@@ -436,7 +436,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'tools_and_approaches_other').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if (@assessment.answers.where(answer_type: 'tools_and_approaches').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches').first.text_value == '') && (@assessment.answers.where(answer_type: 'tools_and_approaches_other').empty? || @assessment.answers.where(answer_type: 'tools_and_approaches_other').first.text_value == '') && @assessment.references.where(reference_type: 'tools_and_approaches_other').empty? %>
@@ -497,7 +497,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'supporting_documentation').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'supporting_documentation').empty? && (supporting_documentation_text.empty? || supporting_documentation_text.first.try(:text_value).try(:blank?)) %>
@@ -536,7 +536,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'impacts').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.references.where(reference_type: 'impacts').empty? %>
@@ -550,7 +550,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'review_on_policy').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if @assessment.answers.where(answer_type: 'review_on_policy').empty? && @assessment.references.where(reference_type: 'review_on_policy').empty? %>
@@ -617,7 +617,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'gaps_in_knowledge_communicated').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url %>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? if reference.file? %>
         </p>
       <% end %>
       <%= 'No information added' if (gaps_in_knowledge_communicated.empty? || gaps_in_knowledge_communicated.first.text_value.blank?) && @assessment.references.where(reference_type: 'gaps_in_knowledge_communicated').empty? %>
