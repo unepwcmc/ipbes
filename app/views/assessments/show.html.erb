@@ -122,7 +122,7 @@
       <% @assessment.references_alphabetical.where(reference_type: 'conceptual_framework_url').each do |reference| %>
         <p>
           <%= reference.reference_text %><br/>
-          <%= link_to reference.file.original_filename, reference.file.url if reference.file? if reference_file?%>
+          <%= link_to reference.file.original_filename, reference.file.url if reference.file? %>
         </p>
       <% end %>
     </div>
