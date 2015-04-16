@@ -319,12 +319,33 @@ $ ->
   window.map = new L.Map('map', {scrollWheelZoom: false})
    
   #tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
-  tileLayerUrl = 'http://carbon-tool.cartodb.com/tiles/ne_countries/{z}/{x}/{y}.png'
-  tileLayer = new L.TileLayer(tileLayerUrl, {
-    maxZoom: 18
-  })
 
-  map.addLayer(tileLayer).setView(new L.LatLng(15, 0), 2)
+  sublayers = [{ 
+    sql: "SELECT * FROM ne_countries",
+    cartocss: """
+    #ne_countries{
+      polygon-fill: #e5dec2;
+      polygon-opacity: 0.7;
+      line-color: #FFF;
+      line-width: 1;
+      line-opacity: 1;
+    }
+      """ 
+    }]
+
+  layerOptions = {
+    user_name: 'carbon-tool',
+    sublayers: sublayers
+  }
+
+  overlays = cartodb.Tiles.getTiles(layerOptions, (tiles, err) =>
+      if(tiles == null)
+        console.log("error: ", err.errors.join('\n'))
+        return
+      L.tileLayer(tiles.tiles[0]).addTo(map)
+    )
+
+  #L.control.layers(overlays).addTo(map)
 
   # Hide the over map table on hover
   $('.map-holder').hover(
