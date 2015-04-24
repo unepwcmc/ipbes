@@ -5,6 +5,12 @@
 window.IPBES ||= {}
 window.IPBES.page ||= 1
 
+window.DEFAULT_MAP_OPTS =
+    center: [15, 0]
+    zoom: 2
+    minZoom: 0
+    maxZoom: 18
+
 serialize = (obj) ->
   str = []
   for key, value of obj
@@ -316,36 +322,36 @@ $ ->
 
 
   # Maps
-  window.map = new L.Map('map', {scrollWheelZoom: false})
+  window.map = new L.Map('map', DEFAULT_MAP_OPTS)
    
   #tileLayerUrl = 'http://{s}.tile.cloudmade.com/a72deb8a020e44779b62d002edc5346b/69907/256/{z}/{x}/{y}.png'
 
   sublayers = [{ 
     sql: "SELECT * FROM ne_countries",
     cartocss: """
-    #ne_countries{
-      polygon-fill: #e5dec2;
-      polygon-opacity: 0.7;
-      line-color: #FFF;
-      line-width: 1;
-      line-opacity: 1;
-    }
+      #ne_countries{
+        polygon-fill: #e5dec2;
+        polygon-opacity: 0.7;
+        line-color: #d3c8c8;
+        line-width: 0.5;
+        line-opacity: 0.3;
+      }
       """ 
     }]
 
   layerOptions = {
     user_name: 'carbon-tool',
-    sublayers: sublayers
+    sublayers: sublayers,
+    type: 'cartodb'
   }
 
-  overlays = cartodb.Tiles.getTiles(layerOptions, (tiles, err) =>
-      if(tiles == null)
-        console.log("error: ", err.errors.join('\n'))
-        return
-      L.tileLayer(tiles.tiles[0]).addTo(map)
-    )
-
-  #L.control.layers(overlays).addTo(map)
+  cartodb.Tiles.getTiles(layerOptions, (tiles, err) =>
+    if(tiles == null)
+      console.log("error: ", err.errors.join('\n'))
+      return
+    overlay = L.tileLayer(tiles.tiles[0]).addTo(map)
+    L.control.layers(@baseMap, main: overlay).addTo(map)
+  )
 
   # Hide the over map table on hover
   $('.map-holder').hover(
