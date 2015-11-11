@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.22'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+gem 'pg', '>= 0.15.0'
 gem 'bootstrap-generators', :git => 'git://github.com/decioferreira/bootstrap-generators.git'
 gem 'simple_form'
 gem 'devise'
 gem 'sitemap_generator'
 gem 'cancan'
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.5'
 gem 'paperclip'
 gem 'whenever', :require => false
 gem 'geocoder'
@@ -36,7 +36,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'brightbox', '>=2.3.9'
-  gem 'debugger'
+  gem 'byebug'
 end
 
 gem 'jquery-rails'
