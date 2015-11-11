@@ -1,6 +1,7 @@
-== IPBES
+IPBES
+=====
 
-Web portal for reports pertaining to IPBES. Typical Rails app.
+Catalogue of Assessments on Biodiversity and Exosystem Services for the Intergovernmental Platform on Biodiversity and Ecosystem Services (IPBES). [link](http://catalog.ipbes.net/)
 
 === Google Custom Search
 Searches are backed onto Google Custom Search (https://www.google.co.uk/cse/). The reason for using custom search is that is it capable of indexing attachments for searching on. Many of the reports contain large PDF attachments, which CSE handles for us.
