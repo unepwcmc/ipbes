@@ -8,15 +8,15 @@ gem 'rails', '3.2.22'
 gem 'pg', '>= 0.15.0'
 gem 'bootstrap-generators', :git => 'git://github.com/decioferreira/bootstrap-generators.git'
 gem 'simple_form'
-gem 'devise'
+gem 'devise', '>=3.5.2'
 gem 'sitemap_generator'
 gem 'cancan'
 gem 'nokogiri', '>= 1.5'
-gem 'paperclip'
+gem 'paperclip', '>=4.3.1'
 gem 'whenever', :require => false
 gem 'geocoder'
 gem 'kaminari'
-gem 'redcarpet'
+gem 'redcarpet', '>=3.3.3'
 gem 'rails_autolink'
 
 # Gems used only for assets and not required
@@ -39,7 +39,12 @@ group :development do
   gem 'byebug'
 end
 
-gem 'jquery-rails'
+group :staging, :production do
+  gem 'exception_notification'
+  gem 'slack-notifier', '~> 1.0'
+end
+
+gem 'jquery-rails', '>=3.1.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
