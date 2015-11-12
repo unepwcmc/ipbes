@@ -50,8 +50,8 @@ Ipbes::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.asset_host = 'ipbes.unepwcmc-005.vm.brightbox.net'
-  config.action_mailer.default_url_options = { :host => 'ipbes.unepwcmc-005.vm.brightbox.net' }
+  config.action_mailer.asset_host = 'ipbes.web-staging.linode.unep-wcmc.org'
+  config.action_mailer.default_url_options = { :host => 'ipbes.web-staging.linode.unep-wcmc.org' }
 
   # Enable threaded mode
   # config.threadsafe!
