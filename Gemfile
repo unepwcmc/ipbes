@@ -40,11 +40,6 @@ group :development do
   gem 'capistrano-passenger', '~> 0.1.1', require: false
 end
 
-group :staging, :production do
-  gem 'exception_notification'
-  gem 'slack-notifier', '~> 1.0'
-end
-
 gem 'jquery-rails', '~> 3.1.4'
 
 # To use ActiveModel has_secure_password
