@@ -20,7 +20,7 @@ set :ssh_options, {
   forward_agent: true,
 }
 
-set :linked_files, %w{config/database.yml public/sitemap_index.xml.gz public/sitemap1.xml.gz config/initializers/setup_mail.rb}
+set :linked_files, %w{config/database.yml public/sitemap.xml.gz public/sitemap1.xml.gz public/sitemap1.xml.gz config/initializers/setup_mail.rb}
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 
