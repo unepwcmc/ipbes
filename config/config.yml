@@ -1,6 +1,6 @@
 development:
   url: 'http://localhost:3000'
 staging:
-  url: 'http://ipbes.unepwcmc-005.vm.brightbox.net'
+  url: 'http://ipbes.web-staging.linode.unep-wcmc.org'
 production:
   url: 'http://catalog.ipbes.net'
