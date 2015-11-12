@@ -22,7 +22,7 @@ gem 'rails_autolink'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 3.2.6'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -38,6 +38,11 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',   '~> 0.1', require: false
   gem 'capistrano-passenger', '~> 0.1.1', require: false
+end
+
+group :staging, :production do
+  gem 'exception_notification'
+  gem 'slack-notifier', '~> 1.0'
 end
 
 gem 'jquery-rails', '~> 3.1.4'
