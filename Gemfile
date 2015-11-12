@@ -44,7 +44,7 @@ group :staging, :production do
   gem 'slack-notifier', '~> 1.0'
 end
 
-gem 'jquery-rails', '>=3.1.3'
+gem 'jquery-rails', '~> 3.1.4'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
