@@ -131,7 +131,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (3.3.3)
-    sass (3.4.19)
+    sass (3.1.21)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -175,7 +175,7 @@ DEPENDENCIES
   capistrano-passenger (~> 0.1.1)
   capistrano-rails (~> 1.1)
   capistrano-rvm (~> 0.1)
-  coffee-rails (~> 3.2.1)
+  coffee-rails (~> 3.2.2)
   devise (~> 2.2.5)
   geocoder
   jquery-rails (~> 3.1.4)
@@ -186,6 +186,7 @@ DEPENDENCIES
   rails (= 3.2.22)
   rails_autolink
   redcarpet (>= 3.3.3)
+  sass (~> 3.1.10)
   sass-rails (~> 3.2.6)
   simple_form
   sitemap_generator
