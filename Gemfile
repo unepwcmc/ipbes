@@ -12,7 +12,7 @@ gem 'devise', '~>2.2.5'
 gem 'sitemap_generator'
 gem 'cancan'
 gem 'nokogiri','~>1.5'
-gem 'paperclip', '~>2.7.0'
+gem 'paperclip'
 gem 'whenever', :require => false
 gem 'geocoder'
 gem 'kaminari'
