@@ -33,10 +33,11 @@ end
 
 group :development do
   # Deploy with Capistrano
-  gem 'capistrano'
-  gem 'capistrano-ext'
-  gem 'brightbox', '>=2.3.9'
-  gem 'byebug'
+  gem 'capistrano', '~> 3.4', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm',   '~> 0.1', require: false
+  gem 'capistrano-passenger', '~> 0.1.1', require: false
 end
 
 gem 'jquery-rails'
