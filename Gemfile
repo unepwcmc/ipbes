@@ -5,10 +5,10 @@ gem 'rails', '3.2.22'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~>0.14.0'
+gem 'pg', '~>0.15.0'
 gem 'bootstrap-generators', '~> 3.0.0'
 gem 'simple_form'
-gem 'devise'
+gem 'devise', '~>2.2.5'
 gem 'sitemap_generator'
 gem 'cancan'
 gem 'nokogiri','~>1.5'
