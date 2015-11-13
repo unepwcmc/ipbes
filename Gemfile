@@ -6,7 +6,7 @@ gem 'rails', '3.2.22'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', '~>0.15.0'
-gem 'bootstrap-generators', '~> 3.0.0'
+gem 'bootstrap-generators', '~> 2.1.1'
 gem 'simple_form'
 gem 'devise', '~>2.2.5'
 gem 'sitemap_generator'
