@@ -29,4 +29,4 @@ set :keep_releases, 5
 set :passenger_restart_with_touch, false
 
 after "deploy:publishing", "sitemap:generate"
-#after "deploy:publishing", "sitemap:geocode"
+after "deploy:publishing", "sitemap:geocode"
