@@ -3,7 +3,7 @@ lock '3.4.0'
 set :application, 'ipbes'
 set :repo_url, 'git@github.com:unepwcmc/ipbes.git'
 
-set :branch, 'LInodeCap3Deploy'
+set :branch, 'master'
 
 set :deploy_user, 'wcmc'
 set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}"
