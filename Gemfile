@@ -11,7 +11,7 @@ gem 'simple_form'
 gem 'devise', '~>2.2.5'
 gem 'sitemap_generator'
 gem 'cancan'
-gem 'nokogiri','~>1.5'
+gem 'nokogiri','~>1.10'
 gem 'paperclip'
 gem 'whenever', :require => false
 gem 'geocoder'
